@@ -69,6 +69,14 @@ sudo mkfontscale # 生成核心字体信息
 sudo mkfontdir # 生成字体文件夹
 sudo fc-cache -fv # 刷新系统字体缓存
 ```
+---
+如果使用终端的话需要修改终端的配置  
+比如我用的是**Windows Terminal**  
+在Windows下安装完[SourceCodePro Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/releases)字体后需要在**Windows Terminal**配置文件WSL配置下加上  
+```"fontFace": "SauceCodePro Nerd Font"```  
+注意第一个f小写，然后再重启终端就能看到图标都出来了
+![点击放大](https://xxy.im/storage/images/nerd-font.png "更新字体后") 
+
 
 ## 一些简单的配置
 
