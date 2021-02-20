@@ -48,7 +48,7 @@ sudo apt-get install fontconfig
 结果还真是字体的问题，重装下就好了...
 ![点击放大](https://xxy.im/storage/images/spacevim.png "SpaceVim")  
 
-Normal模式下```:SUpdate``` 更新所有插件，```:SUpdate SpaceVim```可以更新自身
+Normal模式下```:SPUpdate``` 更新所有插件，```:SPUpdate SpaceVim```可以更新自身
 ![点击放大](https://xxy.im/storage/images/SUpdate.png "更新所有插件")  
 再次打开vim又 vimproc's DLL报错，直接```:VimProcInstall```  
 或者make一下 
@@ -106,7 +106,7 @@ bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 ```bash
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-11 100
 ```
-> 也可以用YCM插件补全，不过YCM貌似也是基于clangd
+> SpaceVim默认使用的补全插件是deoplete，愿意折腾的同学也可以改成YCM，注意兼容问题
 
 最后在cpp文件中使用```SPC + l + r```就可以run代码了  
 > 修改编译命令可参考[Custom Task](https://spacevim.org/documentation/#tasks)
