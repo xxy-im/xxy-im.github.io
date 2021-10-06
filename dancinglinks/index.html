@@ -1,11 +1,142 @@
-<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>Dancing Links (DLX 算法)学习笔记 - One Piece是真实存在的</title><meta name=Description content><meta property="og:title" content="Dancing Links (DLX 算法)学习笔记"><meta property="og:description" content="计算机程序设计艺术，第四卷第五册C，Dancing Links(舞蹈链算法)"><meta property="og:type" content="article"><meta property="og:url" content="https://xxy.im/dancinglinks/"><meta property="og:image" content="https://xxy.im/dancinglinks/dancinglinks.png"><meta property="article:published_time" content="2021-09-22T23:15:31+08:00"><meta property="article:modified_time" content="2021-09-22T23:15:31+08:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://xxy.im/dancinglinks/dancinglinks.png"><meta name=twitter:title content="Dancing Links (DLX 算法)学习笔记"><meta name=twitter:description content="计算机程序设计艺术，第四卷第五册C，Dancing Links(舞蹈链算法)"><meta name=application-name content="先进科学技术生成队"><meta name=apple-mobile-web-app-title content="先进科学技术生成队"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://xxy.im/dancinglinks/><link rel=prev href=https://xxy.im/time-complexity/><link rel=next href=https://xxy.im/samurai-sudoku/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Dancing Links (DLX 算法)学习笔记","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/dancinglinks\/"},"image":[{"@type":"ImageObject","url":"https:\/\/xxy.im\/dancinglinks\/dancinglinks.png","width":939,"height":315}],"genre":"posts","keywords":"数据结构, 算法","wordcount":4038,"url":"https:\/\/xxy.im\/dancinglinks\/","datePublished":"2021-09-22T23:15:31+08:00","dateModified":"2021-09-22T23:15:31+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':('auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark'))&&document.body.setAttribute('theme','dark');</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="One Piece是真实存在的"><span class=header-title-pre><i class="far fa-gem fa-fw"></i></span>先进科学技术生产队</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw"></i></a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw"></i></a><span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="One Piece是真实存在的"><span class=header-title-pre><i class="far fa-gem fa-fw"></i></span>先进科学技术生产队</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw"></i></a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw"></i></a><span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/>所有文章</a><a class=menu-item href=/tags/>标签</a><a class=menu-item href=/categories/>分类</a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
-<i class="fas fa-adjust fa-fw"></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Dancing Links (DLX 算法)学习笔记</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>xxy</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/%E6%9D%82%E8%AE%B0%E9%9A%8F%E6%83%B3/><i class="far fa-folder fa-fw"></i>杂记随想</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-09-22>2021-09-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4038 字&nbsp;
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title class=pjax-title>Dancing Links (DLX 算法)学习笔记 - One Piece是真实存在的</title><meta name=Description content><meta property="og:title" content="Dancing Links (DLX 算法)学习笔记">
+<meta property="og:description" content="计算机程序设计艺术，第四卷第五册C，Dancing Links(舞蹈链算法)">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xxy.im/dancinglinks/"><meta property="og:image" content="https://xxy.im/dancinglinks/dancinglinks.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-09-22T23:15:31+08:00">
+<meta property="article:modified_time" content="2021-09-22T23:15:31+08:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://xxy.im/dancinglinks/dancinglinks.png">
+<meta name=twitter:title content="Dancing Links (DLX 算法)学习笔记">
+<meta name=twitter:description content="计算机程序设计艺术，第四卷第五册C，Dancing Links(舞蹈链算法)">
+<meta name=application-name content="先进科学技术生成队">
+<meta name=apple-mobile-web-app-title content="先进科学技术生成队">
+<meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/dancinglinks/><link rel=prev href=https://xxy.im/time-complexity/><link rel=next href=https://xxy.im/samurai-sudoku/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Dancing Links (DLX 算法)学习笔记","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/dancinglinks\/"},"image":[{"@type":"ImageObject","url":"https:\/\/xxy.im\/dancinglinks\/dancinglinks.png","width":939,"height":315}],"genre":"posts","keywords":"数据结构, 算法","wordcount":4038,"url":"https:\/\/xxy.im\/dancinglinks\/","datePublished":"2021-09-22T23:15:31+08:00","dateModified":"2021-09-22T23:15:31+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
+<div id=back-to-top></div>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="One Piece是真实存在的"><span class=header-title-pre><i class="far fa-gem fa-fw"></i></span>先进科学技术生产队</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> 所有文章 </a><a class=menu-item href=/tags/> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-desktop title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=# onclick=return!1 class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="One Piece是真实存在的"><span class=header-title-pre><i class="far fa-gem fa-fw"></i></span>先进科学技术生产队</a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-mobile title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-mobile title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>
+取消
+</a>
+</div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>目录</h2>
+<div class="toc-content always-active" id=toc-content-auto></div>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Dancing Links (DLX 算法)学习笔记</h1><div class=post-meta>
+<div class=post-meta-line>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=/ title=Author rel=" author" class=author>xxy</a>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/%E6%9D%82%E8%AE%B0%E9%9A%8F%E6%83%B3/><i class="far fa-folder fa-fw"></i>杂记随想</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-09-22>2021-09-22</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2021-09-22>2021-09-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4038 字&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id=/dancinglinks/ class=leancloud_visitors data-flag-title="Dancing Links (DLX 算法)学习笔记">
 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
-</span>&nbsp;</div></div><div class=featured-image><img class=lazyload src=/svg/loading.min.svg data-src=/dancinglinks/dancinglinks.png data-srcset="/dancinglinks/dancinglinks.png, /dancinglinks/dancinglinks.png 1.5x, /dancinglinks/dancinglinks.png 2x" data-sizes=auto alt=/dancinglinks/dancinglinks.png title=/dancinglinks/dancinglinks.png></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#覆盖问题>覆盖问题</a></li><li><a href=#x算法dfs回溯>X算法（DFS回溯）</a></li><li><a href=#dancing-links>Dancing Links</a><ul><li><a href=#数据结构定义>数据结构定义</a></li><li><a href=#dlx算法求解过程>DLX算法求解过程</a></li></ul></li><li><a href=#参考文章>参考文章</a></li></ul></nav></div></div><div class=content id=content><p>计算机程序设计艺术，第四卷第五册C，Dancing Links(舞蹈链算法)</p><blockquote><p><strong>Dancing Links</strong> (舞蹈链)，是大名鼎鼎的 <strong>高德纳(Donald Knuth)</strong> 为快速实现他提出的X算法所提出的一种数据结构，所以也叫做 <strong>DLX算法</strong>，其目的是用于解决 <strong>精确覆盖问题</strong>。</p></blockquote><hr><h1 id=覆盖问题>覆盖问题</h1><p>集合$S = \lbrace1, 2, 3, 4, 5, 6, 7\rbrace$，有其子集<br>$S_1 = \lbrace3, 5\rbrace$<br>$S_2 = \lbrace1, 4, 7\rbrace$<br>$S_3 = \lbrace2, 3, 6\rbrace$<br>$S_4 = \lbrace1, 4, 6\rbrace$<br>$S_5 = \lbrace2, 7\rbrace$<br>$S_6 = \lbrace4, 5, 7\rbrace$</p><p>选择一些子集组成集合 $T$ ，使得 $T$ 中的包含的元素能覆盖集合 $S$ ，即 $S$ 中的所有元素都能在 $T$ 中找到包含它的子集（$\forall x \in S \rightarrow \forall x \in T$）。</p><p><strong>重复覆盖：</strong> 集合 $S$ 中的任意成员 $x$ 允许同时属于两个以上的子集，例如 $T=\lbrace S_1, S_2, S_3\rbrace$ 重复覆盖S。<br><strong>精确覆盖：</strong> 集合 $S$ 中的任意成员 $x$ 属于且只属于 $T$ 中的一个子集，例如 $T=\lbrace S_1, S_4, S_5\rbrace$ 精确覆盖S。</p><p><strong>用矩阵表示上述问题：</strong></p><blockquote><p>算法步骤如下：</p><ol><li>如果矩阵 $A$ 为空且所有列都被选中，则当前局部解即为问题的一个解，返回成功；否则继续。</li><li>根据一定方法选择第 $c$ 列。如果某一列中没有1，则返回失败，并去除当前局部解中最新加入的行。</li><li>选择第 $r$ 行，使得 $A_{(r,c)} = 1$（该步是不确定的）。</li><li>将第 $r$ 行加入当前局部解中。</li><li>对于满足 $A_{(r,j)} = 1$ 的每一列 $j$，从矩阵 $A$ 中删除所有满足$A_{(i,j)} = 1$的行，最后再删除第 $j$ 列。</li><li>对所得比 $A$ 小的新矩阵递归地执行此算法。
+</span>&nbsp;</div>
+</div><div class=featured-image><img class=lazyload data-src=/dancinglinks/dancinglinks.png data-srcset="/dancinglinks/dancinglinks.png, /dancinglinks/dancinglinks.png 1.5x, /dancinglinks/dancinglinks.png 2x" data-sizes=auto alt=/dancinglinks/dancinglinks.png title=/dancinglinks/dancinglinks.png height=315 width=939></div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#覆盖问题>覆盖问题</a></li>
+<li><a href=#x算法dfs回溯>X算法（DFS回溯）</a></li>
+<li><a href=#dancing-links>Dancing Links</a>
+<ul>
+<li><a href=#数据结构定义>数据结构定义</a></li>
+<li><a href=#dlx算法求解过程>DLX算法求解过程</a></li>
+</ul>
+</li>
+<li><a href=#参考文章>参考文章</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>计算机程序设计艺术，第四卷第五册C，Dancing Links(舞蹈链算法)</p>
+<blockquote>
+<p><strong>Dancing Links</strong> (舞蹈链)，是大名鼎鼎的 <strong>高德纳(Donald Knuth)</strong> 为快速实现他提出的X算法所提出的一种数据结构，所以也叫做 <strong>DLX算法</strong>，其目的是用于解决 <strong>精确覆盖问题</strong>。</p>
+</blockquote>
+<hr>
+<h1 id=覆盖问题>覆盖问题</h1>
+<p>集合$S = \lbrace1, 2, 3, 4, 5, 6, 7\rbrace$，有其子集<br>
+$S_1 = \lbrace3, 5\rbrace$<br>
+$S_2 = \lbrace1, 4, 7\rbrace$<br>
+$S_3 = \lbrace2, 3, 6\rbrace$<br>
+$S_4 = \lbrace1, 4, 6\rbrace$<br>
+$S_5 = \lbrace2, 7\rbrace$<br>
+$S_6 = \lbrace4, 5, 7\rbrace$</p>
+<p>选择一些子集组成集合 $T$ ，使得 $T$ 中的包含的元素能覆盖集合 $S$ ，即 $S$ 中的所有元素都能在 $T$ 中找到包含它的子集（$\forall x \in S \rightarrow \forall x \in T$）。</p>
+<p><strong>重复覆盖：</strong> 集合 $S$ 中的任意成员 $x$ 允许同时属于两个以上的子集，例如 $T=\lbrace S_1, S_2, S_3\rbrace$ 重复覆盖S。<br>
+<strong>精确覆盖：</strong> 集合 $S$ 中的任意成员 $x$ 属于且只属于 $T$ 中的一个子集，例如 $T=\lbrace S_1, S_4, S_5\rbrace$ 精确覆盖S。</p>
+<p><strong>用矩阵表示上述问题：</strong></p>
+<blockquote>
+<p>算法步骤如下：</p>
+<ol>
+<li>如果矩阵 $A$ 为空且所有列都被选中，则当前局部解即为问题的一个解，返回成功；否则继续。</li>
+<li>根据一定方法选择第 $c$ 列。如果某一列中没有1，则返回失败，并去除当前局部解中最新加入的行。</li>
+<li>选择第 $r$ 行，使得 $A_{(r,c)} = 1$（该步是不确定的）。</li>
+<li>将第 $r$ 行加入当前局部解中。</li>
+<li>对于满足 $A_{(r,j)} = 1$ 的每一列 $j$，从矩阵 $A$ 中删除所有满足$A_{(i,j)} = 1$的行，最后再删除第 $j$ 列。</li>
+<li>对所得比 $A$ 小的新矩阵递归地执行此算法。
 $$
 %S =
 % \begin{pmatrix}
@@ -16,7 +147,11 @@ $$
 % 0 & 1 & 0 & 0 & 0 & 0 & 1\\
 % 0 & 0 & 0 & 1 & 1 & 0 & 1\\
 % \end{pmatrix}
-$$</li></ol></blockquote><p>即选出矩阵的若干行，使得其中的1在所有列中出现且仅出现一次<br>$$
+$$</li>
+</ol>
+</blockquote>
+<p>即选出矩阵的若干行，使得其中的1在所有列中出现且仅出现一次<br>
+$$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline
 & \mathbf{1} & \mathbf{2} & \mathbf{3} & \mathbf{4} & \mathbf{5} & \mathbf{6} & \mathbf{7}\\
@@ -46,7 +181,10 @@ $$
 \mathbf\textcolor{blue}{S_5} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1}\\
 \hline
 \end{array}
-$$<br>肉眼很容易一眼看出答案，但是计算机需要具体的算法步骤才行。下面看看 <strong>X算法</strong> 是如何求解的。</p><h1 id=x算法dfs回溯>X算法（DFS回溯）</h1><p><strong>初始状态：</strong>
+$$<br>
+肉眼很容易一眼看出答案，但是计算机需要具体的算法步骤才行。下面看看 <strong>X算法</strong> 是如何求解的。</p>
+<h1 id=x算法dfs回溯>X算法（DFS回溯）</h1>
+<p><strong>初始状态：</strong>
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline
@@ -65,7 +203,14 @@ $$
 \mathbf{S_6} & 0 & 0 & 0 & 1 & 1 & 0 & 1\\
 \hline
 \end{array}
-$$</p><blockquote><p>高德纳建议每次选取 1 最少的列</p></blockquote><p><strong>X算法的执行步骤如下：</strong><br><strong>第一步：</strong><br>选取1最少的列，此时第1，2，3，5，6列1的个数都是2，选择第1列。第1列中 $S_2$ 和 $S_4$均为1，选择 $S_2$ 加入当前解。（$T=\lbrace S_2\rbrace$）<br>$$
+$$</p>
+<blockquote>
+<p>高德纳建议每次选取 1 最少的列</p>
+</blockquote>
+<p><strong>X算法的执行步骤如下：</strong><br>
+<strong>第一步：</strong><br>
+选取1最少的列，此时第1，2，3，5，6列1的个数都是2，选择第1列。第1列中 $S_2$ 和 $S_4$均为1，选择 $S_2$ 加入当前解。（$T=\lbrace S_2\rbrace$）<br>
+$$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline
 & \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf{6} & \mathbf\textcolor{blue}{7}\\
@@ -83,7 +228,10 @@ $$</p><blockquote><p>高德纳建议每次选取 1 最少的列</p></blockquote>
 \mathbf{S_6} & 0 & 0 & 0 & 1 & 1 & 0 & 1\\
 \hline
 \end{array}
-$$</p><p><strong>第二步：</strong><br>第1列中$S_2$行和$S_4$行为1，第4列中$S_2$，$S_4$和$S_6$行为1，第7列中$S_2$，$S_5$和$S_6$行为1。所以移除第1，4，7列和$S_2$，$S_4$，$S_5$，$S_6$行。<br>$$
+$$</p>
+<p><strong>第二步：</strong><br>
+第1列中$S_2$行和$S_4$行为1，第4列中$S_2$，$S_4$和$S_6$行为1，第7列中$S_2$，$S_5$和$S_6$行为1。所以移除第1，4，7列和$S_2$，$S_4$，$S_5$，$S_6$行。<br>
+$$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline
 & \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf{6} & \mathbf\textcolor{blue}{7}\\
@@ -102,7 +250,9 @@ $$</p><p><strong>第二步：</strong><br>第1列中$S_2$行和$S_4$行为1，�
 \hline
 \end{array}
 $$
-<strong>第三步：</strong><br>此时只剩下了$S_1$和$S_3$行可选，矩阵非空，算法继续执行递归回到第一步，此时初始状态如下。<br>$$
+<strong>第三步：</strong><br>
+此时只剩下了$S_1$和$S_3$行可选，矩阵非空，算法继续执行递归回到第一步，此时初始状态如下。<br>
+$$
 \begin{array}{|c|c|c|c|c|}
 \hline
 & \mathbf{2} & \mathbf{3} & \mathbf{5} & \mathbf{6} \\
@@ -112,7 +262,12 @@ $$
 \mathbf{S_3} & 1 & 1 & 0 & 1\\
 \hline
 \end{array}
-$$</p><hr><p><strong>第一步：</strong><br>此时第2，5，6列1的个数最少，选取第2列，即将对应的 $S_3$ 加入当前解。<br>（$T=\lbrace S_2, S_3 \rbrace$）<br>$$
+$$</p>
+<hr>
+<p><strong>第一步：</strong><br>
+此时第2，5，6列1的个数最少，选取第2列，即将对应的 $S_3$ 加入当前解。<br>
+（$T=\lbrace S_2, S_3 \rbrace$）<br>
+$$
 \begin{array}{|c|c|c|c|c|}
 \hline
 & \mathbf\textcolor{blue}{2} & \mathbf\textcolor{blue}{3} & \mathbf{5} & \mathbf\textcolor{blue}{6} \\
@@ -122,7 +277,9 @@ $$</p><hr><p><strong>第一步：</strong><br>此时第2，5，6列1的个数最
 \mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & 0 & \textcolor{blue}1\\
 \hline
 \end{array}
-$$<br><strong>第二步：</strong><br>移除 $S_3$ 关联的行列。
+$$<br>
+<strong>第二步：</strong><br>
+移除 $S_3$ 关联的行列。
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
@@ -133,14 +290,17 @@ $$
 \mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
 \hline
 \end{array}
-$$<br><strong>第三步：</strong><br>矩阵为空，但是第5列仍没被选择，所以求解失败，需要回溯到新的行加入解集之前一步，并作另一选择再次执行算法。
+$$<br>
+<strong>第三步：</strong><br>
+矩阵为空，但是第5列仍没被选择，所以求解失败，需要回溯到新的行加入解集之前一步，并作另一选择再次执行算法。
 $$
 \begin{array}{|c|}
 \hline
 \mathbf{5}\\
 \hline
 \end{array}
-$$</p><p><strong>回溯：</strong>
+$$</p>
+<p><strong>回溯：</strong>
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
@@ -152,7 +312,9 @@ $$
 \hline
 \end{array}
 $$
-<strong>第一步：</strong><br>因为之前在这一步选择了 $S_3$，所以这次我们选择 $S_1$ 加入局部最优解，即（$T=\lbrace S_1, S_2 \rbrace$）。<br>$$
+<strong>第一步：</strong><br>
+因为之前在这一步选择了 $S_3$，所以这次我们选择 $S_1$ 加入局部最优解，即（$T=\lbrace S_1, S_2 \rbrace$）。<br>
+$$
 \begin{array}{|c|c|c|c|c|}
 \hline
 & \mathbf{2} & \mathbf\textcolor{blue}{3} & \mathbf\textcolor{blue}{5} & \mathbf{6} \\
@@ -162,7 +324,9 @@ $$
 \mathbf{S_3} & 1 & 1 & 0 & 1\\
 \hline
 \end{array}
-$$<br><strong>第二步：</strong><br>移除 $S_1$ 关联的行列。
+$$<br>
+<strong>第二步：</strong><br>
+移除 $S_1$ 关联的行列。
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
@@ -173,14 +337,18 @@ $$
 \mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
 \hline
 \end{array}
-$$<br><strong>第三步：</strong><br>矩阵为空，但还有第2，6列未被选中，所以需要再次回溯，此时需要再往上一次回溯了，即回到了矩阵最初始状态。
+$$<br>
+<strong>第三步：</strong><br>
+矩阵为空，但还有第2，6列未被选中，所以需要再次回溯，此时需要再往上一次回溯了，即回到了矩阵最初始状态。
 $$
 \begin{array}{|c|c|}
 \hline
 \mathbf{2} & \mathbf{6} \\
 \hline
 \end{array}
-$$<br><strong>再次回溯：</strong><br>回到了最初始状态。
+$$<br>
+<strong>再次回溯：</strong><br>
+回到了最初始状态。
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline
@@ -199,7 +367,10 @@ $$
 \mathbf{S_6} & 0 & 0 & 0 & 1 & 1 & 0 & 1\\
 \hline
 \end{array}
-$$</p><p><strong>第一步：</strong><br>前面第一次选择了 $S_2$，所以这次选择将 $S_4$ 加入局部最优解。（$T=\lbrace S_4 \rbrace$）<br>$$
+$$</p>
+<p><strong>第一步：</strong><br>
+前面第一次选择了 $S_2$，所以这次选择将 $S_4$ 加入局部最优解。（$T=\lbrace S_4 \rbrace$）<br>
+$$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline
 & \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf\textcolor{blue}{6} & \mathbf{7}\\
@@ -217,7 +388,8 @@ $$</p><p><strong>第一步：</strong><br>前面第一次选择了 $S_2$，所�
 \mathbf{S_6} & 0 & 0 & 0 & 1 & 1 & 0 & 1\\
 \hline
 \end{array}
-$$</p><p><strong>第二步：</strong>
+$$</p>
+<p><strong>第二步：</strong>
 移除 $S_4$ 关联的行列。
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
@@ -237,7 +409,9 @@ $$
 \mathbf\textcolor{blue}{S_6} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
 \hline
 \end{array}
-$$</p><p><strong>第三步：</strong><br>矩阵非空，递归回到第一步
+$$</p>
+<p><strong>第三步：</strong><br>
+矩阵非空，递归回到第一步
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
@@ -250,7 +424,10 @@ $$
 \mathbf{S_5} & 1 & 0 & 0 & 1\\
 \hline
 \end{array}
-$$</p><p><strong>第一步：</strong><br>第5列1最少，选择 $S_1$ 加入局部最优解。（$T=\lbrace S_2, S_4 \rbrace$）<br>$$
+$$</p>
+<p><strong>第一步：</strong><br>
+第5列1最少，选择 $S_1$ 加入局部最优解。（$T=\lbrace S_2, S_4 \rbrace$）<br>
+$$
 \begin{array}{|c|c|c|c|c|}
 \hline
 & \mathbf{2} & \mathbf{3} & \mathbf{5} & \mathbf{7}\\
@@ -262,7 +439,9 @@ $$</p><p><strong>第一步：</strong><br>第5列1最少，选择 $S_1$ 加入�
 \mathbf{S_5} & 1 & 0 & 0 & 1\\
 \hline
 \end{array}
-$$</p><p><strong>第二步：</strong><br>移除 $S_1$关联的行列。
+$$</p>
+<p><strong>第二步：</strong><br>
+移除 $S_1$关联的行列。
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
@@ -275,7 +454,10 @@ $$
 \mathbf{S_5} & 1 & \textcolor{blue}0 & \textcolor{blue}0 & 1\\
 \hline
 \end{array}
-$$</p><p><strong>第三步：</strong><br>矩阵非空且无全0列，将最后一行加入局部最优解。（$T=\lbrace S_2, S_4, S_5 \rbrace$）<br>$$
+$$</p>
+<p><strong>第三步：</strong><br>
+矩阵非空且无全0列，将最后一行加入局部最优解。（$T=\lbrace S_2, S_4, S_5 \rbrace$）<br>
+$$
 \begin{array}{|c|c|c|}
 \hline
 & \mathbf{2} & \mathbf{7}\\
@@ -283,19 +465,54 @@ $$</p><p><strong>第三步：</strong><br>矩阵非空且无全0列，将最后�
 \mathbf{S_5} & 1 & 1\\
 \hline
 \end{array}
-$$<br><strong>第四步：</strong><br>此时矩阵为空，且所有列均被选中。求解成功，最终解为 $T=\lbrace S_2, S_4, S_5 \rbrace$，与肉眼观察法得出的答案一致。</p><h1 id=dancing-links>Dancing Links</h1><blockquote><p>上述回溯求解过程存在大量的缓存矩阵和回溯矩阵的过程。而简单DFS回溯在这些过程中需要不断的删除又创建矩阵，当递归深度过深时还有可能栈溢出。于是算法大师高德纳提出了DLX(Dancing Links X)算法，即使用 Dancing Links 这一数据结构实现X算法。使得整个回溯算法过程中只需要使用一个矩阵链。算法执行过程中，指针在数据之间跳跃着，就像精巧设计的舞蹈一样，故称之为 <strong>Dancing Links (舞蹈链)</strong>。</p></blockquote><p>舞蹈链的核心是双向链表实现的，先来看看双向链表的删除和插入操作。<br><figure><a class=lightgallery href=https://xxy.im/storage/images/doublelinks.png title=点击放大 data-thumbnail=https://xxy.im/storage/images/doublelinks.png data-sub-html="<h2>双向链表</h2><p>点击放大</p>"><img class=lazyload src=/svg/loading.min.svg data-src=https://xxy.im/storage/images/doublelinks.png data-srcset="https://xxy.im/storage/images/doublelinks.png, https://xxy.im/storage/images/doublelinks.png 1.5x, https://xxy.im/storage/images/doublelinks.png 2x" data-sizes=auto alt=https://xxy.im/storage/images/doublelinks.png></a><figcaption class=image-caption>双向链表</figcaption></figure></p><blockquote><p>双向链表中任一元素都能很容易得到它左右两边（Left和Right指针）的元素。</p></blockquote><p><strong>删除Col2：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+$$<br>
+<strong>第四步：</strong><br>
+此时矩阵为空，且所有列均被选中。求解成功，最终解为 $T=\lbrace S_2, S_4, S_5 \rbrace$，与肉眼观察法得出的答案一致。</p>
+<h1 id=dancing-links>Dancing Links</h1>
+<blockquote>
+<p>上述回溯求解过程存在大量的缓存矩阵和回溯矩阵的过程。而简单DFS回溯在这些过程中需要不断的删除又创建矩阵，当递归深度过深时还有可能栈溢出。于是算法大师高德纳提出了DLX(Dancing Links X)算法，即使用 Dancing Links 这一数据结构实现X算法。使得整个回溯算法过程中只需要使用一个矩阵链。算法执行过程中，指针在数据之间跳跃着，就像精巧设计的舞蹈一样，故称之为 <strong>Dancing Links (舞蹈链)</strong>。</p>
+</blockquote>
+<p>舞蹈链的核心是双向链表实现的，先来看看双向链表的删除和插入操作。<br>
+<figure><a class=lightgallery href=https://xxy.im/storage/images/doublelinks.png title=点击放大 data-thumbnail=https://xxy.im/storage/images/doublelinks.png data-sub-html="<h2>双向链表</h2><p>点击放大</p>">
+<img class=lazyload data-src=https://xxy.im/storage/images/doublelinks.png data-srcset="https://xxy.im/storage/images/doublelinks.png, https://xxy.im/storage/images/doublelinks.png 1.5x, https://xxy.im/storage/images/doublelinks.png 2x" data-sizes=auto alt=https://xxy.im/storage/images/doublelinks.png>
+</a><figcaption class=image-caption>双向链表</figcaption>
+</figure></p>
+<blockquote>
+<p>双向链表中任一元素都能很容易得到它左右两边（Left和Right指针）的元素。</p>
+</blockquote>
+<p><strong>删除Col2：</strong></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-c++ data-lang=c++><span class=n>Col1</span><span class=p>.</span><span class=n>Right</span> <span class=o>=</span> <span class=n>Col3</span><span class=p>;</span>
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=n>Col1</span><span class=p>.</span><span class=n>Right</span> <span class=o>=</span> <span class=n>Col3</span><span class=p>;</span>
 <span class=n>Col3</span><span class=p>.</span><span class=n>Left</span> <span class=o>=</span> <span class=n>Col1</span><span class=p>;</span>
 
 <span class=c1>// delete Col2;
-</span></code></pre></td></tr></table></div></div><p>此时我们并没有真的将Col2删除，只是链表遍历不到它了<br><strong>插入Col2：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td></tr></table>
+</div>
+</div><p>此时我们并没有真的将Col2删除，只是链表遍历不到它了<br>
+<strong>插入Col2：</strong></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-c++ data-lang=c++><span class=n>Col1</span><span class=p>.</span><span class=n>Right</span> <span class=o>=</span> <span class=n>Col2</span><span class=p>;</span>
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=n>Col1</span><span class=p>.</span><span class=n>Right</span> <span class=o>=</span> <span class=n>Col2</span><span class=p>;</span>
 <span class=n>Col3</span><span class=p>.</span><span class=n>Left</span> <span class=o>=</span> <span class=n>Col2</span><span class=p>;</span>
-</code></pre></td></tr></table></div></div><p>可以看出上面删除和插入都是 $O(1)$ 的。仔细想想这两个操作是不是和算法过程中的缓存，回溯对应。所以我们可以用链表的删除和插入来代替回溯算法中的缓存和回溯过程，且不需要开辟新的内存空间。</p><h2 id=数据结构定义>数据结构定义</h2><p>Dancing Links使用的是十字交叉双向循坏列表，即每个结点除了 <code>Left</code>, <code>Right</code> 指针外还存在 <code>Up</code>, <code>Down</code> 指针。同时还有一个指针指向所在的列结点。还需要一个<code>Head</code>结点，当<code>Head->Right == Head</code> 为 <code>true</code> 时，求解结束。（<code>Head</code> 结点只有 <code>Left</code>, <code>Right</code> 两个有效指针）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看出上面删除和插入都是 $O(1)$ 的。仔细想想这两个操作是不是和算法过程中的缓存，回溯对应。所以我们可以用链表的删除和插入来代替回溯算法中的缓存和回溯过程，且不需要开辟新的内存空间。</p>
+<h2 id=数据结构定义>数据结构定义</h2>
+<p>Dancing Links使用的是十字交叉双向循坏列表，即每个结点除了 <code>Left</code>, <code>Right</code> 指针外还存在 <code>Up</code>, <code>Down</code> 指针。同时还有一个指针指向所在的列结点。还需要一个<code>Head</code>结点，当<code>Head->Right == Head</code> 为 <code>true</code> 时，求解结束。（<code>Head</code> 结点只有 <code>Left</code>, <code>Right</code> 两个有效指针）</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -333,7 +550,9 @@ $$<br><strong>第四步：</strong><br>此时矩阵为空，且所有列均被�
 </span><span class=lnt>36
 </span><span class=lnt>37
 </span><span class=lnt>38
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-c++ data-lang=c++><span class=k>class</span> <span class=nc>DLNode</span>
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=k>class</span> <span class=nc>DLNode</span>
 <span class=p>{</span>
 <span class=k>public</span><span class=o>:</span>
   <span class=n>DLNode</span> <span class=o>*</span> <span class=n>Left</span><span class=p>;</span>           <span class=c1>// 左结点
@@ -371,7 +590,19 @@ $$<br><strong>第四步：</strong><br>此时矩阵为空，且所有列均被�
   <span class=kt>bool</span> <span class=nf>DLX</span><span class=p>();</span>                     <span class=c1>// DLX算法求解
 </span><span class=c1></span>  <span class=kt>void</span> <span class=nf>ShowResult</span><span class=p>();</span>              <span class=c1>// 输出结果
 </span><span class=c1></span><span class=p>};</span>
-</code></pre></td></tr></table></div></div><p>根据前面的精确覆盖问题构建Dancing Links结构。</p><p><figure><a class=lightgallery href=https://xxy.im/storage/images/dl-struct.png title=点击放大 data-thumbnail=https://xxy.im/storage/images/dl-struct.png data-sub-html="<h2>Dancing Links结构图</h2><p>点击放大</p>"><img class=lazyload src=/svg/loading.min.svg data-src=https://xxy.im/storage/images/dl-struct.png data-srcset="https://xxy.im/storage/images/dl-struct.png, https://xxy.im/storage/images/dl-struct.png 1.5x, https://xxy.im/storage/images/dl-struct.png 2x" data-sizes=auto alt=https://xxy.im/storage/images/dl-struct.png></a><figcaption class=image-caption>Dancing Links结构图</figcaption></figure></p><h2 id=dlx算法求解过程>DLX算法求解过程</h2><p>首先判断 <code>Head->Right == Head</code>，若为真，求解完成，输出结果。否则算法继续执行。执行过程与前面所述的X算法类似，因此不再赘述。<br><strong>代码如下：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table>
+</div>
+</div><p>根据前面的精确覆盖问题构建Dancing Links结构。</p>
+<p><figure><a class=lightgallery href=https://xxy.im/storage/images/dl-struct.png title=点击放大 data-thumbnail=https://xxy.im/storage/images/dl-struct.png data-sub-html="<h2>Dancing Links结构图</h2><p>点击放大</p>">
+<img class=lazyload data-src=https://xxy.im/storage/images/dl-struct.png data-srcset="https://xxy.im/storage/images/dl-struct.png, https://xxy.im/storage/images/dl-struct.png 1.5x, https://xxy.im/storage/images/dl-struct.png 2x" data-sizes=auto alt=https://xxy.im/storage/images/dl-struct.png>
+</a><figcaption class=image-caption>Dancing Links结构图</figcaption>
+</figure></p>
+<h2 id=dlx算法求解过程>DLX算法求解过程</h2>
+<p>首先判断 <code>Head->Right == Head</code>，若为真，求解完成，输出结果。否则算法继续执行。执行过程与前面所述的X算法类似，因此不再赘述。<br>
+<strong>代码如下：</strong></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -458,7 +689,9 @@ $$<br><strong>第四步：</strong><br>此时矩阵为空，且所有列均被�
 </span><span class=lnt>85
 </span><span class=lnt>86
 </span><span class=lnt>87
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-c++ data-lang=c++><span class=c1>// 初始化Dancing Links
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=c1>// 初始化Dancing Links
 </span><span class=c1></span><span class=n>DancingLinks</span><span class=o>::</span><span class=n>DancingLinks</span><span class=p>(</span><span class=kt>int</span> <span class=n>s</span><span class=p>[</span><span class=n>M</span><span class=p>][</span><span class=n>N</span><span class=p>])</span>
 <span class=p>{</span>
     <span class=n>Head</span> <span class=o>=</span> <span class=k>new</span> <span class=n>DLNode</span><span class=p>(</span><span class=k>nullptr</span><span class=p>,</span> <span class=mi>0</span><span class=p>);</span>
@@ -545,5 +778,50 @@ $$<br><strong>第四步：</strong><br>此时矩阵为空，且所有列均被�
 
 	<span class=n>col</span><span class=o>-&gt;</span><span class=n>RecoverCol</span><span class=p>();</span>
 <span class=p>}</span>
-</code></pre></td></tr></table></div></div><p><strong>程序完整代码：</strong><br><a href=https://github.com/xxy-im/DancingLinks>https://github.com/xxy-im/DancingLinks</a></p><h1 id=参考文章>参考文章</h1><p><a href=https://en.wikipedia.org/wiki/Dancing_Links>https://en.wikipedia.org/wiki/Dancing_Links</a><br><a href=https://www.cnblogs.com/grenet/p/3163550.html>https://www.cnblogs.com/grenet/p/3163550.html</a></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2021-09-22</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/dancinglinks/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://xxy.im/dancinglinks/ data-title="Dancing Links (DLX 算法)学习笔记" data-hashtags=数据结构,算法><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://xxy.im/dancinglinks/ data-hashtag=数据结构><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://xxy.im/dancinglinks/ data-title="Dancing Links (DLX 算法)学习笔记"><i class="fab fa-hacker-news fa-fw"></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://xxy.im/dancinglinks/ data-title="Dancing Links (DLX 算法)学习笔记"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://xxy.im/dancinglinks/ data-title="Dancing Links (DLX 算法)学习笔记" data-ralateuid=xxxx><i class="fab fa-weibo fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/>数据结构</a>,&nbsp;<a href=/tags/%E7%AE%97%E6%B3%95/>算法</a></section><section><span><a href=javascript:void(0); onclick=window.history.back();>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/time-complexity/ class=prev rel=prev title=关于复杂度类型判断的some思考><i class="fas fa-angle-left fa-fw"></i>关于复杂度类型判断的some思考</a>
-<a href=/samurai-sudoku/ class=next rel=next title="武士数独(五重数独) 舞蹈链解法">武士数独(五重数独) 舞蹈链解法<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2020 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>xxy</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw"></i></a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@13.0.0/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js></script><script type=text/javascript src=/js/click_effect.js></script><script type=text/javascript src=/js/console_output.js></script><script type=text/javascript src=/js/live2d_config.js></script><script type=text/javascript src=/js/L2Dwidget.min.js></script><script type=text/javascript src=/js/L2Dwidget.0.min.js></script><script type=text/javascript>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"W1zToBSRyMI7cCOgfQ2l6KoS-gzGzoHsz","appKey":"50digIecvGQYjPDwVatNVD40","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"CZUS4X0ZZW","algoliaIndex":"xxy-blog","algoliaSearchKey":"0c0b0d964640607a5aa7f85874218364","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V9ZE6MC9MQ',{'anonymize_ip':true});</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-V9ZE6MC9MQ" async></script></body></html>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>程序完整代码：</strong><br>
+<a href=https://github.com/xxy-im/DancingLinks target=_blank rel="noopener noreffer">https://github.com/xxy-im/DancingLinks</a></p>
+<h1 id=参考文章>参考文章</h1>
+<p><a href=https://en.wikipedia.org/wiki/Dancing_Links target=_blank rel="noopener noreffer">https://en.wikipedia.org/wiki/Dancing_Links</a><br>
+<a href=https://www.cnblogs.com/grenet/p/3163550.html target=_blank rel="noopener noreffer">https://www.cnblogs.com/grenet/p/3163550.html</a></p></div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>更新于 2021-09-22</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md><span>
+<a class=link-to-markdown href=/dancinglinks/index.md target=_blank rel="noopener noreferrer">阅读原始文档</a>
+</span></div>
+<div class=post-info-share>
+<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://xxy.im/dancinglinks/ data-title="Dancing Links (DLX 算法)学习笔记" data-hashtags=数据结构,算法><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://xxy.im/dancinglinks/ data-hashtag=数据结构><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Hacker News" data-sharer=hackernews data-url=https://xxy.im/dancinglinks/ data-title="Dancing Links (DLX 算法)学习笔记"><i class="fab fa-hacker-news fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Line" data-sharer=line data-url=https://xxy.im/dancinglinks/ data-title="Dancing Links (DLX 算法)学习笔记"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/line.svg></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://xxy.im/dancinglinks/ data-title="Dancing Links (DLX 算法)学习笔记" data-ralateuid=xxxx><i class="fab fa-weibo fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/>数据结构</a>,&nbsp;<a href=/tags/%E7%AE%97%E6%B3%95/>算法</a></section>
+<section>
+<span><a href=# onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/time-complexity/ class=prev rel=prev title=关于复杂度类型判断的some思考><i class="fas fa-angle-left fa-fw"></i>关于复杂度类型判断的some思考</a>
+<a href=/samurai-sudoku/ class=next rel=next title="武士数独(五重数独) 舞蹈链解法">武士数独(五重数独) 舞蹈链解法<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id=comments><div id=valine class=comment></div><noscript>
+Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.
+</noscript></div></article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2020 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank rel="noopener noreferrer">xxy</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+</div></footer></div>
+<div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><div class=assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.10.3/dist/algoliasearch.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/@sliphua/pjax@0.13.0/dist/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-V9ZE6MC9MQ',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-V9ZE6MC9MQ" async></script></div>
+<div class=pjax-assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@13.1.0/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/js/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lg-zoom.js@1.3.0/dist/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/mhchem.min.js></script><script type=text/javascript src=/js/click_effect.js></script><script type=text/javascript src=/js/console_output.js></script><script type=text/javascript src=/js/live2d_config.js></script><script type=text/javascript src=/js/L2Dwidget.min.js></script><script type=text/javascript src=/js/L2Dwidget.0.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{valine:{appId:"W1zToBSRyMI7cCOgfQ2l6KoS-gzGzoHsz",appKey:"50digIecvGQYjPDwVatNVD40",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-cn",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,visitor:!0}},lightGallery:{actualSize:!1,exThumbImage:"data-thumbnail",hideBarsDelay:2e3,selector:".lightgallery",speed:400,thumbContHeight:80,thumbWidth:80,thumbnail:!0},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"CZUS4X0ZZW",algoliaIndex:"xxy-blog",algoliaSearchKey:"0c0b0d964640607a5aa7f85874218364",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"},sharerjs:!0,twemoji:!0}</script><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.css></div>
+</body>
+</html>

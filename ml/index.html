@@ -1,15 +1,263 @@
-<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>机器学习初体验 - One Piece是真实存在的</title><meta name=Description content><meta property="og:title" content="机器学习初体验"><meta property="og:description" content="在这个万物皆可CS的时代，程序猿如果不学点机器学习/深度学习知识，仿佛都有点跟不上潮流了"><meta property="og:type" content="article"><meta property="og:url" content="https://xxy.im/ml/"><meta property="og:image" content="https://xxy.im/ml/ml.jpg"><meta property="article:published_time" content="2020-01-28T20:33:18+08:00"><meta property="article:modified_time" content="2020-01-28T20:33:18+08:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://xxy.im/ml/ml.jpg"><meta name=twitter:title content="机器学习初体验"><meta name=twitter:description content="在这个万物皆可CS的时代，程序猿如果不学点机器学习/深度学习知识，仿佛都有点跟不上潮流了"><meta name=application-name content="先进科学技术生成队"><meta name=apple-mobile-web-app-title content="先进科学技术生成队"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://xxy.im/ml/><link rel=next href=https://xxy.im/wsl/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"机器学习初体验","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/ml\/"},"image":[{"@type":"ImageObject","url":"https:\/\/xxy.im\/ml\/ml.jpg","width":1200,"height":500}],"genre":"posts","keywords":"人工智能, 机器学习","wordcount":3093,"url":"https:\/\/xxy.im\/ml\/","datePublished":"2020-01-28T20:33:18+08:00","dateModified":"2020-01-28T20:33:18+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':('auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark'))&&document.body.setAttribute('theme','dark');</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="One Piece是真实存在的"><span class=header-title-pre><i class="far fa-gem fa-fw"></i></span>先进科学技术生产队</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw"></i></a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw"></i></a><span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="One Piece是真实存在的"><span class=header-title-pre><i class="far fa-gem fa-fw"></i></span>先进科学技术生产队</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
-<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw"></i></a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw"></i></a><span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/>所有文章</a><a class=menu-item href=/tags/>标签</a><a class=menu-item href=/categories/>分类</a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
-<i class="fas fa-adjust fa-fw"></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">机器学习初体验</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>xxy</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/><i class="far fa-folder fa-fw"></i>人工智能</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2020-01-28>2020-01-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3093 字&nbsp;
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title class=pjax-title>机器学习初体验 - One Piece是真实存在的</title><meta name=Description content><meta property="og:title" content="机器学习初体验">
+<meta property="og:description" content="在这个万物皆可CS的时代，程序猿如果不学点机器学习/深度学习知识，仿佛都有点跟不上潮流了">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xxy.im/ml/"><meta property="og:image" content="https://xxy.im/ml/ml.jpg"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2020-01-28T20:33:18+08:00">
+<meta property="article:modified_time" content="2020-01-28T20:33:18+08:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://xxy.im/ml/ml.jpg">
+<meta name=twitter:title content="机器学习初体验">
+<meta name=twitter:description content="在这个万物皆可CS的时代，程序猿如果不学点机器学习/深度学习知识，仿佛都有点跟不上潮流了">
+<meta name=application-name content="先进科学技术生成队">
+<meta name=apple-mobile-web-app-title content="先进科学技术生成队">
+<meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/ml/><link rel=next href=https://xxy.im/wsl/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"机器学习初体验","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/ml\/"},"image":[{"@type":"ImageObject","url":"https:\/\/xxy.im\/ml\/ml.jpg","width":1200,"height":500}],"genre":"posts","keywords":"人工智能, 机器学习","wordcount":3093,"url":"https:\/\/xxy.im\/ml\/","datePublished":"2020-01-28T20:33:18+08:00","dateModified":"2020-01-28T20:33:18+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
+<div id=back-to-top></div>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="One Piece是真实存在的"><span class=header-title-pre><i class="far fa-gem fa-fw"></i></span>先进科学技术生产队</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> 所有文章 </a><a class=menu-item href=/tags/> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-desktop title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=# onclick=return!1 class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="One Piece是真实存在的"><span class=header-title-pre><i class="far fa-gem fa-fw"></i></span>先进科学技术生产队</a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-mobile title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-mobile title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>
+取消
+</a>
+</div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>目录</h2>
+<div class="toc-content always-active" id=toc-content-auto></div>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">机器学习初体验</h1><div class=post-meta>
+<div class=post-meta-line>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=/ title=Author rel=" author" class=author>xxy</a>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/><i class="far fa-folder fa-fw"></i>人工智能</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2020-01-28>2020-01-28</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2020-01-28>2020-01-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3093 字&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id=/ml/ class=leancloud_visitors data-flag-title=机器学习初体验>
 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
-</span>&nbsp;</div></div><div class=featured-image><img class=lazyload src=/svg/loading.min.svg data-src=/ml/ml.jpg data-srcset="/ml/ml.jpg, /ml/ml.jpg 1.5x, /ml/ml.jpg 2x" data-sizes=auto alt=/ml/ml.jpg title=/ml/ml.jpg></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#人工智能ai>人工智能(AI)</a></li><li><a href=#机器学习machine-learning>机器学习(Machine Learning)</a></li><li><a href=#基本概念>基本概念</a><ul><li><a href=#样本数据>样本数据</a></li><li><a href=#数据集>数据集</a></li><li><a href=#特征>特征</a></li></ul></li><li><a href=#机器学习基本分类>机器学习基本分类</a><ul><li><a href=#监督学习>监督学习</a></li><li><a href=#非监督学习>非监督学习</a></li><li><a href=#强化学习>强化学习</a></li><li><a href=#半监督学习和自动学习>半监督学习和自动学习</a></li></ul></li><li><a href=#机器学习算法三要素>机器学习算法三要素</a><ul><li><a href=#模型>模型</a></li><li><a href=#策略>策略</a></li><li><a href=#算法>算法</a></li></ul></li><li><a href=#深度学习deep-learning>深度学习(Deep Learning)</a></li></ul></nav></div></div><div class=content id=content><p>在这个万物皆可CS的时代，程序猿如果不学点机器学习/深度学习知识，仿佛都有点跟不上潮流了</p><p>随着近几年人工智能的热潮，AI，AlphaGo，大数据，数据挖掘，机器学习这些词汇在互联网中随处可见。人脸识别，语音助手，美颜拍照，APP广告推送，甚至大数据杀熟这些技术的背后究竟是人性的泯灭，还是道德的沦丧&mldr;</p><p>咳咳&mldr; 回到正题，先来看看人工智能，机器学习，深度学习三者的关系<br><figure><a class=lightgallery href=https://xxy.im/storage/images/ai_ml_dl.png title=点击放大 data-thumbnail=https://xxy.im/storage/images/ai_ml_dl.png data-sub-html="<h2>三者关系</h2><p>点击放大</p>"><img class=lazyload src=/svg/loading.min.svg data-src=https://xxy.im/storage/images/ai_ml_dl.png data-srcset="https://xxy.im/storage/images/ai_ml_dl.png, https://xxy.im/storage/images/ai_ml_dl.png 1.5x, https://xxy.im/storage/images/ai_ml_dl.png 2x" data-sizes=auto alt=https://xxy.im/storage/images/ai_ml_dl.png></a><figcaption class=image-caption>三者关系</figcaption></figure></p><h1 id=人工智能ai>人工智能(AI)</h1><p>一个笼统的概念，简单描述一门让机器好似有人类智慧的计算机学科。人工智能可以对人的意识、思维的信息过程的模拟。人工智能不是人的智能，但能像人那样思考、也可能超过人的智能。</p><h1 id=机器学习machine-learning>机器学习(Machine Learning)</h1><p>顾名思义是一种让计算机自己学习的算法。在智能应用开发的早期，许多系统都是使用大量的if-else结构来进行决策和处理数据的，比如希望判断邮件是否为垃圾邮件，可能需要先创建一个类似敏感词库的东西，然后判断邮件的内容是否包含这些关键词，if包含则为垃圾邮件，else不是垃圾邮件。这样的系统在某些领域确实是非常简单且高效的，尤其在一些系统所有的输入和输出都是能够被人们掌握的情况下。但是这种靠if-else的人为决策，明显很难对任务的变化进行自适应，且在开发系统时需对该系统将要处理的各种场景了如指掌。就像你很难用if-else来写一个人脸检测系统。</p><hr><p>成功的机器学习算法是能够将决策过程自动化的那些算法，而这些决策过程是通过大量的数据输入(即已知的示例)中泛化得出的。<br>通常任何问题都可以用 $y=f(x)$ 模型或概率模型$P(Y|X)$ 表示，而机器学习的最终结果就是求出这个决策函数 $f(x)$ 或条件概率分布 $P(Y|X)$</p><h1 id=基本概念>基本概念</h1><h2 id=样本数据>样本数据</h2><p>上面说到机器学习最终目的是求出 $y=f(x)$ 这个模型，样本数据便是一些已知的 $(x, y)$ 或者只有 $x$。其中 $x$ 叫做输入数据，$y$ 叫做输出数据（或者叫标签、标注）。$x$ 和 $y$可以是多维的可以包含多个特征。例如输入实例$x$的特征向量记作
+</span>&nbsp;</div>
+</div><div class=featured-image><img class=lazyload data-src=/ml/ml.jpg data-srcset="/ml/ml.jpg, /ml/ml.jpg 1.5x, /ml/ml.jpg 2x" data-sizes=auto alt=/ml/ml.jpg title=/ml/ml.jpg height=500 width=1200></div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#人工智能ai>人工智能(AI)</a></li>
+<li><a href=#机器学习machine-learning>机器学习(Machine Learning)</a></li>
+<li><a href=#基本概念>基本概念</a>
+<ul>
+<li><a href=#样本数据>样本数据</a></li>
+<li><a href=#数据集>数据集</a></li>
+<li><a href=#特征>特征</a></li>
+</ul>
+</li>
+<li><a href=#机器学习基本分类>机器学习基本分类</a>
+<ul>
+<li><a href=#监督学习>监督学习</a></li>
+<li><a href=#非监督学习>非监督学习</a></li>
+<li><a href=#强化学习>强化学习</a></li>
+<li><a href=#半监督学习和自动学习>半监督学习和自动学习</a></li>
+</ul>
+</li>
+<li><a href=#机器学习算法三要素>机器学习算法三要素</a>
+<ul>
+<li><a href=#模型>模型</a></li>
+<li><a href=#策略>策略</a></li>
+<li><a href=#算法>算法</a></li>
+</ul>
+</li>
+<li><a href=#深度学习deep-learning>深度学习(Deep Learning)</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>在这个万物皆可CS的时代，程序猿如果不学点机器学习/深度学习知识，仿佛都有点跟不上潮流了</p>
+<p>随着近几年人工智能的热潮，AI，AlphaGo，大数据，数据挖掘，机器学习这些词汇在互联网中随处可见。人脸识别，语音助手，美颜拍照，APP广告推送，甚至大数据杀熟这些技术的背后究竟是人性的泯灭，还是道德的沦丧&mldr;</p>
+<p>咳咳&mldr; 回到正题，先来看看人工智能，机器学习，深度学习三者的关系<br>
+<figure><a class=lightgallery href=https://xxy.im/storage/images/ai_ml_dl.png title=点击放大 data-thumbnail=https://xxy.im/storage/images/ai_ml_dl.png data-sub-html="<h2>三者关系</h2><p>点击放大</p>">
+<img class=lazyload data-src=https://xxy.im/storage/images/ai_ml_dl.png data-srcset="https://xxy.im/storage/images/ai_ml_dl.png, https://xxy.im/storage/images/ai_ml_dl.png 1.5x, https://xxy.im/storage/images/ai_ml_dl.png 2x" data-sizes=auto alt=https://xxy.im/storage/images/ai_ml_dl.png>
+</a><figcaption class=image-caption>三者关系</figcaption>
+</figure></p>
+<h1 id=人工智能ai>人工智能(AI)</h1>
+<p>一个笼统的概念，简单描述一门让机器好似有人类智慧的计算机学科。人工智能可以对人的意识、思维的信息过程的模拟。人工智能不是人的智能，但能像人那样思考、也可能超过人的智能。</p>
+<h1 id=机器学习machine-learning>机器学习(Machine Learning)</h1>
+<p>顾名思义是一种让计算机自己学习的算法。在智能应用开发的早期，许多系统都是使用大量的if-else结构来进行决策和处理数据的，比如希望判断邮件是否为垃圾邮件，可能需要先创建一个类似敏感词库的东西，然后判断邮件的内容是否包含这些关键词，if包含则为垃圾邮件，else不是垃圾邮件。这样的系统在某些领域确实是非常简单且高效的，尤其在一些系统所有的输入和输出都是能够被人们掌握的情况下。但是这种靠if-else的人为决策，明显很难对任务的变化进行自适应，且在开发系统时需对该系统将要处理的各种场景了如指掌。就像你很难用if-else来写一个人脸检测系统。</p>
+<hr>
+<p>成功的机器学习算法是能够将决策过程自动化的那些算法，而这些决策过程是通过大量的数据输入(即已知的示例)中泛化得出的。<br>
+通常任何问题都可以用 $y=f(x)$ 模型或概率模型$P(Y|X)$ 表示，而机器学习的最终结果就是求出这个决策函数 $f(x)$ 或条件概率分布 $P(Y|X)$</p>
+<h1 id=基本概念>基本概念</h1>
+<h2 id=样本数据>样本数据</h2>
+<p>上面说到机器学习最终目的是求出 $y=f(x)$ 这个模型，样本数据便是一些已知的 $(x, y)$ 或者只有 $x$。其中 $x$ 叫做输入数据，$y$ 叫做输出数据（或者叫标签、标注）。$x$ 和 $y$可以是多维的可以包含多个特征。例如输入实例$x$的特征向量记作
 $$
 x= (x^{(1)}, x^{(2)}, x^{(3)}, \ldots, x^{(i)}, \ldots, x^{(n)})^T
 $$
 $x^{(1)}$ 表示 $x$ 的第 $i$ 个特征。而 $x_i$表示多个输入中的第i个输入，即
 $$
 x_i = (x_{i}^{(1)}, x_{i}^{(2)}, x_{i}^{(3)}, \ldots, x_{i}^{(n)})
-$$</p><h2 id=数据集>数据集</h2><p>完整的数据集表示为 $T = \lbrace(x_1, y_1), (x_2, y_2), (x_3, y_3), \ldots, (x_n, y_n)\rbrace$，并不是所有的数据都将用于模型训练，通常数据集会被分为三个部分：训练集、验证集、测试集</p><ul><li>训练集：用于训练学习模型，通常比例不低于总数据量的50%</li><li>验证集：用于衡量训练过程中模型的好坏，通过不断迭代来优化模型</li><li>测试集：验证集智能用于监视和辅助模型训练，不能用来代表模型的好坏，哪怕验证的准确率是100%测试集也有可能是10%的准确率，这时的模型也是不能被接受的</li></ul><h2 id=特征>特征</h2><p>特征是机器学习和模式识别领域一个比较特有的名词，在传统机器学习算法中，由于计算性能和参数的限制，所以输入的数据维数不能太高。我们手机随随便便一张照片就有几个MB的数据量，可能会有几百万个像素，这么高维的数据量我们是不能直接输入给学习机的，因此我们需要针对特别的应用提取相对应的特征向量，特征向量的作用主要有两个：</p><ol><li>降低数据维度：通过提取特征向量，把原始数据的维度大大较低，简化模型的参数数量</li><li>提升模型性能：一个好的特征，可以提前把原始数据最关键的部分提取出来，因此可以提高学习机的性能</li></ol><blockquote><p>用于模型训练的每一个具体输入实例通常由特征向量表示，人工拆解特征的方法即所谓的特征工程，而深度学习算法自动将概念拆解成特征向量，免去的传统机器算法拆解特征这个步骤</p></blockquote><h1 id=机器学习基本分类>机器学习基本分类</h1><h2 id=监督学习>监督学习</h2><p>监督学习是指从带有标注的训练数据中学习预测模型的机器学习问题。标注数据表示输入输出的对应关系，预测模型对给定的输入产生相应的输出。其本质是学习输入到输出映射的统计规律。<br>通常分为学习和预测两个过程，学习系统利用给定的训练数据集通过学习（或者说训练）得到一个模型，预测系统对给定的测试样本集的输入得出相应的输出。</p><p><strong>问题分类：</strong><br>输入变量 $X$ 和输出变量 $Y$有不同的类型，可以是连续的，也可以是离散的。根据输入输出的不同类型，对预测任务给予了不同的名称：</p><ul><li>分类问题：输出变量为有限个离散变量</li><li>回归问题：输入变量与输出变量均为连续</li><li>标注问题：输入变量与输出变量均为变量序列</li></ul><h2 id=非监督学习>非监督学习</h2><p>非监督学习算法或者说无监督算法与监督学习算法的区别就在于，训练数据中只有输入是已知的，但是并没有为算法提供预期输出。需要算法自行总结数据中的规律，做出符合预期的判断。所以这类算法的理解和评估确实往往比较困难。<br>非监督学习算法可用于对已有数据的分析，也可以用于对未来数据的预测，与监督学习类似由学习系统和预测系统完成，其本质是学习数据中的统计规律或潜在结构。</p><p><strong>非监督学习的两类算法：</strong></p><ol><li>聚类算法：根据数据的“相似性”将数据分为多类的过程，将数据集分成一个个的簇cluster（也可以理解为一组一组的形式）</li><li>降维算法：即在保证数据所具有的代表性特性或者分布的情况下，将高维数据转化为低维数据的过程（数据的可视化和精简数据）</li></ol><p><strong>非监督算法实例：</strong></p><ul><li>一家广告平台需要根据相似的人口学特征和购买习惯将美国人口分成不同的小组，以便广告客户可以通过有关联的广告接触到他们的目标客户</li><li>Airbnb 需要将自己的房屋清单分组成不同的社区，以便用户能更轻松地查阅这些清单</li><li>一个数据科学团队需要降低一个大型数据集的维度的数量，以便简化建模和降低文件大小</li></ul><h2 id=强化学习>强化学习</h2><p>强化学习指智能系统在与环境互动中学习最优行为策略的机器学习问题，本质是学习最优的序贯决策。学习过程中，系统不断的试错，已达到学习最优策略的目的。<br>大名鼎鼎的AlphaGo背后就有这强化学习算法的支持。</p><h2 id=半监督学习和自动学习>半监督学习和自动学习</h2><ul><li><p>半监督学习：指利用标注数据和未标注数据学习，通常少量标注数据，大量未标注数据。因为标注数据的构建往往需要大量的人工，成本较高，未标注数据的收集则不需要太多成本。旨在利用未标注数据中的信息，辅助标注数据，进行监督学习，以较低的成本达到较好的学习效果</p></li><li><p>自动学习：指机器不断主动给出实例让教师进行标注，然后利用标注数据学习预测模型的机器学习问题。通常的监督学习使用给定的标注数据往往是随机得到的，可以看做是”被动学习“，主动学习的目标是找出对学习最有帮助的实例让教师标注，以较小的标注代价，达到更好的学习效果</p></li></ul><blockquote><p>半监督学习和主动学习更接近监督学习</p></blockquote><h1 id=机器学习算法三要素>机器学习算法三要素</h1><h2 id=模型>模型</h2><p>模型是机器学习的最终结果，即上面所说的决策函数 $y=f(x)$ 或条件概率分布 $P(Y|X)$，它被用来预测特定问题下的某个输入对应的输出结果。而所有可能的决策函数或条件概率分布的集合便称为假设空间</p><h2 id=策略>策略</h2><p>有了模型的假设空间，机器学习接着需要考虑按照什么样的准则学习或选择最优的模型。机器学习的目标便是从假设空间中选取最优模型。而最优的定义则由我们所选则的评价准则定义的，即我们选取的模型的策略。通常评价模型在某个样本点的好坏用损失函数 $L(Y, f(X))$ 表示，而对所有样本预测的平均好坏用风险函数 $R_{exp}(f) = E[L(Y, f(X))]$ 表示</p><h2 id=算法>算法</h2><p>算法指学习模型的具体计算方法。机器学习基于训练数据集，根据学校策略，从假设空间中选择最优模型，最后需要考虑用什么样的计算方法求解最优模型<br>这时，机器学习问题归结为最优化问题，机器学习的算法成为求解最优化问题的算法。例如，当已经知道问题模型属于权值向量参数未定的线性决策函数，那么确定一个经验风险最小化的权值向量的过程就是这次学习的算法</p><blockquote><p>机器学习方法之间的不同，主要来自其模型、策略、算法的不同。确定了模型、策略、算法，机器学习的方法也就确定了。这就是将其称为机器学习方法三要素的原因</p></blockquote><h1 id=深度学习deep-learning>深度学习(Deep Learning)</h1><p>讲深度学习前先讲讲神经网络，传统神经网络也是机器学习算法中的一员。而深度学习涉及训练多层神经网络，也称为深度神经网络。</p><p><strong>未完待续&mldr;</strong></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2020-01-28</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/ml/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://xxy.im/ml/ data-title=机器学习初体验 data-hashtags=人工智能,机器学习><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://xxy.im/ml/ data-hashtag=人工智能><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://xxy.im/ml/ data-title=机器学习初体验><i class="fab fa-hacker-news fa-fw"></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://xxy.im/ml/ data-title=机器学习初体验><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://xxy.im/ml/ data-title=机器学习初体验 data-ralateuid=xxxx><i class="fab fa-weibo fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/>人工智能</a>,&nbsp;<a href=/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/>机器学习</a></section><section><span><a href=javascript:void(0); onclick=window.history.back();>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/wsl/ class=next rel=next title=Windows下运行Linux的正确姿势>Windows下运行Linux的正确姿势<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2020 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>xxy</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw"></i></a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/css/lightgallery.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@13.0.0/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery.js@1.2.0/dist/js/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lg-zoom.js@1.2.0/dist/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/mhchem.min.js></script><script type=text/javascript src=/js/click_effect.js></script><script type=text/javascript src=/js/console_output.js></script><script type=text/javascript src=/js/live2d_config.js></script><script type=text/javascript src=/js/L2Dwidget.min.js></script><script type=text/javascript src=/js/L2Dwidget.0.min.js></script><script type=text/javascript>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{"valine":{"appId":"W1zToBSRyMI7cCOgfQ2l6KoS-gzGzoHsz","appKey":"50digIecvGQYjPDwVatNVD40","avatar":"mp","el":"#valine","emojiCDN":"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/","emojiMaps":{"100":"1f4af.png","alien":"1f47d.png","anger":"1f4a2.png","angry":"1f620.png","anguished":"1f627.png","astonished":"1f632.png","black_heart":"1f5a4.png","blue_heart":"1f499.png","blush":"1f60a.png","bomb":"1f4a3.png","boom":"1f4a5.png","broken_heart":"1f494.png","brown_heart":"1f90e.png","clown_face":"1f921.png","cold_face":"1f976.png","cold_sweat":"1f630.png","confounded":"1f616.png","confused":"1f615.png","cry":"1f622.png","crying_cat_face":"1f63f.png","cupid":"1f498.png","dash":"1f4a8.png","disappointed":"1f61e.png","disappointed_relieved":"1f625.png","dizzy":"1f4ab.png","dizzy_face":"1f635.png","drooling_face":"1f924.png","exploding_head":"1f92f.png","expressionless":"1f611.png","face_vomiting":"1f92e.png","face_with_cowboy_hat":"1f920.png","face_with_hand_over_mouth":"1f92d.png","face_with_head_bandage":"1f915.png","face_with_monocle":"1f9d0.png","face_with_raised_eyebrow":"1f928.png","face_with_rolling_eyes":"1f644.png","face_with_symbols_on_mouth":"1f92c.png","face_with_thermometer":"1f912.png","fearful":"1f628.png","flushed":"1f633.png","frowning":"1f626.png","ghost":"1f47b.png","gift_heart":"1f49d.png","green_heart":"1f49a.png","grimacing":"1f62c.png","grin":"1f601.png","grinning":"1f600.png","hankey":"1f4a9.png","hear_no_evil":"1f649.png","heart":"2764-fe0f.png","heart_decoration":"1f49f.png","heart_eyes":"1f60d.png","heart_eyes_cat":"1f63b.png","heartbeat":"1f493.png","heartpulse":"1f497.png","heavy_heart_exclamation_mark_ornament":"2763-fe0f.png","hole":"1f573-fe0f.png","hot_face":"1f975.png","hugging_face":"1f917.png","hushed":"1f62f.png","imp":"1f47f.png","innocent":"1f607.png","japanese_goblin":"1f47a.png","japanese_ogre":"1f479.png","joy":"1f602.png","joy_cat":"1f639.png","kiss":"1f48b.png","kissing":"1f617.png","kissing_cat":"1f63d.png","kissing_closed_eyes":"1f61a.png","kissing_heart":"1f618.png","kissing_smiling_eyes":"1f619.png","laughing":"1f606.png","left_speech_bubble":"1f5e8-fe0f.png","love_letter":"1f48c.png","lying_face":"1f925.png","mask":"1f637.png","money_mouth_face":"1f911.png","nauseated_face":"1f922.png","nerd_face":"1f913.png","neutral_face":"1f610.png","no_mouth":"1f636.png","open_mouth":"1f62e.png","orange_heart":"1f9e1.png","partying_face":"1f973.png","pensive":"1f614.png","persevere":"1f623.png","pleading_face":"1f97a.png","pouting_cat":"1f63e.png","purple_heart":"1f49c.png","rage":"1f621.png","relaxed":"263a-fe0f.png","relieved":"1f60c.png","revolving_hearts":"1f49e.png","right_anger_bubble":"1f5ef-fe0f.png","robot_face":"1f916.png","rolling_on_the_floor_laughing":"1f923.png","scream":"1f631.png","scream_cat":"1f640.png","see_no_evil":"1f648.png","shushing_face":"1f92b.png","skull":"1f480.png","skull_and_crossbones":"2620-fe0f.png","sleeping":"1f634.png","sleepy":"1f62a.png","slightly_frowning_face":"1f641.png","slightly_smiling_face":"1f642.png","smile":"1f604.png","smile_cat":"1f638.png","smiley":"1f603.png","smiley_cat":"1f63a.png","smiling_face_with_3_hearts":"1f970.png","smiling_imp":"1f608.png","smirk":"1f60f.png","smirk_cat":"1f63c.png","sneezing_face":"1f927.png","sob":"1f62d.png","space_invader":"1f47e.png","sparkling_heart":"1f496.png","speak_no_evil":"1f64a.png","speech_balloon":"1f4ac.png","star-struck":"1f929.png","stuck_out_tongue":"1f61b.png","stuck_out_tongue_closed_eyes":"1f61d.png","stuck_out_tongue_winking_eye":"1f61c.png","sunglasses":"1f60e.png","sweat":"1f613.png","sweat_drops":"1f4a6.png","sweat_smile":"1f605.png","thinking_face":"1f914.png","thought_balloon":"1f4ad.png","tired_face":"1f62b.png","triumph":"1f624.png","two_hearts":"1f495.png","unamused":"1f612.png","upside_down_face":"1f643.png","weary":"1f629.png","white_frowning_face":"2639-fe0f.png","white_heart":"1f90d.png","wink":"1f609.png","woozy_face":"1f974.png","worried":"1f61f.png","yawning_face":"1f971.png","yellow_heart":"1f49b.png","yum":"1f60b.png","zany_face":"1f92a.png","zipper_mouth_face":"1f910.png","zzz":"1f4a4.png"},"enableQQ":false,"highlight":true,"lang":"zh-cn","pageSize":10,"placeholder":"你的评论 ...","recordIP":true,"visitor":true}},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"algoliaAppID":"CZUS4X0ZZW","algoliaIndex":"xxy-blog","algoliaSearchKey":"0c0b0d964640607a5aa7f85874218364","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"twemoji":true};</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-V9ZE6MC9MQ',{'anonymize_ip':true});</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-V9ZE6MC9MQ" async></script></body></html>
+$$</p>
+<h2 id=数据集>数据集</h2>
+<p>完整的数据集表示为 $T = \lbrace(x_1, y_1), (x_2, y_2), (x_3, y_3), \ldots, (x_n, y_n)\rbrace$，并不是所有的数据都将用于模型训练，通常数据集会被分为三个部分：训练集、验证集、测试集</p>
+<ul>
+<li>训练集：用于训练学习模型，通常比例不低于总数据量的50%</li>
+<li>验证集：用于衡量训练过程中模型的好坏，通过不断迭代来优化模型</li>
+<li>测试集：验证集智能用于监视和辅助模型训练，不能用来代表模型的好坏，哪怕验证的准确率是100%测试集也有可能是10%的准确率，这时的模型也是不能被接受的</li>
+</ul>
+<h2 id=特征>特征</h2>
+<p>特征是机器学习和模式识别领域一个比较特有的名词，在传统机器学习算法中，由于计算性能和参数的限制，所以输入的数据维数不能太高。我们手机随随便便一张照片就有几个MB的数据量，可能会有几百万个像素，这么高维的数据量我们是不能直接输入给学习机的，因此我们需要针对特别的应用提取相对应的特征向量，特征向量的作用主要有两个：</p>
+<ol>
+<li>降低数据维度：通过提取特征向量，把原始数据的维度大大较低，简化模型的参数数量</li>
+<li>提升模型性能：一个好的特征，可以提前把原始数据最关键的部分提取出来，因此可以提高学习机的性能</li>
+</ol>
+<blockquote>
+<p>用于模型训练的每一个具体输入实例通常由特征向量表示，人工拆解特征的方法即所谓的特征工程，而深度学习算法自动将概念拆解成特征向量，免去的传统机器算法拆解特征这个步骤</p>
+</blockquote>
+<h1 id=机器学习基本分类>机器学习基本分类</h1>
+<h2 id=监督学习>监督学习</h2>
+<p>监督学习是指从带有标注的训练数据中学习预测模型的机器学习问题。标注数据表示输入输出的对应关系，预测模型对给定的输入产生相应的输出。其本质是学习输入到输出映射的统计规律。<br>
+通常分为学习和预测两个过程，学习系统利用给定的训练数据集通过学习（或者说训练）得到一个模型，预测系统对给定的测试样本集的输入得出相应的输出。</p>
+<p><strong>问题分类：</strong><br>
+输入变量 $X$ 和输出变量 $Y$有不同的类型，可以是连续的，也可以是离散的。根据输入输出的不同类型，对预测任务给予了不同的名称：</p>
+<ul>
+<li>分类问题：输出变量为有限个离散变量</li>
+<li>回归问题：输入变量与输出变量均为连续</li>
+<li>标注问题：输入变量与输出变量均为变量序列</li>
+</ul>
+<h2 id=非监督学习>非监督学习</h2>
+<p>非监督学习算法或者说无监督算法与监督学习算法的区别就在于，训练数据中只有输入是已知的，但是并没有为算法提供预期输出。需要算法自行总结数据中的规律，做出符合预期的判断。所以这类算法的理解和评估确实往往比较困难。<br>
+非监督学习算法可用于对已有数据的分析，也可以用于对未来数据的预测，与监督学习类似由学习系统和预测系统完成，其本质是学习数据中的统计规律或潜在结构。</p>
+<p><strong>非监督学习的两类算法：</strong></p>
+<ol>
+<li>聚类算法：根据数据的“相似性”将数据分为多类的过程，将数据集分成一个个的簇cluster（也可以理解为一组一组的形式）</li>
+<li>降维算法：即在保证数据所具有的代表性特性或者分布的情况下，将高维数据转化为低维数据的过程（数据的可视化和精简数据）</li>
+</ol>
+<p><strong>非监督算法实例：</strong></p>
+<ul>
+<li>一家广告平台需要根据相似的人口学特征和购买习惯将美国人口分成不同的小组，以便广告客户可以通过有关联的广告接触到他们的目标客户</li>
+<li>Airbnb 需要将自己的房屋清单分组成不同的社区，以便用户能更轻松地查阅这些清单</li>
+<li>一个数据科学团队需要降低一个大型数据集的维度的数量，以便简化建模和降低文件大小</li>
+</ul>
+<h2 id=强化学习>强化学习</h2>
+<p>强化学习指智能系统在与环境互动中学习最优行为策略的机器学习问题，本质是学习最优的序贯决策。学习过程中，系统不断的试错，已达到学习最优策略的目的。<br>
+大名鼎鼎的AlphaGo背后就有这强化学习算法的支持。</p>
+<h2 id=半监督学习和自动学习>半监督学习和自动学习</h2>
+<ul>
+<li>
+<p>半监督学习：指利用标注数据和未标注数据学习，通常少量标注数据，大量未标注数据。因为标注数据的构建往往需要大量的人工，成本较高，未标注数据的收集则不需要太多成本。旨在利用未标注数据中的信息，辅助标注数据，进行监督学习，以较低的成本达到较好的学习效果</p>
+</li>
+<li>
+<p>自动学习：指机器不断主动给出实例让教师进行标注，然后利用标注数据学习预测模型的机器学习问题。通常的监督学习使用给定的标注数据往往是随机得到的，可以看做是”被动学习“，主动学习的目标是找出对学习最有帮助的实例让教师标注，以较小的标注代价，达到更好的学习效果</p>
+</li>
+</ul>
+<blockquote>
+<p>半监督学习和主动学习更接近监督学习</p>
+</blockquote>
+<h1 id=机器学习算法三要素>机器学习算法三要素</h1>
+<h2 id=模型>模型</h2>
+<p>模型是机器学习的最终结果，即上面所说的决策函数 $y=f(x)$ 或条件概率分布 $P(Y|X)$，它被用来预测特定问题下的某个输入对应的输出结果。而所有可能的决策函数或条件概率分布的集合便称为假设空间</p>
+<h2 id=策略>策略</h2>
+<p>有了模型的假设空间，机器学习接着需要考虑按照什么样的准则学习或选择最优的模型。机器学习的目标便是从假设空间中选取最优模型。而最优的定义则由我们所选则的评价准则定义的，即我们选取的模型的策略。通常评价模型在某个样本点的好坏用损失函数 $L(Y, f(X))$ 表示，而对所有样本预测的平均好坏用风险函数 $R_{exp}(f) = E[L(Y, f(X))]$ 表示</p>
+<h2 id=算法>算法</h2>
+<p>算法指学习模型的具体计算方法。机器学习基于训练数据集，根据学校策略，从假设空间中选择最优模型，最后需要考虑用什么样的计算方法求解最优模型<br>
+这时，机器学习问题归结为最优化问题，机器学习的算法成为求解最优化问题的算法。例如，当已经知道问题模型属于权值向量参数未定的线性决策函数，那么确定一个经验风险最小化的权值向量的过程就是这次学习的算法</p>
+<blockquote>
+<p>机器学习方法之间的不同，主要来自其模型、策略、算法的不同。确定了模型、策略、算法，机器学习的方法也就确定了。这就是将其称为机器学习方法三要素的原因</p>
+</blockquote>
+<h1 id=深度学习deep-learning>深度学习(Deep Learning)</h1>
+<p>讲深度学习前先讲讲神经网络，传统神经网络也是机器学习算法中的一员。而深度学习涉及训练多层神经网络，也称为深度神经网络。</p>
+<p><strong>未完待续&mldr;</strong></p></div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>更新于 2020-01-28</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md><span>
+<a class=link-to-markdown href=/ml/index.md target=_blank rel="noopener noreferrer">阅读原始文档</a>
+</span></div>
+<div class=post-info-share>
+<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://xxy.im/ml/ data-title=机器学习初体验 data-hashtags=人工智能,机器学习><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://xxy.im/ml/ data-hashtag=人工智能><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Hacker News" data-sharer=hackernews data-url=https://xxy.im/ml/ data-title=机器学习初体验><i class="fab fa-hacker-news fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Line" data-sharer=line data-url=https://xxy.im/ml/ data-title=机器学习初体验><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/line.svg></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://xxy.im/ml/ data-title=机器学习初体验 data-ralateuid=xxxx><i class="fab fa-weibo fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/>人工智能</a>,&nbsp;<a href=/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/>机器学习</a></section>
+<section>
+<span><a href=# onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
+</section>
+</div>
+<div class=post-nav>
+<a href=/wsl/ class=next rel=next title=Windows下运行Linux的正确姿势>Windows下运行Linux的正确姿势<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id=comments><div id=valine class=comment></div><noscript>
+Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.
+</noscript></div></article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2020 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank rel="noopener noreferrer">xxy</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+</div></footer></div>
+<div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><div class=assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.10.3/dist/algoliasearch.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/@sliphua/pjax@0.13.0/dist/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-V9ZE6MC9MQ',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-V9ZE6MC9MQ" async></script></div>
+<div class=pjax-assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@13.1.0/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/js/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lg-thumbnail.js@1.2.0/dist/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lg-zoom.js@1.3.0/dist/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/mhchem.min.js></script><script type=text/javascript src=/js/click_effect.js></script><script type=text/javascript src=/js/console_output.js></script><script type=text/javascript src=/js/live2d_config.js></script><script type=text/javascript src=/js/L2Dwidget.min.js></script><script type=text/javascript src=/js/L2Dwidget.0.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{valine:{appId:"W1zToBSRyMI7cCOgfQ2l6KoS-gzGzoHsz",appKey:"50digIecvGQYjPDwVatNVD40",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-cn",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,visitor:!0}},lightGallery:{actualSize:!1,exThumbImage:"data-thumbnail",hideBarsDelay:2e3,selector:".lightgallery",speed:400,thumbContHeight:80,thumbWidth:80,thumbnail:!0},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{algoliaAppID:"CZUS4X0ZZW",algoliaIndex:"xxy-blog",algoliaSearchKey:"0c0b0d964640607a5aa7f85874218364",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"},sharerjs:!0,twemoji:!0}</script><link rel=stylesheet href=/lib/valine/valine.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery.js@1.4.0/dist/css/lightgallery.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.css></div>
+</body>
+</html>
