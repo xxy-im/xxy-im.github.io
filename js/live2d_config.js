@@ -3,11 +3,16 @@ L2Dwidget.init({
         scale: 1,
         hHeadPos: 0.5,
         vHeadPos: 0.618,
-        jsonPath: '/lib/live2d_models/live2d-widget-model-hibiki-1.0.5/package/assets/hibiki.model.json',       // xxx.model.json 的路径
+        // jsonPath: 'https://cdn.jsdelivr.net/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json',       // xxx.model.json 的路径
+        // jsonPath: 'https://cdn.jsdelivr.net/npm/live2d-widget-model-epsilon2_1@1.0.5/assets/Epsilon2.1.model.json',
+        // jsonPath: 'https://cdn.jsdelivr.net/npm/live2d-widget-model-gf@1.0.5/assets/Gantzert_Felixander.model.json',
+        // jsonPath: 'https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json',
+        // jsonPath: 'https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json',  // 黑猫
+        jsonPath: 'https://cdn.jsdelivr.net/npm/live2d-widget-model-haruto@1.0.5/assets/haruto.model.json',
     },
     display: {
         superSample: 2,     // 超采样等级
-        width: 120,         // canvas的宽度
+        width: 200,         // canvas的宽度
         height: 300,        // canvas的高度
         position: 'left',   // 显示位置：左或右
         hOffset: 0,         // canvas水平偏移
