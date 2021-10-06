@@ -19,7 +19,7 @@
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/dancinglinks/><link rel=prev href=https://xxy.im/time-complexity/><link rel=next href=https://xxy.im/samurai-sudoku/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
 <noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/animate/animate.min.css>
-<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Dancing Links (DLX 算法)学习笔记","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/dancinglinks\/"},"image":[{"@type":"ImageObject","url":"https:\/\/xxy.im\/dancinglinks\/dancinglinks.png","width":939,"height":315}],"genre":"posts","keywords":"数据结构, 算法","wordcount":4038,"url":"https:\/\/xxy.im\/dancinglinks\/","datePublished":"2021-09-22T23:15:31+08:00","dateModified":"2021-09-22T23:15:31+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Dancing Links (DLX 算法)学习笔记","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/dancinglinks\/"},"image":[{"@type":"ImageObject","url":"https:\/\/xxy.im\/dancinglinks\/dancinglinks.png","width":939,"height":315}],"genre":"posts","keywords":"数据结构, 算法","wordcount":4037,"url":"https:\/\/xxy.im\/dancinglinks\/","datePublished":"2021-09-22T23:15:31+08:00","dateModified":"2021-09-22T23:15:31+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
 <body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
 <div id=back-to-top></div>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
@@ -91,7 +91,7 @@
 <div class=post-meta-line>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=/ title=Author rel=" author" class=author>xxy</a>
 </span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/%E6%9D%82%E8%AE%B0%E9%9A%8F%E6%83%B3/><i class="far fa-folder fa-fw"></i>杂记随想</a></span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-09-22>2021-09-22</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2021-09-22>2021-09-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4038 字&nbsp;
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-09-22>2021-09-22</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2021-09-22>2021-09-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4037 字&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id=/dancinglinks/ class=leancloud_visitors data-flag-title="Dancing Links (DLX 算法)学习笔记">
 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
 </span>&nbsp;</div>
@@ -151,15 +151,15 @@ $$
 \hline
 & \mathbf{1} & \mathbf{2} & \mathbf{3} & \mathbf{4} & \mathbf{5} & \mathbf{6} & \mathbf{7}\\
 \hline
-\mathbf\textcolor{blue}{S_1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0}\\
+\mathbf{\textcolor{blue}{S_1}} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0}\\
 \hline
 \mathbf{S_2} & 1 & 0 & 0 & 1 & 0 & 0 & 1\\
 \hline
 \mathbf{S_3} & 0 & 1 & 1 & 0 & 0 & 1 & 0\\
 \hline
-\mathbf\textcolor{blue}{S_4} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0}\\
+\mathbf{\textcolor{blue}{S_4}} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0}\\
 \hline
-\mathbf\textcolor{blue}{S_5} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1}\\
+\mathbf{\textcolor{blue}{S_5}} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1}\\
 \hline
 \mathbf{S_6} & 0 & 0 & 0 & 1 & 1 & 0 & 1\\
 \hline
@@ -171,9 +171,9 @@ $$
 \hline
 & \mathbf{1} & \mathbf{2} & \mathbf{3} & \mathbf{4} & \mathbf{5} & \mathbf{6} & \mathbf{7}\\
 \hline
-\mathbf\textcolor{blue}{S_1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0}\\
-\mathbf\textcolor{blue}{S_4} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0}\\
-\mathbf\textcolor{blue}{S_5} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1}\\
+\mathbf{\textcolor{blue}{S_1}} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0}\\
+\mathbf{\textcolor{blue}{S_4}} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0}\\
+\mathbf{\textcolor{blue}{S_5}} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1}\\
 \hline
 \end{array}
 $$<br>
@@ -208,11 +208,11 @@ $$</p>
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline
-& \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf{6} & \mathbf\textcolor{blue}{7}\\
+& \mathbf{\textcolor{blue}{1}} & \mathbf{2} & \mathbf{3} & \mathbf{\textcolor{blue}{4}} & \mathbf{5} & \mathbf{6} & \mathbf{\textcolor{blue}{7}}\\
 \hline
 \mathbf{S_1} & 0 & 0 & 1 & 0 & 1 & 0 & 0\\
 \hline
-\mathbf\textcolor{blue}{S_2} & \textcolor{blue}{1} & 0 & 0 & \textcolor{blue}{1} & 0 & 0 & \textcolor{blue}{1}\\
+\mathbf{\textcolor{blue}{S_2}} & \textcolor{blue}{1} & 0 & 0 & \textcolor{blue}{1} & 0 & 0 & \textcolor{blue}{1}\\
 \hline
 \mathbf{S_3} & 0 & 1 & 1 & 0 & 0 & 1 & 0\\
 \hline
@@ -229,19 +229,19 @@ $$</p>
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline
-& \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf{6} & \mathbf\textcolor{blue}{7}\\
+& \mathbf{\textcolor{blue}{1}} & \mathbf{2} & \mathbf{3} & \mathbf{\textcolor{blue}{4}} & \mathbf{5} & \mathbf{6} & \mathbf{\textcolor{blue}{7}}\\
 \hline
 \mathbf{S_1} & \textcolor{blue}0 & 0 & 1 & \textcolor{blue}0 & 1 & 0 & \textcolor{blue}0\\
 \hline
-\mathbf\textcolor{blue}{S_2} & \textcolor{blue}{1} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}{1} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}{1}\\
+\mathbf{\textcolor{blue}{S_2}} & \textcolor{blue}{1} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}{1} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}{1}\\
 \hline
 \mathbf{S_3} & \textcolor{blue}0 & 1 & 1 & \textcolor{blue}0 & 0 & 1 & \textcolor{blue}0\\
 \hline
-\mathbf\textcolor{blue}{S_4} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0\\
+\mathbf{\textcolor{blue}{S_4}} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0\\
 \hline
-\mathbf\textcolor{blue}{S_5} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1\\
+\mathbf{\textcolor{blue}{S_5}} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1\\
 \hline
-\mathbf\textcolor{blue}{S_6} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
+\mathbf{\textcolor{blue}{S_6}} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
 \hline
 \end{array}
 $$
@@ -265,11 +265,11 @@ $$</p>
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
-& \mathbf\textcolor{blue}{2} & \mathbf\textcolor{blue}{3} & \mathbf{5} & \mathbf\textcolor{blue}{6} \\
+& \mathbf{\textcolor{blue}{2}} & \mathbf{\textcolor{blue}{3}}& \mathbf{5} & \mathbf{\textcolor{blue}{6}} \\
 \hline
 \mathbf{S_1} & 0 & 1 & 1 & 0\\
 \hline
-\mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & 0 & \textcolor{blue}1\\
+\mathbf{\textcolor{blue}{S_3}} & \textcolor{blue}1 & \textcolor{blue}1 & 0 & \textcolor{blue}1\\
 \hline
 \end{array}
 $$<br>
@@ -278,11 +278,11 @@ $$<br>
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
-& \mathbf\textcolor{blue}{2} & \mathbf\textcolor{blue}{3} & \mathbf{5} & \mathbf\textcolor{blue}{6} \\
+& \mathbf{\textcolor{blue}{2}} & \mathbf{\textcolor{blue}{3}} & \mathbf{5} & \mathbf{\textcolor{blue}{6}} \\
 \hline
-\mathbf\textcolor{blue}{S_1} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\
+\mathbf{\textcolor{blue}{S_1}} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\
 \hline
-\mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
+\mathbf{\textcolor{blue}{S_3}} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
 \hline
 \end{array}
 $$<br>
@@ -312,9 +312,9 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
-& \mathbf{2} & \mathbf\textcolor{blue}{3} & \mathbf\textcolor{blue}{5} & \mathbf{6} \\
+& \mathbf{2} & \mathbf{\textcolor{blue}{3}} & \mathbf{\textcolor{blue}{5}} & \mathbf{6} \\
 \hline
-\mathbf\textcolor{blue}{S_1} & 0 & \textcolor{blue}1 & \textcolor{blue}1 & 0\\
+\mathbf{\textcolor{blue}{S_1}} & 0 & \textcolor{blue}1 & \textcolor{blue}1 & 0\\
 \hline
 \mathbf{S_3} & 1 & 1 & 0 & 1\\
 \hline
@@ -325,11 +325,11 @@ $$<br>
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
-& \mathbf{2} & \mathbf\textcolor{blue}{3} & \mathbf\textcolor{blue}{5} & \mathbf{6} \\
+& \mathbf{2} & \mathbf{\textcolor{blue}{3}} & \mathbf{\textcolor{blue}{5}} & \mathbf{6} \\
 \hline
-\mathbf\textcolor{blue}{S_1} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\
+\mathbf{\textcolor{blue}{S_1}} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\
 \hline
-\mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
+\mathbf{\textcolor{blue}{S_3}} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
 \hline
 \end{array}
 $$<br>
@@ -368,7 +368,7 @@ $$</p>
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline
-& \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf\textcolor{blue}{6} & \mathbf{7}\\
+& \mathbf{\textcolor{blue}{1}} & \mathbf{2} & \mathbf{3} & \mathbf{\textcolor{blue}{4}} & \mathbf{5} & \mathbf{\textcolor{blue}{6}} & \mathbf{7}\\
 \hline
 \mathbf{S_1} & 0 & 0 & 1 & 0 & 1 & 0 & 0\\
 \hline
@@ -376,7 +376,7 @@ $$
 \hline
 \mathbf{S_3} & 0 & 1 & 1 & 0 & 0 & 1 & 0\\
 \hline
-\mathbf\textcolor{blue}{S_4} & \textcolor{blue}1 & 0 & 0 & \textcolor{blue}1 & 0 & \textcolor{blue}1 & 0\\
+\mathbf{\textcolor{blue}{S_4}} & \textcolor{blue}1 & 0 & 0 & \textcolor{blue}1 & 0 & \textcolor{blue}1 & 0\\
 \hline
 \mathbf{S_5} & 0 & 1 & 0 & 0 & 0 & 0 & 1\\
 \hline
@@ -389,19 +389,19 @@ $$</p>
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline
-& \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf\textcolor{blue}{6} & \mathbf{7}\\
+& \mathbf{\textcolor{blue}{1}} & \mathbf{2} & \mathbf{3} & \mathbf{\textcolor{blue}{4}} & \mathbf{5} & \mathbf{\textcolor{blue}{6}} & \mathbf{7}\\
 \hline
 \mathbf{S_1} & \textcolor{blue}0 & 0 & 1 & \textcolor{blue}0 & 1 & 0 & 0\\
 \hline
-\mathbf\textcolor{blue}{S_2} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1\\
+\mathbf{\textcolor{blue}{S_2}} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1\\
 \hline
 \mathbf{S_3} & \textcolor{blue}0 & 1 & 1 & \textcolor{blue}0 & 0 & 1 & 0\\
 \hline
-\mathbf\textcolor{blue}{S_4} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0\\
+\mathbf{\textcolor{blue}{S_4}} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0\\
 \hline
 \mathbf{S_5} & \textcolor{blue}0 & 1 & 0 & \textcolor{blue}0 & 0 & 0 & 1\\
 \hline
-\mathbf\textcolor{blue}{S_6} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
+\mathbf{\textcolor{blue}{S_6}} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\
 \hline
 \end{array}
 $$</p>
@@ -440,11 +440,11 @@ $$</p>
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
-& \mathbf{2} & \mathbf\textcolor{blue}{3} & \mathbf\textcolor{blue}{5} & \mathbf{7}\\
+& \mathbf{2} & \mathbf{\textcolor{blue}{3}} & \mathbf{\textcolor{blue}{5}} & \mathbf{7}\\
 \hline
-\mathbf\textcolor{blue}{S_1} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\
+\mathbf{\textcolor{blue}{S_1}} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\
 \hline
-\mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0\\
+\mathbf{\textcolor{blue}{S_3}} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0\\
 \hline
 \mathbf{S_5} & 1 & \textcolor{blue}0 & \textcolor{blue}0 & 1\\
 \hline

@@ -50,15 +50,15 @@ $$
 \hline 
   & \mathbf{1} & \mathbf{2} & \mathbf{3} & \mathbf{4} & \mathbf{5} & \mathbf{6} & \mathbf{7}\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0}\\\ 
+\mathbf{\textcolor{blue}{S_1}} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0}\\\ 
 \hline 
 \mathbf{S_2} & 1 & 0 & 0 & 1 & 0 & 0 & 1\\\ 
 \hline 
 \mathbf{S_3} & 0 & 1 & 1 & 0 & 0 & 1 & 0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_4} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0}\\\ 
+\mathbf{\textcolor{blue}{S_4}} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0}\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_5} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1}\\\ 
+\mathbf{\textcolor{blue}{S_5}} & \textcolor{blue}{0} & \textcolor{blue}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{1}\\\ 
 \hline 
 \mathbf{S_6} & 0 & 0 & 0 & 1 & 1 & 0 & 1\\\ 
 \hline 
@@ -70,9 +70,9 @@ $$
 \hline 
   & \mathbf{1} & \mathbf{2} & \mathbf{3} & \mathbf{4} & \mathbf{5} & \mathbf{6} & \mathbf{7}\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \\fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0}\\\ 
-\mathbf\textcolor{blue}{S_4} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0}\\\ 
-\mathbf\textcolor{blue}{S_5} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1}\\\ 
+\mathbf{\textcolor{blue}{S_1}} & \textcolor{blue}{0} & \textcolor{blue}{0} & \\fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0}\\\ 
+\mathbf{\textcolor{blue}{S_4}} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0}\\\ 
+\mathbf{\textcolor{blue}{S_5}} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \textcolor{blue}{0} & \fcolorbox{red}{aqua}{1}\\\ 
 \hline 
 \end{array}
 $$  
@@ -107,11 +107,11 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline 
-  & \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf{6} & \mathbf\textcolor{blue}{7}\\\ 
+  & \mathbf{\textcolor{blue}{1}} & \mathbf{2} & \mathbf{3} & \mathbf{\textcolor{blue}{4}} & \mathbf{5} & \mathbf{6} & \mathbf{\textcolor{blue}{7}}\\\ 
 \hline 
 \mathbf{S_1} & 0 & 0 & 1 & 0 & 1 & 0 & 0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_2} & \textcolor{blue}{1} & 0 & 0 & \textcolor{blue}{1} & 0 & 0 & \textcolor{blue}{1}\\\ 
+\mathbf{\textcolor{blue}{S_2}} & \textcolor{blue}{1} & 0 & 0 & \textcolor{blue}{1} & 0 & 0 & \textcolor{blue}{1}\\\ 
 \hline 
 \mathbf{S_3} & 0 & 1 & 1 & 0 & 0 & 1 & 0\\\ 
 \hline 
@@ -129,19 +129,19 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline 
-  & \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf{6} & \mathbf\textcolor{blue}{7}\\\ 
+  & \mathbf{\textcolor{blue}{1}} & \mathbf{2} & \mathbf{3} & \mathbf{\textcolor{blue}{4}} & \mathbf{5} & \mathbf{6} & \mathbf{\textcolor{blue}{7}}\\\ 
 \hline 
 \mathbf{S_1} & \textcolor{blue}0 & 0 & 1 & \textcolor{blue}0 & 1 & 0 & \textcolor{blue}0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_2} & \textcolor{blue}{1} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}{1} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}{1}\\\ 
+\mathbf{\textcolor{blue}{S_2}} & \textcolor{blue}{1} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}{1} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}{1}\\\ 
 \hline 
 \mathbf{S_3} & \textcolor{blue}0 & 1 & 1 & \textcolor{blue}0 & 0 & 1 & \textcolor{blue}0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_4} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0\\\ 
+\mathbf{\textcolor{blue}{S_4}} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_5} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
+\mathbf{\textcolor{blue}{S_5}} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_6} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
+\mathbf{\textcolor{blue}{S_6}} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
 \hline 
 \end{array}
 $$
@@ -167,11 +167,11 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline 
- & \mathbf\textcolor{blue}{2} & \mathbf\textcolor{blue}{3} & \mathbf{5} & \mathbf\textcolor{blue}{6} \\\ 
+ & \mathbf{\textcolor{blue}{2}} & \mathbf{\textcolor{blue}{3}}& \mathbf{5} & \mathbf{\textcolor{blue}{6}} \\\ 
 \hline 
 \mathbf{S_1} & 0 & 1 & 1 & 0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & 0 & \textcolor{blue}1\\\ 
+\mathbf{\textcolor{blue}{S_3}} & \textcolor{blue}1 & \textcolor{blue}1 & 0 & \textcolor{blue}1\\\ 
 \hline 
 \end{array}
 $$  
@@ -180,11 +180,11 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline 
- & \mathbf\textcolor{blue}{2} & \mathbf\textcolor{blue}{3} & \mathbf{5} & \mathbf\textcolor{blue}{6} \\\ 
+ & \mathbf{\textcolor{blue}{2}} & \mathbf{\textcolor{blue}{3}} & \mathbf{5} & \mathbf{\textcolor{blue}{6}} \\\ 
 \hline 
-\mathbf\textcolor{blue}{S_1} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\\ 
+\mathbf{\textcolor{blue}{S_1}} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
+\mathbf{\textcolor{blue}{S_3}} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
 \hline 
 \end{array}
 $$  
@@ -215,9 +215,9 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline 
- & \mathbf{2} & \mathbf\textcolor{blue}{3} & \mathbf\textcolor{blue}{5} & \mathbf{6} \\\ 
+ & \mathbf{2} & \mathbf{\textcolor{blue}{3}} & \mathbf{\textcolor{blue}{5}} & \mathbf{6} \\\ 
 \hline 
-\mathbf\textcolor{blue}{S_1} & 0 & \textcolor{blue}1 & \textcolor{blue}1 & 0\\\ 
+\mathbf{\textcolor{blue}{S_1}} & 0 & \textcolor{blue}1 & \textcolor{blue}1 & 0\\\ 
 \hline 
 \mathbf{S_3} & 1 & 1 & 0 & 1\\\ 
 \hline 
@@ -228,11 +228,11 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline 
- & \mathbf{2} & \mathbf\textcolor{blue}{3} & \mathbf\textcolor{blue}{5} & \mathbf{6} \\\ 
+ & \mathbf{2} & \mathbf{\textcolor{blue}{3}} & \mathbf{\textcolor{blue}{5}} & \mathbf{6} \\\ 
 \hline 
-\mathbf\textcolor{blue}{S_1} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\\ 
+\mathbf{\textcolor{blue}{S_1}} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
+\mathbf{\textcolor{blue}{S_3}} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
 \hline 
 \end{array}
 $$  
@@ -272,7 +272,7 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline 
-  & \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf\textcolor{blue}{6} & \mathbf{7}\\\ 
+  & \mathbf{\textcolor{blue}{1}} & \mathbf{2} & \mathbf{3} & \mathbf{\textcolor{blue}{4}} & \mathbf{5} & \mathbf{\textcolor{blue}{6}} & \mathbf{7}\\\ 
 \hline 
 \mathbf{S_1} & 0 & 0 & 1 & 0 & 1 & 0 & 0\\\ 
 \hline 
@@ -280,7 +280,7 @@ $$
 \hline 
 \mathbf{S_3} & 0 & 1 & 1 & 0 & 0 & 1 & 0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_4} & \textcolor{blue}1 & 0 & 0 & \textcolor{blue}1 & 0 & \textcolor{blue}1 & 0\\\ 
+\mathbf{\textcolor{blue}{S_4}} & \textcolor{blue}1 & 0 & 0 & \textcolor{blue}1 & 0 & \textcolor{blue}1 & 0\\\ 
 \hline 
 \mathbf{S_5} & 0 & 1 & 0 & 0 & 0 & 0 & 1\\\ 
 \hline 
@@ -294,19 +294,19 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|}
 \hline 
-  & \mathbf\textcolor{blue}{1} & \mathbf{2} & \mathbf{3} & \mathbf\textcolor{blue}{4} & \mathbf{5} & \mathbf\textcolor{blue}{6} & \mathbf{7}\\\ 
+  & \mathbf{\textcolor{blue}{1}} & \mathbf{2} & \mathbf{3} & \mathbf{\textcolor{blue}{4}} & \mathbf{5} & \mathbf{\textcolor{blue}{6}} & \mathbf{7}\\\ 
 \hline 
 \mathbf{S_1} & \textcolor{blue}0 & 0 & 1 & \textcolor{blue}0 & 1 & 0 & 0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_2} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
+\mathbf{\textcolor{blue}{S_2}} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
 \hline 
 \mathbf{S_3} & \textcolor{blue}0 & 1 & 1 & \textcolor{blue}0 & 0 & 1 & 0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_4} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0\\\ 
+\mathbf{\textcolor{blue}{S_4}} & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}0\\\ 
 \hline 
 \mathbf{S_5} & \textcolor{blue}0 & 1 & 0 & \textcolor{blue}0 & 0 & 0 & 1\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_6} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
+\mathbf{\textcolor{blue}{S_6}} & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}1\\\ 
 \hline 
 \end{array}
 $$ 
@@ -348,11 +348,11 @@ $$
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline 
-  & \mathbf{2} & \mathbf\textcolor{blue}{3} & \mathbf\textcolor{blue}{5} & \mathbf{7}\\\ 
+  & \mathbf{2} & \mathbf{\textcolor{blue}{3}} & \mathbf{\textcolor{blue}{5}} & \mathbf{7}\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_1} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\\ 
+\mathbf{\textcolor{blue}{S_1}} & \textcolor{blue}0 & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0\\\ 
 \hline 
-\mathbf\textcolor{blue}{S_3} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0\\\ 
+\mathbf{\textcolor{blue}{S_3}} & \textcolor{blue}1 & \textcolor{blue}1 & \textcolor{blue}0 & \textcolor{blue}0\\\ 
 \hline 
 \mathbf{S_5} & 1 & \textcolor{blue}0 & \textcolor{blue}0 & 1\\\ 
 \hline 
