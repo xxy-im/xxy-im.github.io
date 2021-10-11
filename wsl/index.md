@@ -7,12 +7,12 @@
 
 ## 启动WSL功能
 首先在控制面板的打开或启动Windows程序中将Linux子系统功能勾选上，点确认后会提示重启计算机
-![点击放大](https://xxy.im/storage/images/control-panel.png "控制面板->程序->启动或关闭Windows功能")  
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/control-panel.png "控制面板->程序->启动或关闭Windows功能")  
 
 
 ## 安装Linux子系统
 这里我选择了一个最方便直接的方法，在Windows商店下载安装，直接在商店搜索WSL，Ubuntu，或者Linux就能找到，比如我安装的是Ubuntu 20.04
-![点击放大](https://xxy.im/storage/images/ubuntu-wsl.png "安装Ubuntu子系统")
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ubuntu-wsl.png "安装Ubuntu子系统")
 
 安装完成打开后输入用户名密码就可以使用了。  
 现在最新的WSL2是可以支持GPU的，所有一些跑Deep的小伙伴可以试试，可以在Windows命令行中输入如下命令查看当前的WSL版本，因为我不需要用到子系统的GPU，所有我没有升级到WSL2，有需要的可以自行找下教程

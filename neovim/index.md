@@ -26,7 +26,7 @@ sudo ln -s /usr/bin/nvim /usr/bin/vi
 sudo ln -s /usr/bin/nvim /usr/bin/vim
 ```
 这时候再输入vi/vim就可以打开nvim了
-![点击放大](https://xxy.im/storage/images/neovim.png "Neovim")  
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/neovim.png "Neovim")  
 
 ## 安装SpaceVim
 [SpaceVim](https://spacevim.org/cn/)是一个开源的模块化配置集合，可以通过它很方便的打造出适用于各种开发场景的IDE。
@@ -34,9 +34,9 @@ sudo ln -s /usr/bin/nvim /usr/bin/vim
 ```bash
 curl -sLf https://spacevim.org/cn/install.sh | bash
 ```
-![点击放大](https://xxy.im/storage/images/install-spacevim-1.png "安装SpaceVim")  
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/install-spacevim-1.png "安装SpaceVim")  
 
-![点击放大](https://xxy.im/storage/images/install-spacevim-2.png "字体安装报错")  
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/install-spacevim-2.png "字体安装报错")  
 提示安装完成，打开vim却没有加载出SpaceVim，不知道哪里出现问题，往上翻也只看到几个字体安装的报错，感觉应该是和WSL环境的配置文件有关系，但还是先在网上找了那几个字体报错的解决方法
 ```bash
 # 使mkfontscale和mkfontdir命令正常运行
@@ -46,10 +46,10 @@ sudo apt-get install fontconfig
 ```
 然后再安装试试  
 结果还真是字体的问题，重装下就好了...
-![点击放大](https://xxy.im/storage/images/spacevim.png "SpaceVim")  
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/spacevim.png "SpaceVim")  
 
 Normal模式下```:SPUpdate``` 更新所有插件，```:SPUpdate SpaceVim```可以更新自身
-![点击放大](https://xxy.im/storage/images/SUpdate.png "更新所有插件")  
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/SUpdate.png "更新所有插件")  
 再次打开vim又 vimproc's DLL报错，直接```:VimProcInstall```  
 或者make一下 
 ```bash
@@ -75,7 +75,7 @@ sudo fc-cache -fv # 刷新系统字体缓存
 在Windows下安装完[SourceCodePro Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/releases)字体后需要在**Windows Terminal**配置文件WSL配置下加上  
 ```"fontFace": "SauceCodePro Nerd Font"```  
 注意第一个f小写，然后再重启终端就能看到图标都出来了
-![点击放大](https://xxy.im/storage/images/nerd-font.png "更新字体后") 
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/nerd-font.png "更新字体后") 
 
 
 ## 一些简单的配置
@@ -91,7 +91,7 @@ relativenumber = false
 ``` 
 colorscheme = "SpaceVim"
 ```
-![点击放大](https://xxy.im/storage/images/colorscheme.png "SpaceVim主题")  
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/colorscheme.png "SpaceVim主题")  
 ### C++
 打开vim，```空格 + f + v + d``` (一个个按)，快捷键打开配置文件，空格(space)为自定义快捷键的前缀，按下空格后可以看到所有的自定义快捷键
 按照[官方配置](https://spacevim.org/cn/use-vim-as-a-c-cpp-ide/)把需要的加上去就可以了  

@@ -39,12 +39,12 @@
 # 思考
 ## 探索一：
 第一眼看到题目的时候一边想着这什么鬼一边又觉得这题目还挺新颖的。首先想到的是从运行规模之间的差值和运行时间的比值这方面下手。感觉这也是很多同学一开始的思路，然后做着做着发现这样的做法好像不需要用到k组数据呀，不是两组就行了吗。不管了，先做下去吧。代码写完，用实例测一遍，emmmmmm... 没过，不管先去页面上run一次。好家伙，一组数据都没通过。
-![点击放大](https://xxy.im/storage/images/run_complexity2.png "提交运行")
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/run_complexity2.png "提交运行")
 
 ## 探索二：
 我真的太菜了，实在不行我做下假输出骗个分得了，老师应该不会查代码吧。说干就干......   
 What the FXXK!  
-![点击放大](https://xxy.im/storage/images/run_complexity1.png "假输出测试")
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/run_complexity1.png "假输出测试")
 玩我呢，123456都试过了，就这就这？记得班群里有个同学过了一组数据，问他要了下他的代码，然后把他的输出分别写死123456，一样全都过不了。好吧，是后台有什么判断机制？
 
 ## 探索三：
@@ -112,7 +112,7 @@ int GetComplexity(map<int, int> &nt)
 }
 ```  
 为了方便实现探索一中的算法，所以用的```std::map```存储```(n, t)```，因为它能根据键值自动排序。后面也没有改过来，其实只用两个```std::vector```就可以了。 处理完后，我再提交，竟然就过了...就过了...过了...了..., 所以前面显示的未通过到底是什么? 是程序中断了吗? 还是什么神秘的控制机制。
-![点击放大](https://xxy.im/storage/images/ac.png "喜大普奔")
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ac.png "喜大普奔")
 
 # 完整代码
 ```c++

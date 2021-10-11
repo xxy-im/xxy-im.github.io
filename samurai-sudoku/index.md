@@ -70,7 +70,7 @@ public:
    
 ## 武士数独精确覆盖问题
 武士数独有五个数独组成，需要 $21 \times 21$ 大小的矩阵存储数据，即 $441$ 个元素。给五个数独编号
-![点击放大](https://xxy.im/storage/images/sudoku1.png "武士数独编号")
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/sudoku1.png "武士数独编号")
 ## 约束定义（索引从0开始）
 - **定义441列**  
 第0列：表示位置(0, 0)填了一个数字  
@@ -260,10 +260,10 @@ bool DancingLinks::DLX()
 
 # 结果输出
 **数独一：**  
-![点击放大](https://xxy.im/storage/images/ss1.png "武士数独1")
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ss1.png "武士数独1")
   
 **数独二：**  
-![点击放大](https://xxy.im/storage/images/ss2.png "武士数独2")
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ss2.png "武士数独2")
 
 # 完整代码
 https://github.com/xxy-im/SudokuNinja （代码持续优化中）  

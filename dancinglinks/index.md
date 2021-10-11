@@ -377,7 +377,7 @@ $$
 > 上述回溯求解过程存在大量的缓存矩阵和回溯矩阵的过程。而简单DFS回溯在这些过程中需要不断的删除又创建矩阵，当递归深度过深时还有可能栈溢出。于是算法大师高德纳提出了DLX(Dancing Links X)算法，即使用 Dancing Links 这一数据结构实现X算法。使得整个回溯算法过程中只需要使用一个矩阵链。算法执行过程中，指针在数据之间跳跃着，就像精巧设计的舞蹈一样，故称之为 **Dancing Links (舞蹈链)**。
   
 舞蹈链的核心是双向链表实现的，先来看看双向链表的删除和插入操作。  
-![点击放大](https://xxy.im/storage/images/doublelinks.png "双向链表") 
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/doublelinks.png "双向链表") 
 > 双向链表中任一元素都能很容易得到它左右两边（Left和Right指针）的元素。  
 
 **删除Col2：**  
@@ -439,7 +439,7 @@ public:
 ```  
 根据前面的精确覆盖问题构建Dancing Links结构。  
 
-![点击放大](https://xxy.im/storage/images/dl-struct.png "Dancing Links结构图") 
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dl-struct.png "Dancing Links结构图") 
 
 ## DLX算法求解过程
 首先判断 ```Head->Right == Head```，若为真，求解完成，输出结果。否则算法继续执行。执行过程与前面所述的X算法类似，因此不再赘述。  
