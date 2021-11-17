@@ -75,7 +75,7 @@ sudo fc-cache -fv # 刷新系统字体缓存
 在Windows下安装完[SourceCodePro Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/releases)字体后需要在**Windows Terminal**配置文件WSL配置下加上  
 ```"fontFace": "SauceCodePro Nerd Font"```  
 注意第一个f小写，然后再重启终端就能看到图标都出来了
-![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/nerd-font.png "更新字体后") 
+![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/nerd-font.png "更新字体后") 
 
 
 ## 一些简单的配置
