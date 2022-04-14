@@ -1,0 +1,287 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title class=pjax-title>[C++技法] PImpl - xxy's blog</title><meta name=Description content="xxy's blog"><meta property="og:title" content="[C++技法] PImpl">
+<meta property="og:description" content="&ldquo;Pointer to implementation&rdquo;, 指向实现的指针。将一个类的实现细节从其对象中移除，也是一种解耦方法。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xxy.im/pimpl/"><meta property="og:image" content="https://xxy.im/logo.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-04-14T00:34:11+08:00">
+<meta property="article:modified_time" content="2022-04-14T00:34:11+08:00"><meta property="og:site_name" content="xxy's blog">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://xxy.im/logo.png">
+<meta name=twitter:title content="[C++技法] PImpl">
+<meta name=twitter:description content="&ldquo;Pointer to implementation&rdquo;, 指向实现的指针。将一个类的实现细节从其对象中移除，也是一种解耦方法。">
+<meta name=application-name content="xxy != x²y">
+<meta name=apple-mobile-web-app-title content="xxy != x²y">
+<meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/pimpl/><link rel=prev href=https://xxy.im/samurai-sudoku/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[C++技法] PImpl","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/pimpl\/"},"genre":"posts","keywords":"C\u002b\u002b, 编程技巧","wordcount":1022,"url":"https:\/\/xxy.im\/pimpl\/","datePublished":"2022-04-14T00:34:11+08:00","dateModified":"2022-04-14T00:34:11+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
+<div id=back-to-top></div>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="xxy's blog"><span class=header-title-pre><i class="fa fa-fighter-jet"></i></span><span id=id-1 class=typeit></span></a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> 所有文章 </a><a class=menu-item href=/tags/> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-desktop title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-desktop title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select>
+</a></div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="xxy's blog"><span class=header-title-pre><i class="fa fa-fighter-jet"></i></span><span id=id-2 class=typeit></span></a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-mobile title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-mobile title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>
+取消
+</a>
+</div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-mobile title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>目录</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[C++技法] PImpl</h1><div class=post-meta>
+<div class=post-meta-line>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=/ title=Author rel=" author" class=author>xxy</a>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/c++/><i class="far fa-folder fa-fw"></i>C++</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-04-14>2022-04-14</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-04-14>2022-04-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1022 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id=/pimpl/ class=leancloud_visitors data-flag-title="[C++技法] PImpl">
+<i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count id=twikoo_visitors></span>&nbsp;次阅读
+</span>&nbsp;<span id=/pimpl/ class=comment_count data-flag-title="[C++技法] PImpl">
+<i class="far fa-comments fa-fw"></i>&nbsp;<span class=twikoo-comment-count id=twikoo-comment-count></span>&nbsp;条评论
+</span>&nbsp;</div>
+</div><div class=featured-image><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pimpl.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pimpl.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pimpl.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pimpl.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pimpl.png title=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pimpl.png height=auto width=auto></div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#stdunique_ptr>std::unique_ptr</a></li>
+<li><a href=#完善实现>完善实现</a></li>
+<li><a href=#其他>其他</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>&ldquo;Pointer to implementation&rdquo;, 指向实现的指针。将一个类的实现细节从其对象中移除，也是一种解耦方法。</p>
+<h1 id=pimpl>PImpl</h1>
+<blockquote>
+<p>使用私有的成员指针指向类的成员，是一种实现数据隐藏，最小化耦合和分离接口的现代C++编程技巧。</p>
+</blockquote>
+<p>先看一段官方的PImpl代码</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=c1>// interface (widget.h)
+</span><span class=c1></span><span class=k>class</span> <span class=nc>widget</span>
+<span class=p>{</span>
+    <span class=c1>// public members
+</span><span class=c1></span><span class=k>private</span><span class=o>:</span>
+    <span class=k>struct</span> <span class=nc>impl</span><span class=p>;</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>unique_ptr</span><span class=o>&lt;</span><span class=n>impl</span><span class=o>&gt;</span> <span class=n>pImpl</span><span class=p>;</span>
+<span class=p>};</span>
+ 
+<span class=c1>// implementation (widget.cpp)
+</span><span class=c1></span><span class=k>struct</span> <span class=nc>widget</span><span class=o>::</span><span class=n>impl</span>
+<span class=p>{</span>
+    <span class=c1>// implementation details
+</span><span class=c1></span><span class=p>};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到<code>widget</code>类中使用了一个<code>unique</code>指针指向<code>impl</code>这个内部类。这样的好处主要有:</p>
+<ol>
+<li>ABI(Application Binary Interface, 二进制接口) 稳定，即不会打破二进制兼容。</li>
+<li>降低编译依赖项，缩短编译时间。更改成员及实现时只需重新编译成员的源文件，而不需要重新编译所有使用了这个类的用户。</li>
+<li>接口与实现分离，提高接口的稳定性。</li>
+<li>降低耦合性。</li>
+<li>将实现隐藏，头文件变得整洁。</li>
+</ol>
+<blockquote>
+<p>主要缺点是性能会受点影响，因为成员都是用指针间接访问的。</p>
+</blockquote>
+<h2 id=stdunique_ptr>std::unique_ptr</h2>
+<p>可以看到上面的代码使用的<code>std::unique_ptr</code>这个智能指针。这是C++11中基于RAII(Resource acquisition is initialization)思想引入的一个智能指针。例如，定义指针p <code>std::unique_ptr&lt;T> p = std::make_unique&lt;T>()</code>，这时就不需要手动管理p指向的内存了，因为<code>std::unique_ptr</code>的析构函数会自动调用<code>delete p</code>。</p>
+<p>需要注意的是 <code>std::unique_ptr</code>是禁止拷贝的，所以<code>widget</code>也无法使用拷贝构造函数，但可以使用移动构造函数。</p>
+<h2 id=完善实现>完善实现</h2>
+<p>因为类的定义中还有一个未实现的内部类，所以<code>widget</code>并不是一个完整的类，因此编译器不能为其自动生成构造和析构函数。此时需要在<code>widget.cpp</code>中显示的定义它的构造和析构函数，即使是使用<code>=default</code>也必须放在<code>cpp</code>中。</p>
+<p>PImpl的完整代码：
+引用自:<a href=https://en.cppreference.com/w/cpp/language/pimpl target=_blank rel="noopener noreffer">en.cppreference.com/w/cpp/language/pimpl</a></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=c1>// interface (widget.hpp)
+</span><span class=c1></span><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span><span class=cp>#include</span> <span class=cpf>&lt;memory&gt;</span><span class=cp>
+</span><span class=cp></span>
+<span class=k>class</span> <span class=nc>widget</span>
+<span class=p>{</span>
+    <span class=k>class</span> <span class=nc>impl</span><span class=p>;</span>
+    <span class=n>std</span><span class=o>::</span><span class=n>unique_ptr</span><span class=o>&lt;</span><span class=n>impl</span><span class=o>&gt;</span> <span class=n>pImpl</span><span class=p>;</span>
+<span class=k>public</span><span class=o>:</span>
+    <span class=n>widget</span><span class=p>();</span>
+    <span class=k>explicit</span> <span class=nf>widget</span><span class=p>(</span><span class=kt>int</span><span class=p>);</span>
+    <span class=o>~</span><span class=n>widget</span><span class=p>();</span>
+    <span class=n>widget</span><span class=p>(</span><span class=n>widget</span><span class=o>&amp;&amp;</span><span class=p>);</span>   <span class=c1>// 移动构造
+</span><span class=c1></span>    <span class=n>widget</span><span class=p>(</span><span class=k>const</span> <span class=n>widget</span><span class=o>&amp;</span><span class=p>)</span> <span class=o>=</span> <span class=k>delete</span><span class=p>;</span>
+    <span class=n>widget</span><span class=o>&amp;</span> <span class=k>operator</span><span class=o>=</span><span class=p>(</span><span class=n>widget</span><span class=o>&amp;&amp;</span><span class=p>);</span>    <span class=c1>// 移动赋值
+</span><span class=c1></span>    <span class=n>widget</span><span class=o>&amp;</span> <span class=k>operator</span><span class=o>=</span><span class=p>(</span><span class=k>const</span> <span class=n>widget</span><span class=o>&amp;</span><span class=p>)</span> <span class=o>=</span> <span class=k>delete</span><span class=p>;</span>
+<span class=p>};</span>
+ 
+<span class=c1>// ---------------------------
+</span><span class=c1>// implementation (widget.cpp)
+</span><span class=c1>// #include &#34;widget.hpp&#34;
+</span><span class=c1></span> 
+<span class=k>class</span> <span class=nc>widget</span><span class=o>::</span><span class=n>impl</span>
+<span class=p>{</span>
+    <span class=kt>int</span> <span class=n>n</span><span class=p>;</span> <span class=c1>// private data
+</span><span class=c1></span><span class=k>public</span><span class=o>:</span> 
+    <span class=n>impl</span><span class=p>(</span><span class=kt>int</span> <span class=n>n</span><span class=p>)</span> <span class=o>:</span> <span class=n>n</span><span class=p>(</span><span class=n>n</span><span class=p>)</span> <span class=p>{}</span>
+<span class=p>};</span>
+ 
+<span class=kt>void</span> <span class=n>widget</span><span class=o>::</span><span class=n>draw</span><span class=p>()</span> <span class=k>const</span> <span class=p>{</span> <span class=n>pImpl</span><span class=o>-&gt;</span><span class=n>draw</span><span class=p>(</span><span class=o>*</span><span class=k>this</span><span class=p>);</span> <span class=p>}</span>
+<span class=kt>void</span> <span class=n>widget</span><span class=o>::</span><span class=n>draw</span><span class=p>()</span> <span class=p>{</span> <span class=n>pImpl</span><span class=o>-&gt;</span><span class=n>draw</span><span class=p>(</span><span class=o>*</span><span class=k>this</span><span class=p>);</span> <span class=p>}</span>
+<span class=n>widget</span><span class=o>::</span><span class=n>widget</span><span class=p>()</span> <span class=o>=</span> <span class=k>default</span><span class=p>;</span>
+<span class=n>widget</span><span class=o>::</span><span class=n>widget</span><span class=p>(</span><span class=kt>int</span> <span class=n>n</span><span class=p>)</span> <span class=o>:</span> <span class=n>pImpl</span><span class=p>{</span><span class=n>std</span><span class=o>::</span><span class=n>make_unique</span><span class=o>&lt;</span><span class=n>impl</span><span class=o>&gt;</span><span class=p>(</span><span class=n>n</span><span class=p>)}</span> <span class=p>{}</span>
+<span class=n>widget</span><span class=o>::</span><span class=n>widget</span><span class=p>(</span><span class=n>widget</span><span class=o>&amp;&amp;</span><span class=p>)</span> <span class=o>=</span> <span class=k>default</span><span class=p>;</span>
+<span class=n>widget</span><span class=o>::~</span><span class=n>widget</span><span class=p>()</span> <span class=o>=</span> <span class=k>default</span><span class=p>;</span>
+<span class=n>widget</span><span class=o>&amp;</span> <span class=n>widget</span><span class=o>::</span><span class=k>operator</span><span class=o>=</span><span class=p>(</span><span class=n>widget</span><span class=o>&amp;&amp;</span><span class=p>)</span> <span class=o>=</span> <span class=k>default</span><span class=p>;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=其他>其他</h2>
+<p>一般来说，工厂模式也能消除接口实现的编译时依赖，但工厂模式不是ABI稳定的，因为需要修改虚函数表。</p>
+<p>PImpl类是对移动友好的；把大型的类重构为可以移动的PImpl，可以提升容器进行操作的算法性能，但也具有额外的运行时开销，因为任何在被移动对象上允许使用并需要访问私有实现的公开成员函数都必须进行空指针检查。</p></div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>更新于 2022-04-14</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://xxy.im/pimpl/ data-title="[C++技法] PImpl" data-hashtags=C++,编程技巧><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://xxy.im/pimpl/ data-hashtag=C++><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Line" data-sharer=line data-url=https://xxy.im/pimpl/ data-title="[C++技法] PImpl"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/line.svg></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://xxy.im/pimpl/ data-title="[C++技法] PImpl" data-image=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pimpl.png><i class="fab fa-weibo fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Myspace" data-sharer=myspace data-url=https://xxy.im/pimpl/ data-title="[C++技法] PImpl" data-description><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/myspace.svg></i></a><a href=# onclick=return!1 title="分享到 Blogger" data-sharer=blogger data-url=https://xxy.im/pimpl/ data-title="[C++技法] PImpl" data-description><i class="fab fa-blogger fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Evernote" data-sharer=evernote data-url=https://xxy.im/pimpl/ data-title="[C++技法] PImpl"><i class="fab fa-evernote fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/c++/>C++</a>,&nbsp;<a href=/tags/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/>编程技巧</a></section>
+<section>
+<span><a href=# onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/samurai-sudoku/ class=prev rel=prev title="武士数独(五重数独) 舞蹈链解法"><i class="fas fa-angle-left fa-fw"></i>武士数独(五重数独) 舞蹈链解法</a></div>
+</div>
+<div id=comments><div id=twikoo></div><noscript>
+Please enable JavaScript to view the comments powered by <a href=https://twikoo.js.org/>Twikoo</a>.
+</noscript></div></article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2020 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank rel="noopener noreferrer">xxy</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+</div></footer></div>
+<div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><div class=assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/@sliphua/pjax@0.13.0/dist/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-V9ZE6MC9MQ',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-V9ZE6MC9MQ" async></script></div>
+<div class=pjax-assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twikoo@1.4.3/dist/twikoo.all.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@13.1.0/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/mhchem.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js></script><script type=text/javascript src=/js/click_effect.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.0.min.js></script><script type=text/javascript src=/js/live2d_config.js></script><script type=text/javascript src=/js/console_output.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{twikoo:{commentCount:!0,el:"#twikoo",envId:"https://twikoo-livid.vercel.app/",lang:"zh-cn"}},data:{"id-1":"  xxy != x²y","id-2":"  xxy != x²y"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/index.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!1,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:50,threshold:.3,type:"fuse",useExtendedSearch:!1},sharerjs:!0,twemoji:!0,typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:100}}</script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.css></div>
+</body>
+</html>
