@@ -3,22 +3,23 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=robots content="noodp">
-<title class=pjax-title> - xxy's blog</title><meta name=Description content="xxy's blog"><meta property="og:title" content>
-<meta property="og:description" content>
+<title class=pjax-title>[C++技法] CTAD (since C++17) - xxy's blog</title><meta name=Description content="xxy's blog"><meta property="og:title" content="[C++技法] CTAD (since C++17)">
+<meta property="og:description" content="C++17开始引入的类模板实参推导">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://xxy.im/ctad/"><meta property="og:image" content="https://xxy.im/logo.png"><meta property="article:section" content="posts">
-<meta property="og:site_name" content="xxy's blog">
+<meta property="article:published_time" content="2022-04-19T00:34:11+08:00">
+<meta property="article:modified_time" content="2022-04-19T00:34:11+08:00"><meta property="og:site_name" content="xxy's blog">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://xxy.im/logo.png">
-<meta name=twitter:title content>
-<meta name=twitter:description content>
+<meta name=twitter:title content="[C++技法] CTAD (since C++17)">
+<meta name=twitter:description content="C++17开始引入的类模板实参推导">
 <meta name=application-name content="xxy != x²y">
 <meta name=apple-mobile-web-app-title content="xxy != x²y">
 <meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/ctad/><link rel=next href=https://xxy.im/ml/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/ctad/><link rel=prev href=https://xxy.im/rvalueref/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
 <noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css>
-<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/ctad\/"},"genre":"posts","wordcount":0,"url":"https:\/\/xxy.im\/ctad\/","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[C++技法] CTAD (since C++17)","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/ctad\/"},"genre":"posts","keywords":"C\u002b\u002b, 编程技巧","wordcount":564,"url":"https:\/\/xxy.im\/ctad\/","datePublished":"2022-04-19T00:34:11+08:00","dateModified":"2022-04-19T00:34:11+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
 <body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
 <div id=back-to-top></div>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
@@ -86,45 +87,147 @@
 <div class=container><div class=toc id=toc-auto>
 <h2 class=toc-title>目录</h2>
 <div class=toc-content id=toc-content-auto></div>
-</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX"></h1><div class=post-meta>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[C++技法] CTAD (since C++17)</h1><div class=post-meta>
 <div class=post-meta-line>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://xxy.im title=Author target=_blank rel="noopener noreffer author" class=author>xxy</a>
-</span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=0001-01-01>0001-01-01</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=0001-01-01>0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 0 字&nbsp;
-<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 0 分钟&nbsp;<span id=/ctad/ class=leancloud_visitors data-flag-title>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/c++/><i class="far fa-folder fa-fw"></i>C++</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-04-19>2022-04-19</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-04-19>2022-04-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 564 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id=/ctad/ class=leancloud_visitors data-flag-title="[C++技法] CTAD (since C++17)">
 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count id=twikoo_visitors></span>&nbsp;次阅读
-</span>&nbsp;<span id=/ctad/ class=comment_count data-flag-title>
+</span>&nbsp;<span id=/ctad/ class=comment_count data-flag-title="[C++技法] CTAD (since C++17)">
 <i class="far fa-comments fa-fw"></i>&nbsp;<span class=twikoo-comment-count id=twikoo-comment-count></span>&nbsp;条评论
 </span>&nbsp;</div>
-</div><div class="details toc" id=toc-static kept>
+</div><div class=featured-image><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ctad.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ctad.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ctad.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ctad.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ctad.png title=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ctad.png height=auto width=auto></div><div class="details toc" id=toc-static kept>
 <div class="details-summary toc-title">
 <span>目录</span>
 <span><i class="details-icon fas fa-angle-right"></i></span>
 </div>
-<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents></nav></div>
-</div><div class=content id=content></div><div class=post-footer id=post-footer>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#远古c>远古C++</a></li>
+<li><a href=#c11>C++11</a></li>
+<li><a href=#c17-ctad>C++17 (CTAD)</a>
+<ul>
+<li><a href=#用户定义的推导指引>用户定义的推导指引</a></li>
+</ul>
+</li>
+<li><a href=#其他>其他</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>C++17开始引入的类模板实参推导</p>
+<h1 id=使用类模板>使用类模板</h1>
+<h2 id=远古c>远古C++</h2>
+<p>在远古C++中实例化一个类模板往往需要将参数类型全部写出来<br>
+比如使用STL中的<code>std::pair</code></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=n>std</span><span class=o>::</span><span class=n>pair</span><span class=o>&lt;</span><span class=kt>int</span><span class=p>,</span> <span class=kt>double</span><span class=o>&gt;</span> <span class=n>p</span> <span class=o>=</span> <span class=n>std</span><span class=o>::</span><span class=n>make_pair</span><span class=o>&lt;</span><span class=kt>int</span><span class=p>,</span> <span class=kt>double</span><span class=o>&gt;</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mf>1.5</span><span class=p>);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到代码非常冗余，如果遇到更长的类名简直看不下去。</p>
+<h2 id=c11>C++11</h2>
+<p>然后到了C++11引入了<code>auto</code>自动推断类型</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=k>auto</span> <span class=n>p</span> <span class=o>=</span> <span class=n>std</span><span class=o>::</span><span class=n>make_pair</span><span class=o>&lt;</span><span class=kt>int</span><span class=p>,</span> <span class=kt>double</span><span class=o>&gt;</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mf>1.5</span><span class=p>);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>代码一下缩短了很多，这里<code>&lt;int, double></code>其实也是不用写的。</p>
+<h2 id=c17-ctad>C++17 (CTAD)</h2>
+<p>编译器自动从类模板初始化值的类型推导出模板实参类型</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=n>std</span><span class=o>::</span><span class=n>pair</span> <span class=n>p</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mf>4.5</span><span class=p>)</span>         <span class=c1>// 推导出std::pair&lt;int, double&gt;
+</span><span class=c1></span><span class=n>std</span><span class=o>::</span><span class=n>tuple</span> <span class=n>t</span><span class=p>(</span><span class=mi>4</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=mf>2.5</span><span class=p>)</span>     <span class=c1>// 等价于 auto t = std::make_tuple(4, 3, 2.5)
+</span></code></pre></td></tr></table>
+</div>
+</div><p><strong>new表达式同样适用：</strong></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=k>template</span><span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span> <span class=k>struct</span> <span class=nc>A</span>
+<span class=p>{</span>
+    <span class=n>A</span><span class=p>(</span><span class=n>T</span><span class=p>){};</span>
+<span class=p>};</span>
+<span class=k>auto</span> <span class=n>y</span> <span class=o>=</span> <span class=k>new</span> <span class=n>A</span><span class=p>{</span><span class=mi>1</span><span class=p>};</span>      <span class=c1>// 等价于 new A&lt;int&gt;(1);
+</span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>同时支持聚合推导，因为我用的少就不多介绍了，记得初始化时用<code>{}</code>，而不是<code>()</code>就行了。</p>
+</blockquote>
+<h3 id=用户定义的推导指引>用户定义的推导指引</h3>
+<p>除了靠编译器自动进行参数类型推导外，还可以自定义推导，语法结构类型声明<code>lambda</code>函数的返回类型</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=c1>// explicit(可选) 模板名 (形参声明子句) -&gt; 简单模板标示;
+</span><span class=c1></span><span class=k>template</span><span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span> <span class=k>struct</span> <span class=nc>A</span>
+<span class=p>{</span>
+	<span class=n>A</span><span class=p>(</span><span class=n>T</span><span class=p>)</span> <span class=p>{};</span>
+	<span class=k>template</span><span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span> <span class=n>A</span><span class=p>(</span><span class=n>T</span> <span class=n>a</span><span class=p>,</span> <span class=n>T</span> <span class=n>b</span><span class=p>)</span> <span class=p>{};</span>
+<span class=p>};</span>
+
+<span class=c1>// 自定义推导，我这里让它变成了两个参数的构造函数全部推导为A&lt;int&gt;
+</span><span class=c1></span><span class=k>template</span><span class=o>&lt;</span><span class=k>class</span> <span class=nc>T</span><span class=o>&gt;</span>
+<span class=n>A</span><span class=p>(</span><span class=n>T</span><span class=p>,</span> <span class=n>T</span><span class=p>)</span><span class=o>-&gt;</span><span class=n>A</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span><span class=p>;</span>
+
+<span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>str</span> <span class=o>=</span> <span class=s>&#34;hello&#34;</span><span class=p>;</span>
+<span class=k>auto</span> <span class=n>t</span> <span class=o>=</span> <span class=n>A</span><span class=p>(</span><span class=n>str</span><span class=p>,</span> <span class=n>str</span><span class=p>);</span>       <span class=c1>// 等价于 A&lt;int&gt;{};
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id=其他>其他</h2>
+<p>需要注意的是，CTAD只有在<strong>目标类型的构造函数使用模板参数的情况</strong>下才能进行推导。当然还有将某个类禁止CTAD的方法就不一一概述了。</p></div><div class=post-footer id=post-footer>
 <div class=post-info>
 <div class=post-info-line>
 <div class=post-info-mod>
-<span>更新于 0001-01-01</span>
+<span>更新于 2022-04-19</span>
 </div>
 <div class=post-info-license></div>
 </div>
 <div class=post-info-line>
 <div class=post-info-md></div>
 <div class=post-info-share>
-<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://xxy.im/ctad/ data-title><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://xxy.im/ctad/><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Line" data-sharer=line data-url=https://xxy.im/ctad/ data-title><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/line.svg></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://xxy.im/ctad/ data-title><i class="fab fa-weibo fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Myspace" data-sharer=myspace data-url=https://xxy.im/ctad/ data-title data-description><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/myspace.svg></i></a><a href=# onclick=return!1 title="分享到 Blogger" data-sharer=blogger data-url=https://xxy.im/ctad/ data-title data-description><i class="fab fa-blogger fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Evernote" data-sharer=evernote data-url=https://xxy.im/ctad/ data-title><i class="fab fa-evernote fa-fw"></i></a></span>
+<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://xxy.im/ctad/ data-title="[C++技法] CTAD (since C++17)" data-hashtags=C++,编程技巧><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://xxy.im/ctad/ data-hashtag=C++><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Line" data-sharer=line data-url=https://xxy.im/ctad/ data-title="[C++技法] CTAD (since C++17)"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/line.svg></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://xxy.im/ctad/ data-title="[C++技法] CTAD (since C++17)" data-image=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/ctad.png><i class="fab fa-weibo fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Myspace" data-sharer=myspace data-url=https://xxy.im/ctad/ data-title="[C++技法] CTAD (since C++17)" data-description><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/myspace.svg></i></a><a href=# onclick=return!1 title="分享到 Blogger" data-sharer=blogger data-url=https://xxy.im/ctad/ data-title="[C++技法] CTAD (since C++17)" data-description><i class="fab fa-blogger fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Evernote" data-sharer=evernote data-url=https://xxy.im/ctad/ data-title="[C++技法] CTAD (since C++17)"><i class="fab fa-evernote fa-fw"></i></a></span>
 </div>
 </div>
 </div>
 <div class=post-info-more>
-<section class=post-tags></section>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/c++/>C++</a>,&nbsp;<a href=/tags/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/>编程技巧</a></section>
 <section>
 <span><a href=# onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
 </section>
 </div>
-<div class=post-nav>
-<a href=/ml/ class=next rel=next title=机器学习初体验>机器学习初体验<i class="fas fa-angle-right fa-fw"></i></a></div>
+<div class=post-nav><a href=/rvalueref/ class=prev rel=prev title="[C++技法] 右值引用与移动语义"><i class="fas fa-angle-left fa-fw"></i>[C++技法] 右值引用与移动语义</a></div>
 </div>
 <div id=comments><div id=twikoo></div><noscript>
 Please enable JavaScript to view the comments powered by <a href=https://twikoo.js.org/>Twikoo</a>.
