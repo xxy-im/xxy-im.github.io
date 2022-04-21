@@ -1,0 +1,698 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title class=pjax-title>[C++技法] 多线程编程 - xxy's blog</title><meta name=Description content="xxy's blog"><meta property="og:title" content="[C++技法] 多线程编程">
+<meta property="og:description" content>
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xxy.im/multithread/"><meta property="og:image" content="https://xxy.im/logo.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-04-20T20:34:11+08:00">
+<meta property="article:modified_time" content="2022-04-20T20:34:11+08:00"><meta property="og:site_name" content="xxy's blog">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://xxy.im/logo.png">
+<meta name=twitter:title content="[C++技法] 多线程编程">
+<meta name=twitter:description content>
+<meta name=application-name content="xxy != x²y">
+<meta name=apple-mobile-web-app-title content="xxy != x²y">
+<meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/multithread/><link rel=prev href=https://xxy.im/ctad/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[C++技法] 多线程编程","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/multithread\/"},"genre":"posts","keywords":"C\u002b\u002b, 编程技巧","wordcount":3402,"url":"https:\/\/xxy.im\/multithread\/","datePublished":"2022-04-20T20:34:11+08:00","dateModified":"2022-04-20T20:34:11+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
+<div id=back-to-top></div>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="xxy's blog"><span class=header-title-pre><i class="fa fa-fighter-jet"></i></span><span id=id-1 class=typeit></span></a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> 所有文章 </a><a class=menu-item href=/tags/> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-desktop title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-desktop title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select>
+</a></div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="xxy's blog"><span class=header-title-pre><i class="fa fa-fighter-jet"></i></span><span id=id-2 class=typeit></span></a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-mobile title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-mobile title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>
+取消
+</a>
+</div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-mobile title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>目录</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[C++技法] 多线程编程</h1><div class=post-meta>
+<div class=post-meta-line>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://xxy.im title=Author target=_blank rel="noopener noreffer author" class=author>xxy</a>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/c++/><i class="far fa-folder fa-fw"></i>C++</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-04-20>2022-04-20</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-04-20>2022-04-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3402 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 7 分钟&nbsp;<span id=/multithread/ class=leancloud_visitors data-flag-title="[C++技法] 多线程编程">
+<i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count id=twikoo_visitors></span>&nbsp;次阅读
+</span>&nbsp;<span id=/multithread/ class=comment_count data-flag-title="[C++技法] 多线程编程">
+<i class="far fa-comments fa-fw"></i>&nbsp;<span class=twikoo-comment-count id=twikoo-comment-count></span>&nbsp;条评论
+</span>&nbsp;</div>
+</div><div class=featured-image><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/multithread.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/multithread.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/multithread.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/multithread.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/multithread.png title=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/multithread.png height=auto width=auto></div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#进程与线程>进程与线程</a>
+<ul>
+<li><a href=#why多线程>Why多线程</a></li>
+</ul>
+</li>
+<li><a href=#现代c的多线程>现代C++的多线程</a>
+<ul>
+<li><a href=#线程池>线程池</a></li>
+</ul>
+</li>
+<li><a href=#同步与互斥>同步与互斥</a>
+<ul>
+<li><a href=#stdmutex>std::mutex</a></li>
+</ul>
+</li>
+<li><a href=#死锁>死锁</a></li>
+<li><a href=#读写者问题>读写者问题</a></li>
+<li><a href=#条件变量>条件变量</a>
+<ul>
+<li><a href=#生产者消费者>生产者消费者</a></li>
+</ul>
+</li>
+<li><a href=#其他>其他</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><h2 id=进程与线程>进程与线程</h2>
+<p>这个没啥好讲的吧，但凡稍微学了点操作系统或者复习了408的应该都知道了。<br>
+简单说下它们之间的关系：</p>
+<ul>
+<li>线程从属于进程，一个进程可以拥有多个线程</li>
+<li>每个线程除了独立拥有很小的一点栈外，共享进程的内存空间</li>
+</ul>
+<h3 id=why多线程>Why多线程</h3>
+<p>用我们最常用的浏览器来举例，通常我们都会在浏览器上很多标签页，有的页面听歌，有的用来搜索，还有用来下载文件。浏览器不可能让你听完歌再继续后面的操作吧，这时候就需要多线程了。一个线程处理听歌，一个线程处理下载，等等等等。实现单进程多任务场景。<br>
+在任务管理器中可以看到Chrome开了这么多线程。(明明就开了几个网页，给我开了这么多个线程，咱也不懂)
+<figure><a class=lightgallery href=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/chrome-multitread.png title=点击放大 data-thumbnail=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/chrome-multitread.png data-sub-html="<h2>Chrome浏览器进程</h2><p>点击放大</p>">
+<img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/chrome-multitread.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/chrome-multitread.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/chrome-multitread.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/chrome-multitread.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/chrome-multitread.png>
+</a><figcaption class=image-caption>Chrome浏览器进程</figcaption>
+</figure></p>
+<h2 id=现代c的多线程>现代C++的多线程</h2>
+<p>C++11之前，需要多线程编程的话需要使用<code>pthread</code>库，C++11开始引入了<code>std::thread</code>实现多线程。但这玩意儿其实还是用<code>pthread</code>实现的，所以用<code>g++</code>编译的话还得加<code>-lpthread</code>&mldr;</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=c1>// std::thread 构造函数
+</span><span class=c1></span><span class=kr>thread</span><span class=p>()</span> <span class=k>noexcept</span><span class=p>;</span>                                  <span class=c1>// 1
+</span><span class=c1></span><span class=kr>thread</span><span class=p>(</span> <span class=kr>thread</span><span class=o>&amp;&amp;</span> <span class=n>other</span> <span class=p>)</span> <span class=k>noexcept</span><span class=p>;</span>                  <span class=c1>// 2
+</span><span class=c1></span><span class=k>template</span><span class=o>&lt;</span> <span class=k>class</span> <span class=nc>Function</span><span class=p>,</span> <span class=k>class</span><span class=err>... </span><span class=nc>Args</span> <span class=o>&gt;</span>          
+<span class=k>explicit</span> <span class=kr>thread</span><span class=p>(</span> <span class=n>Function</span><span class=o>&amp;&amp;</span> <span class=n>f</span><span class=p>,</span> <span class=n>Args</span><span class=o>&amp;&amp;</span><span class=p>...</span> <span class=n>args</span> <span class=p>);</span>    <span class=c1>// 3
+</span><span class=c1></span><span class=kr>thread</span><span class=p>(</span> <span class=k>const</span> <span class=kr>thread</span><span class=o>&amp;</span> <span class=p>)</span> <span class=o>=</span> <span class=k>delete</span><span class=p>;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>主要用第三个比较多，参数可以用<code>lambda</code>表达式。貌似只要是<code>Callable</code>的就行，官方示例里有个定义的<code>operator()</code>的类也可以成功创建线程。</p>
+<p><strong>简单实现上面浏览器的场景</strong></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span><span class=cp>#include</span> <span class=cpf>&lt;thread&gt;</span><span class=cp>
+</span><span class=cp>#include</span> <span class=cpf>&lt;string&gt;</span><span class=cp>
+</span><span class=cp></span>
+<span class=c1>// 功能函数
+</span><span class=c1></span><span class=kt>void</span> <span class=nf>BrowsePage</span><span class=p>()</span>
+<span class=p>{</span>
+	<span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+	<span class=p>{</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;Searching something on Google..... &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>this_thread</span><span class=o>::</span><span class=n>sleep_for</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>chrono</span><span class=o>::</span><span class=n>seconds</span><span class=p>(</span><span class=mi>1</span><span class=p>));</span>               <span class=c1>// 新标准的睡眠函数，不再需要用sleep这种了
+</span><span class=c1></span>	<span class=p>}</span>
+<span class=p>}</span>
+<span class=kt>void</span> <span class=nf>ListenMusic</span><span class=p>()</span>
+<span class=p>{</span>
+	<span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>10</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+	<span class=p>{</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;正在播放《以父之名》..... &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>  
+		<span class=n>std</span><span class=o>::</span><span class=n>this_thread</span><span class=o>::</span><span class=n>sleep_for</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>chrono</span><span class=o>::</span><span class=n>seconds</span><span class=p>(</span><span class=mi>2</span><span class=p>));</span>
+	<span class=p>}</span>
+<span class=p>}</span>
+<span class=kt>void</span> <span class=nf>Download</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>filename</span><span class=p>)</span>
+<span class=p>{</span>
+	<span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>20</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span>
+	<span class=p>{</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;Downloading &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>filename</span> 
+			<span class=o>&lt;&lt;</span> <span class=s>&#34; ( &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>i</span> <span class=o>*</span> <span class=mi>10</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;% )......&#34;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>this_thread</span><span class=o>::</span><span class=n>sleep_for</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>chrono</span><span class=o>::</span><span class=n>seconds</span><span class=p>(</span><span class=mi>1</span><span class=p>));</span>
+	<span class=p>}</span>
+	<span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>filename</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;Download completed&#34;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=kt>int</span> <span class=nf>main</span><span class=p>()</span>
+<span class=p>{</span>
+    <span class=n>std</span><span class=o>::</span><span class=kr>thread</span> <span class=n>t1</span><span class=p>(</span><span class=n>ListenMusic</span><span class=p>);</span>
+	<span class=n>std</span><span class=o>::</span><span class=kr>thread</span> <span class=n>t2</span><span class=p>([</span><span class=o>&amp;</span><span class=p>]()</span> <span class=p>{</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>filename</span><span class=p>;</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>cin</span> <span class=o>&gt;&gt;</span> <span class=n>filename</span><span class=p>;</span>
+		<span class=n>Download</span><span class=p>(</span><span class=n>filename</span><span class=p>);</span>
+		<span class=p>});</span>
+	<span class=n>BrowsePage</span><span class=p>();</span>
+	<span class=n>t1</span><span class=p>.</span><span class=n>join</span><span class=p>();</span>              <span class=c1>// 相当于一个wait，等待这个线程结束了再继续执行后面的语句
+</span><span class=c1></span>	<span class=n>t2</span><span class=p>.</span><span class=n>join</span><span class=p>();</span>
+           
+	<span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>运行后可以边浏览网页边输入需要下载的文件然后回车开始下载。如果没加<code>join</code>的话就会有可能导致程序已经结束了但<code>t1</code>,<code>t2</code>线程还没结束但也会随着进程结束而强行终止执行。<br>
+<strong>注意</strong> <code>BrowsePage()</code>这里我没用线程来执行，所以必须放在最后面，如果放在<code>t1</code>或者<code>t2</code>线程前面的话那么就会导致线程会等待<code>BrowsePage</code>执行完才会开始执行。</p>
+<blockquote>
+<p><code>std::thread</code>也是遵循RAII思想的，所以当线程所在函数执行结束时会自动调用<code>std::thread</code>的析构函数。但是可以使用<code>detach()</code>将线程分离，使其不再由当前对象管理，而是在线程运行结束后自动销毁。不过这东西也不怎么好，就不介绍了</p>
+</blockquote>
+<h3 id=线程池>线程池</h3>
+<p>最low的线程池可以用<code>std::vector</code>实现</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=n>std</span><span class=o>::</span><span class=n>vector</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=kr>thread</span><span class=o>&gt;</span> <span class=n>tpool</span><span class=p>;</span>
+<span class=kt>void</span> <span class=nf>DoIt</span><span class=p>()</span>
+<span class=p>{</span>
+	<span class=n>std</span><span class=o>::</span><span class=kr>thread</span> <span class=n>t1</span><span class=p>(</span><span class=n>BrowsePage</span><span class=p>);</span>
+	<span class=n>std</span><span class=o>::</span><span class=kr>thread</span> <span class=n>t2</span><span class=p>(</span><span class=n>ListenMusic</span><span class=p>);</span>
+	<span class=n>std</span><span class=o>::</span><span class=kr>thread</span> <span class=n>t3</span><span class=p>([</span><span class=o>&amp;</span><span class=p>]()</span> <span class=p>{</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>string</span> <span class=n>filename</span><span class=p>;</span>
+		<span class=n>std</span><span class=o>::</span><span class=n>cin</span> <span class=o>&gt;&gt;</span> <span class=n>filename</span><span class=p>;</span>
+		<span class=n>Download</span><span class=p>(</span><span class=n>filename</span><span class=p>);</span>
+		<span class=p>});</span>
+
+	<span class=n>tpool</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>move</span><span class=p>(</span><span class=n>t1</span><span class=p>));</span>		<span class=c1>// std::thread 禁止拷贝
+</span><span class=c1></span>	<span class=n>tpool</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>move</span><span class=p>(</span><span class=n>t2</span><span class=p>));</span>
+	<span class=n>tpool</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>move</span><span class=p>(</span><span class=n>t3</span><span class=p>));</span>
+<span class=p>}</span>
+<span class=kt>int</span> <span class=nf>main</span><span class=p>()</span>
+<span class=p>{</span>
+	<span class=n>DoIt</span><span class=p>();</span>
+	<span class=k>for</span> <span class=p>(</span><span class=k>auto</span><span class=o>&amp;</span> <span class=nl>t</span> <span class=p>:</span> <span class=n>tpool</span><span class=p>)</span>
+	<span class=p>{</span>
+		<span class=n>t</span><span class=p>.</span><span class=n>join</span><span class=p>();</span>
+	<span class=p>}</span>
+	
+	<span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是这样手动把每个线程<code>join</code>实在太low了。<br>
+可以自定义一个管理线程池的类，在类的析构函数中加入线程的<code>join</code>即可。(其实就是把for循环换了个地方那它自动会执行，看起来代码整洁点而已)</p>
+<blockquote>
+<p>C++20 中的<code>std::jthread</code>会在析构时候自动join</p>
+</blockquote>
+<h2 id=同步与互斥>同步与互斥</h2>
+<p>就像进程需要处理临界区互斥一样，多线程中因为共享着进程的内存空间，所以也需要有互斥手段。当然同步也是一样的。
+借用多进程互斥里经典的存钱取钱的场景(虽然现实中不可能在一个进程里存钱又取钱，但道理都相通嘛)</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=c1>// 假设当前余额为0，现在在ATM机上先存1000个w，在取500个w
+</span><span class=c1>// 别在意故事细节
+</span><span class=c1></span><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span><span class=cp>#include</span> <span class=cpf>&lt;thread&gt;</span><span class=cp>
+</span><span class=cp></span>
+<span class=kt>int</span> <span class=n>money</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>		<span class=c1>// 当前余额
+</span><span class=c1></span>
+<span class=kt>void</span> <span class=nf>deposit</span><span class=p>(</span><span class=kt>int</span> <span class=n>m</span><span class=p>)</span>
+<span class=p>{</span>
+	<span class=kt>int</span> <span class=n>cur</span> <span class=o>=</span> <span class=n>money</span><span class=p>;</span>			<span class=c1>// 得先把在的余额取出来吧
+</span><span class=c1></span>	<span class=n>m</span> <span class=o>=</span> <span class=n>m</span> <span class=o>&gt;</span> <span class=mi>10000</span> <span class=o>?</span> <span class=mi>10000</span> <span class=o>:</span> <span class=n>m</span><span class=p>;</span>	<span class=c1>// ATM机一次最多一个w
+</span><span class=c1></span>	<span class=k>for</span> <span class=p>(</span><span class=k>volatile</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>100</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>);</span>		<span class=c1>// 假装有个后台处理过程
+</span><span class=c1></span>	<span class=n>cur</span> <span class=o>+=</span> <span class=n>m</span><span class=p>;</span>
+
+	<span class=n>money</span> <span class=o>=</span> <span class=n>cur</span><span class=p>;</span>				<span class=c1>// 然后新的余额
+</span><span class=c1></span><span class=p>}</span>
+
+<span class=kt>void</span> <span class=nf>withdraw</span><span class=p>(</span><span class=kt>int</span> <span class=n>m</span><span class=p>)</span>
+<span class=p>{</span>
+	<span class=kt>int</span> <span class=n>cur</span> <span class=o>=</span> <span class=n>money</span><span class=p>;</span>
+	<span class=n>m</span> <span class=o>=</span> <span class=n>m</span> <span class=o>&gt;</span> <span class=mi>10000</span> <span class=o>?</span> <span class=mi>10000</span> <span class=o>:</span> <span class=n>m</span><span class=p>;</span>	<span class=c1>// ATM机一次最多一个w
+</span><span class=c1></span>	<span class=k>for</span> <span class=p>(</span><span class=k>volatile</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>100</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>);</span>
+	<span class=n>cur</span> <span class=o>-=</span> <span class=n>m</span><span class=p>;</span>
+
+	<span class=n>money</span> <span class=o>=</span> <span class=n>cur</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=kt>int</span> <span class=nf>main</span><span class=p>()</span>
+<span class=p>{</span>
+	<span class=n>std</span><span class=o>::</span><span class=kr>thread</span> <span class=n>t1</span><span class=p>([</span><span class=o>&amp;</span><span class=p>]</span> <span class=p>{</span>
+		<span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>1000</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span> <span class=n>deposit</span><span class=p>(</span><span class=mi>10000</span><span class=p>);</span>
+		<span class=p>});</span>
+	<span class=n>std</span><span class=o>::</span><span class=kr>thread</span> <span class=n>t2</span><span class=p>([</span><span class=o>&amp;</span><span class=p>]</span> <span class=p>{</span>
+		<span class=k>for</span> <span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>500</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>)</span> <span class=n>withdraw</span><span class=p>(</span><span class=mi>10000</span><span class=p>);</span>
+		<span class=p>});</span>
+	<span class=n>t1</span><span class=p>.</span><span class=n>join</span><span class=p>();</span>
+	<span class=n>t2</span><span class=p>.</span><span class=n>join</span><span class=p>();</span>
+
+	<span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>money</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+	<span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>多次运行后会发现结果都不同。有时钱多有时钱少了。这时就需要用到互斥手段以保证程序运行的正确性了。</p>
+<h3 id=stdmutex>std::mutex</h3>
+<p>看名字也知道是个互斥锁，用来给资源上锁的。修改两个功能函数。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=cp>#include</span> <span class=cpf>&lt;mutex&gt;		// 引入头文件</span><span class=cp>
+</span><span class=cp></span><span class=n>std</span><span class=o>::</span><span class=n>mutex</span> <span class=n>mtx</span><span class=p>;</span>			<span class=c1>// 定义一个互斥锁
+</span><span class=c1></span>
+<span class=kt>void</span> <span class=nf>deposit</span><span class=p>(</span><span class=kt>int</span> <span class=n>m</span><span class=p>)</span>
+<span class=p>{</span>
+	<span class=n>mtx</span><span class=p>.</span><span class=n>lock</span><span class=p>();</span>					<span class=c1>// 上锁
+</span><span class=c1></span>	<span class=kt>int</span> <span class=n>cur</span> <span class=o>=</span> <span class=n>money</span><span class=p>;</span>			<span class=c1>// 得先把在的余额取出来吧
+</span><span class=c1></span>	<span class=n>m</span> <span class=o>=</span> <span class=n>m</span> <span class=o>&gt;</span> <span class=mi>10000</span> <span class=o>?</span> <span class=mi>10000</span> <span class=o>:</span> <span class=n>m</span><span class=p>;</span>	<span class=c1>// ATM机一次最多一个w
+</span><span class=c1></span>	<span class=k>for</span> <span class=p>(</span><span class=k>volatile</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>100</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>);</span>		<span class=c1>// 假装有个后台处理过程
+</span><span class=c1></span>	<span class=n>cur</span> <span class=o>+=</span> <span class=n>m</span><span class=p>;</span>
+
+	<span class=n>money</span> <span class=o>=</span> <span class=n>cur</span><span class=p>;</span>				<span class=c1>// 然后新的余额
+</span><span class=c1></span>	<span class=n>mtx</span><span class=p>.</span><span class=n>unlock</span><span class=p>();</span>				<span class=c1>// 用完money解锁
+</span><span class=c1></span><span class=p>}</span>
+
+<span class=kt>void</span> <span class=nf>withdraw</span><span class=p>(</span><span class=kt>int</span> <span class=n>m</span><span class=p>)</span>
+<span class=p>{</span>
+	<span class=n>mtx</span><span class=p>.</span><span class=n>lock</span><span class=p>();</span>
+	<span class=kt>int</span> <span class=n>cur</span> <span class=o>=</span> <span class=n>money</span><span class=p>;</span>
+	<span class=n>m</span> <span class=o>=</span> <span class=n>m</span> <span class=o>&gt;</span> <span class=mi>10000</span> <span class=o>?</span> <span class=mi>10000</span> <span class=o>:</span> <span class=n>m</span><span class=p>;</span>	<span class=c1>// ATM机一次最多一个w
+</span><span class=c1></span>	<span class=k>for</span> <span class=p>(</span><span class=k>volatile</span> <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=mi>100</span><span class=p>;</span> <span class=n>i</span><span class=o>++</span><span class=p>);</span>
+	<span class=n>cur</span> <span class=o>-=</span> <span class=n>m</span><span class=p>;</span>
+
+	<span class=n>money</span> <span class=o>=</span> <span class=n>cur</span><span class=p>;</span>
+	<span class=n>mtx</span><span class=p>.</span><span class=n>unlock</span><span class=p>();</span>
+<span class=p>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>mtx.lock()</code>如果加锁失败会一直尝试上锁直到成功为止，还可以使用<code>mtx.try_lock()</code>仅尝试一次上锁，成功返回<code>true</code>，失败返回<code>false</code>。</p>
+</blockquote>
+<h2 id=死锁>死锁</h2>
+<p>有互斥当然就会有死锁。</p>
+<ul>
+<li><code>std::lock</code>: 一次性执行多个互斥锁的<code>lock()</code>，也可以作为一种防止死锁的手段</li>
+<li><code>std::recursive_mutex</code>: 递归互斥锁，当同一个线程对一个资源多次上锁也会造成死锁，如果一定要写这样的代码的话可以用这个互斥锁防止死锁。</li>
+</ul>
+<h2 id=读写者问题>读写者问题</h2>
+<p>针对读写者问题，C++14开始引入了一个专门的读写锁<code>std::shared_mutex</code>，比用其他互斥锁实现读写者问题性能提升了很多。<br>
+<code>std::shared_mutex</code>有两对加锁解锁方式:</p>
+<ul>
+<li><code>lock()</code>和<code>unlock()</code>: 互斥性的，用于写者线程</li>
+<li><code>lock_shared()</code>和<code>unlock_shared()</code>: 共享性的，lock后其他线程也可以访问，可以用于读者线程</li>
+</ul>
+<blockquote>
+<p>除了用<code>std::shared_mutex</code>还可以用<code>std::shared_lock&lt;></code>模板函数把其他的互斥锁用shared方式上锁。</p>
+</blockquote>
+<h2 id=条件变量>条件变量</h2>
+<p><code>std::condition_variable</code>，类似多进程里的信号量</p>
+<h3 id=生产者消费者>生产者消费者</h3>
+<p>用条件变量实现生产者消费者问题</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span><span class=cp>#include</span> <span class=cpf>&lt;vector&gt;</span><span class=cp>
+</span><span class=cp>#include</span> <span class=cpf>&lt;random&gt;</span><span class=cp>
+</span><span class=cp>#include</span> <span class=cpf>&lt;thread&gt;</span><span class=cp>
+</span><span class=cp>#include</span> <span class=cpf>&lt;mutex&gt;</span><span class=cp>
+</span><span class=cp>#include</span> <span class=cpf>&lt;condition_variable&gt;</span><span class=cp>
+</span><span class=cp></span>
+<span class=kt>int</span> <span class=n>products</span><span class=p>[</span><span class=mi>100</span><span class=p>];</span>		<span class=c1>// 只能存放100个商品
+</span><span class=c1></span><span class=kt>int</span> <span class=n>count</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>			<span class=c1>// 当前商品容量
+</span><span class=c1></span>
+<span class=n>std</span><span class=o>::</span><span class=n>mutex</span> <span class=n>mtx</span><span class=p>;</span>
+<span class=n>std</span><span class=o>::</span><span class=n>condition_variable</span> <span class=n>cv</span><span class=p>;</span>
+
+<span class=n>std</span><span class=o>::</span><span class=n>default_random_engine</span> <span class=n>random</span><span class=p>;</span>
+<span class=n>std</span><span class=o>::</span><span class=n>uniform_int_distribution</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>dis</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>1000</span><span class=p>);</span>
+<span class=c1>// 生产者线程
+</span><span class=c1></span><span class=kt>void</span> <span class=nf>producer</span><span class=p>()</span>
+<span class=p>{</span>
+	<span class=n>std</span><span class=o>::</span><span class=n>unique_lock</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>mutex</span><span class=o>&gt;</span> <span class=n>lck</span><span class=p>(</span><span class=n>mtx</span><span class=p>);</span>						<span class=c1>// =执行mtx.lock()
+</span><span class=c1></span>	<span class=n>cv</span><span class=p>.</span><span class=n>wait</span><span class=p>(</span><span class=n>lck</span><span class=p>,</span> <span class=p>[</span><span class=o>&amp;</span><span class=p>]()</span> <span class=p>{</span><span class=k>return</span> <span class=n>count</span> <span class=o>&lt;</span> <span class=mi>100</span><span class=p>;</span> <span class=p>});</span>
+	<span class=n>std</span><span class=o>::</span><span class=n>this_thread</span><span class=o>::</span><span class=n>sleep_for</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>chrono</span><span class=o>::</span><span class=n>milliseconds</span><span class=p>(</span><span class=mi>100</span><span class=p>));</span> <span class=c1>// 生产耗时100ms
+</span><span class=c1></span>	<span class=n>products</span><span class=p>[</span><span class=n>count</span><span class=o>++</span><span class=p>]</span> <span class=o>=</span> <span class=n>dis</span><span class=p>(</span><span class=n>random</span><span class=p>);</span>	<span class=c1>// 随机生产个0-1000均匀分布的商品编号
+</span><span class=c1></span>	<span class=n>lck</span><span class=p>.</span><span class=n>unlock</span><span class=p>();</span>
+	<span class=n>cv</span><span class=p>.</span><span class=n>notify_one</span><span class=p>();</span>	<span class=c1>// 唤醒一个条件变量
+</span><span class=c1></span>	<span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;生产了一件商品&#34;</span> <span class=o>&lt;&lt;</span> <span class=n>products</span><span class=p>[</span><span class=n>count</span><span class=o>-</span><span class=mi>1</span><span class=p>]</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;，当前商品数为 &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>count</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=kt>void</span> <span class=nf>consumer</span><span class=p>()</span>
+<span class=p>{</span>
+	<span class=n>std</span><span class=o>::</span><span class=n>unique_lock</span><span class=o>&lt;</span><span class=n>std</span><span class=o>::</span><span class=n>mutex</span><span class=o>&gt;</span> <span class=n>lck</span><span class=p>(</span><span class=n>mtx</span><span class=p>);</span>		<span class=c1>// =执行mtx.lock()
+</span><span class=c1></span>	<span class=n>cv</span><span class=p>.</span><span class=n>wait</span><span class=p>(</span><span class=n>lck</span><span class=p>,</span> <span class=p>[</span><span class=o>&amp;</span><span class=p>]()</span> <span class=p>{</span><span class=k>return</span> <span class=n>count</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>;</span> <span class=p>});</span>
+	<span class=n>count</span><span class=o>--</span><span class=p>;</span>
+	<span class=n>lck</span><span class=p>.</span><span class=n>unlock</span><span class=p>();</span>
+	<span class=n>cv</span><span class=p>.</span><span class=n>notify_one</span><span class=p>();</span>
+	<span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;卖出了一件商品，当前商品数为 &#34;</span> <span class=o>&lt;&lt;</span> <span class=n>count</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+<span class=p>}</span>
+
+<span class=kt>int</span> <span class=nf>main</span><span class=p>()</span>
+<span class=p>{</span>
+	<span class=c1>// 一个生产者，两个消费者
+</span><span class=c1></span>	<span class=n>std</span><span class=o>::</span><span class=kr>thread</span> <span class=n>t1</span><span class=p>([</span><span class=o>&amp;</span><span class=p>]()</span> <span class=p>{</span>
+		<span class=k>while</span> <span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+		<span class=p>{</span>
+			<span class=n>producer</span><span class=p>();</span>
+		<span class=p>}</span>
+		<span class=p>});</span>
+	<span class=n>std</span><span class=o>::</span><span class=kr>thread</span> <span class=n>t2</span><span class=p>([</span><span class=o>&amp;</span><span class=p>]()</span> <span class=p>{</span>
+		<span class=k>while</span> <span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+		<span class=p>{</span>
+			<span class=n>std</span><span class=o>::</span><span class=n>this_thread</span><span class=o>::</span><span class=n>sleep_for</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>chrono</span><span class=o>::</span><span class=n>milliseconds</span><span class=p>(</span><span class=mi>200</span><span class=p>));</span> <span class=c1>// 线程2卖东西要200ms 
+</span><span class=c1></span>			<span class=n>consumer</span><span class=p>();</span>
+		<span class=p>}</span>
+		<span class=p>});</span>
+	<span class=n>std</span><span class=o>::</span><span class=kr>thread</span> <span class=n>t3</span><span class=p>([</span><span class=o>&amp;</span><span class=p>]()</span> <span class=p>{</span>
+		<span class=k>while</span> <span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+		<span class=p>{</span>
+			<span class=n>std</span><span class=o>::</span><span class=n>this_thread</span><span class=o>::</span><span class=n>sleep_for</span><span class=p>(</span><span class=n>std</span><span class=o>::</span><span class=n>chrono</span><span class=o>::</span><span class=n>milliseconds</span><span class=p>(</span><span class=mi>300</span><span class=p>));</span> <span class=c1>// 线程3卖东西要300ms 
+</span><span class=c1></span>			<span class=n>consumer</span><span class=p>();</span>
+		<span class=p>}</span>
+		<span class=p>});</span>
+
+	<span class=n>t1</span><span class=p>.</span><span class=n>join</span><span class=p>();</span>
+	<span class=n>t2</span><span class=p>.</span><span class=n>join</span><span class=p>();</span>
+	<span class=n>t3</span><span class=p>.</span><span class=n>join</span><span class=p>();</span>
+
+	<span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=其他>其他</h2>
+<ul>
+<li><code>std::async</code>: 也可用于创建线程，自身返回一个<code>std::future</code>。可以捕获返回值，同时可以配合<code>wait()</code>和<code>wait_for</code>使用。加上<code>std::launch::deferred</code>参数可以是其更加灵活。</li>
+<li><code>std::promise</code>: <code>std::async</code>其实就是用这东西实现的，你可以用这个自己手动实现<code>std::async</code>，C++就是这么贴心，帮你做了还告诉你怎么做的 🐶。</li>
+<li><code>std::lock_guard</code>: 一个符合RAII的<code>std::mutex</code>，构造时会自动执行<code>lock()</code>，析构时自动<code>unlock()</code>。</li>
+<li><code>std::unique_lock</code>: <strong>(一般推荐用这个)</strong> 更灵活的<code>std::lock_guard</code>，因为<code>std::lock_guard</code>严格的在析构时才会<code>unlock()</code>，而有时需要提前<code>unlock()</code>就可以用这个。<br>
+还可以用<code>std::try_to_lock</code>参数实现<code>std::mutex</code>的<code>try_lock()</code>的效果。还可以用<code>std::mutex</code>来初始化<code>std::unique_lock</code><br>
+还可以在构造时使用<code>std::defer_lock</code>来推迟执行<code>lock()</code>。(反正就奇奇怪怪的需求C++都能满足你。</li>
+<li><code>std::timed_mutex</code>: 一个可以设置等待时间的互斥锁，<code>try_lock_for()</code>函数中用<code>std::chrono</code>设定时间，还可以使用<code>try_lock_until()</code></li>
+<li><code>std::scoped_lock</code>: RAII版本的<code>std::lock</code>。</li>
+<li><code>std::recursive_timed_mutex</code>: 带time版本的<code>std::recursive_mutex</code>。</li>
+<li><code>std::atomic</code>: 原子类型对象，锁住内存总线，让CPU不去进行乱序执行优化策略。所以从不同线程访问原子类型对象不会导致数据竞争(data race)。</li>
+</ul></div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>更新于 2022-04-20</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://xxy.im/multithread/ data-title="[C++技法] 多线程编程" data-hashtags=C++,编程技巧><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://xxy.im/multithread/ data-hashtag=C++><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Line" data-sharer=line data-url=https://xxy.im/multithread/ data-title="[C++技法] 多线程编程"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/line.svg></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://xxy.im/multithread/ data-title="[C++技法] 多线程编程" data-image=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/multithread.png><i class="fab fa-weibo fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Myspace" data-sharer=myspace data-url=https://xxy.im/multithread/ data-title="[C++技法] 多线程编程" data-description><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/myspace.svg></i></a><a href=# onclick=return!1 title="分享到 Blogger" data-sharer=blogger data-url=https://xxy.im/multithread/ data-title="[C++技法] 多线程编程" data-description><i class="fab fa-blogger fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Evernote" data-sharer=evernote data-url=https://xxy.im/multithread/ data-title="[C++技法] 多线程编程"><i class="fab fa-evernote fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/c++/>C++</a>,&nbsp;<a href=/tags/%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/>编程技巧</a></section>
+<section>
+<span><a href=# onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/ctad/ class=prev rel=prev title="[C++技法] CTAD (since C++17)"><i class="fas fa-angle-left fa-fw"></i>[C++技法] CTAD (since C++17)</a></div>
+</div>
+<div id=comments><div id=twikoo></div><noscript>
+Please enable JavaScript to view the comments powered by <a href=https://twikoo.js.org/>Twikoo</a>.
+</noscript></div></article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2020 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://xxy.im target=_blank rel="noopener noreferrer">xxy</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+</div></footer></div>
+<div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><div class=assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/@sliphua/pjax@0.13.0/dist/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-V9ZE6MC9MQ',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-V9ZE6MC9MQ" async></script></div>
+<div class=pjax-assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twikoo@1.4.3/dist/twikoo.all.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@13.1.0/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/mhchem.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js></script><script type=text/javascript src=/js/click_effect.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.0.min.js></script><script type=text/javascript src=/js/live2d_config.js></script><script type=text/javascript src=/js/console_output.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{twikoo:{commentCount:!0,el:"#twikoo",envId:"https://twikoo-livid.vercel.app/",lang:"zh-cn"}},data:{"id-1":"  xxy != x²y","id-2":"  xxy != x²y"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/index.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!1,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:50,threshold:.3,type:"fuse",useExtendedSearch:!1},sharerjs:!0,twemoji:!0,typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:100}}</script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.css></div>
+</body>
+</html>
