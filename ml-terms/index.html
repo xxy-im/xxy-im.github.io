@@ -7,7 +7,8 @@
 <meta property="og:description" content="持续更新中&mldr;">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://xxy.im/ml-terms/"><meta property="og:image" content="https://xxy.im/logo.png"><meta property="article:section" content="posts">
-<meta property="og:site_name" content="xxy's blog">
+<meta property="article:published_time" content="2022-04-22T04:34:11+08:00">
+<meta property="article:modified_time" content="2022-04-22T04:34:11+08:00"><meta property="og:site_name" content="xxy's blog">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://xxy.im/logo.png">
 <meta name=twitter:title content="机器学习中的一些评价指标名词解释">
@@ -16,9 +17,9 @@
 <meta name=apple-mobile-web-app-title content="xxy != x²y">
 <meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/ml-terms/><link rel=next href=https://xxy.im/ml/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/ml-terms/><link rel=prev href=https://xxy.im/multithread/><link rel=next href=https://xxy.im/gan/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
 <noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css>
-<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"机器学习中的一些评价指标名词解释","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/ml-terms\/"},"genre":"posts","keywords":"机器学习, 深度学习","wordcount":1140,"url":"https:\/\/xxy.im\/ml-terms\/","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"机器学习中的一些评价指标名词解释","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/ml-terms\/"},"genre":"posts","keywords":"机器学习, 深度学习","wordcount":1140,"url":"https:\/\/xxy.im\/ml-terms\/","datePublished":"2022-04-22T04:34:11+08:00","dateModified":"2022-04-22T04:34:11+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
 <body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
 <div id=back-to-top></div>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
@@ -90,7 +91,7 @@
 <div class=post-meta-line>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://xxy.im title=Author target=_blank rel="noopener noreffer author" class=author>xxy</a>
 </span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/><i class="far fa-folder fa-fw"></i>深度学习</a></span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=0001-01-01>0001-01-01</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=0001-01-01>0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1140 字&nbsp;
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-04-22>2022-04-22</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-04-22>2022-04-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1140 字&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id=/ml-terms/ class=leancloud_visitors data-flag-title=机器学习中的一些评价指标名词解释>
 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count id=twikoo_visitors></span>&nbsp;次阅读
 </span>&nbsp;<span id=/ml-terms/ class=comment_count data-flag-title=机器学习中的一些评价指标名词解释>
@@ -238,7 +239,7 @@ $$
 <div class=post-info>
 <div class=post-info-line>
 <div class=post-info-mod>
-<span>更新于 0001-01-01</span>
+<span>更新于 2022-04-22</span>
 </div>
 <div class=post-info-license></div>
 </div>
@@ -255,8 +256,8 @@ $$
 <span><a href=# onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
 </section>
 </div>
-<div class=post-nav>
-<a href=/ml/ class=next rel=next title=机器学习初体验>机器学习初体验<i class="fas fa-angle-right fa-fw"></i></a></div>
+<div class=post-nav><a href=/multithread/ class=prev rel=prev title="[C++技法] 多线程编程"><i class="fas fa-angle-left fa-fw"></i>[C++技法] 多线程编程</a>
+<a href=/gan/ class=next rel=next title="[论文复现] Generative Adversarial Nets (原生GAN)">[论文复现] Generative Adversarial Nets (原生GAN)<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id=comments><div id=twikoo></div><noscript>
 Please enable JavaScript to view the comments powered by <a href=https://twikoo.js.org/>Twikoo</a>.
