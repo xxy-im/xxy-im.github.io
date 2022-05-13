@@ -1,0 +1,397 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title class=pjax-title>[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN) - xxy's blog</title><meta name=Description content="xxy's blog"><meta property="og:title" content="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)">
+<meta property="og:description" content="GAN开始卷起来了">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xxy.im/dcgan/"><meta property="og:image" content="https://xxy.im/logo.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-05-13T04:34:11+08:00">
+<meta property="article:modified_time" content="2022-05-13T04:34:11+08:00"><meta property="og:site_name" content="xxy's blog">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://xxy.im/logo.png">
+<meta name=twitter:title content="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)">
+<meta name=twitter:description content="GAN开始卷起来了">
+<meta name=application-name content="xxy != x²y">
+<meta name=apple-mobile-web-app-title content="xxy != x²y">
+<meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/dcgan/><link rel=prev href=https://xxy.im/gan/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/dcgan\/"},"genre":"posts","keywords":"机器学习, 深度学习, 论文复现, GAN","wordcount":2469,"url":"https:\/\/xxy.im\/dcgan\/","datePublished":"2022-05-13T04:34:11+08:00","dateModified":"2022-05-13T04:34:11+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
+<div id=back-to-top></div>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="xxy's blog"><span class=header-title-pre><i class="fa fa-fighter-jet"></i></span><span id=id-1 class=typeit></span></a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> 所有文章 </a><a class=menu-item href=/tags/> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-desktop title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-desktop title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select>
+</a></div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="xxy's blog"><span class=header-title-pre><i class="fa fa-fighter-jet"></i></span><span id=id-2 class=typeit></span></a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-mobile title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-mobile title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>
+取消
+</a>
+</div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-mobile title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>目录</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)</h1><div class=post-meta>
+<div class=post-meta-line>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://xxy.im title=Author target=_blank rel="noopener noreffer author" class=author>xxy</a>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/><i class="far fa-folder fa-fw"></i>深度学习</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-05-13>2022-05-13</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-05-13>2022-05-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2469 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id=/dcgan/ class=leancloud_visitors data-flag-title="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)">
+<i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count id=twikoo_visitors></span>&nbsp;次阅读
+</span>&nbsp;<span id=/dcgan/ class=comment_count data-flag-title="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)">
+<i class="far fa-comments fa-fw"></i>&nbsp;<span class=twikoo-comment-count id=twikoo-comment-count></span>&nbsp;条评论
+</span>&nbsp;</div>
+</div><div class=featured-image><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png title=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png height=auto width=auto></div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#基本概览>基本概览</a></li>
+<li><a href=#模型及训练>模型及训练</a></li>
+<li><a href=#核心代码>核心代码</a></li>
+<li><a href=#效果>效果</a></li>
+<li><a href=#总结>总结</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>GAN开始卷起来了</p>
+<h1 id=deep-convolutional-generative-adversarial-nets>Deep Convolutional Generative Adversarial Nets</h1>
+<p><a href=https://arxiv.org/pdf/1511.06434v2.pdf target=_blank rel="noopener noreffer">论文下载</a></p>
+<h2 id=基本概览>基本概览</h2>
+<p>这篇论文给我的第一印象是很长，有16页那么多，之前看的论文基本都10页左右。论文以现在的眼光来看会觉得用CNN替换掉原始GAN中的MLP是很理所当然的事情，但论文提到在当时CNN在无监督学习中的应用是不怎么被关注的</p>
+<p>论文提到他们贡献有：</p>
+<ul>
+<li>提出并验证了卷积GANs网络结构上的一些限制，使其在大多数情况下能稳定训练（即DCGAN）</li>
+<li>使用与训练好的图像分类器作为判别器，与其他无监督算法相比有更好的性能</li>
+<li>可视化了GAN学到的滤波器，实验表明不同的滤波器能绘制出不同的图像</li>
+<li>展现了生成器的一些有趣的向量运算属性，这使得我们可以对生成样本的语义质量做一些简单的修改</li>
+</ul>
+<p>然后提到了之前的图像生成模型在生成想MNIST这种数据集虽然还可以，但是在生成自然图片上效果还是不行（让我想到我在CIFAR-10上跑的GAN，效果惨不忍睹）</p>
+<h2 id=模型及训练>模型及训练</h2>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgenerator.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgenerator.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgenerator.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgenerator.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgenerator.png title="DCGAN 生成器结构图 （LSUN数据集）"></p>
+<p>在此之前已经有人尝试过用CNN扩展GAN，但是都失败了。作者最开始使用监督学习领域常用的CNN结构试图扩展GAN时也失败了。但是在做了一番模型探索后，确定了一类结构族，这些结构能够提供稳定的训练，并能够训练更高分辨率和更深层次的生成模型（<em>卡多就可以为所欲为吗</em>）</p>
+<p>核心方法采用了三个CNN架构的改进方法：</p>
+<ol>
+<li>全卷积网络：使用逐步卷积代替确定性空间池化函数（如maxpooling），这样网络可以自己学习空间下采样。用于生成器和判别器中便可以自行学习图像的上下采样（上下采样就是放大缩小）</li>
+<li>消除最顶层卷积层的全连接层，就如图像分类里常用的global average pooling那样。（一整个通道做一个average pooling，输出一个值），可以增强模型稳定性，但减缓了收敛速度</li>
+<li>使用Batch Normalization。但是直接对所有的层采用批处理规范化会导致样本震荡和模型不稳定，可以通过对生成器的输出层和辨别器的输入层不采用批处理规范化来避免这种情况。</li>
+</ol>
+<p>生成器输出层使用Tanh激活函数，其他层使用ReLU激活函数。而在判别器上则使用LeakyReLU激活函数效果更好，特别是在高分辨率图像上。</p>
+<p>论文提到给出了详细的训练细节（太良心了），除了将像素缩放到Tanh的范围[-1, 1]之外，图像没做任何预处理。使用mini-batch SGD训练，batch size为128。权重初始化用的 $(0, 0.02^2)$的正态分布初始化。LeakyReLU的p设为0.2。使用Adam优化器，学习率为0.0002，beta1设为0.5。</p>
+<blockquote>
+<p>终于知道论文为什么这么长了，真的太详细了。
+论文剩下部分是一大堆关于验证和可视化的东西。</p>
+</blockquote>
+<h2 id=核心代码>核心代码</h2>
+<p><strong>卷积层输出大小计算公式：</strong></p>
+<p>$$
+N=(W-K+2P)/S+1
+$$</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>N: 输出大小
+W: 图像宽高
+K: 卷积核大小
+P: 填充值大小
+S: 步长大小
+</code></pre></td></tr></table>
+</div>
+</div><p>转置<strong>卷积层输出大小计算公式：</strong></p>
+<p>$$
+N=(W-1)\times S-2P+K
+$$</p>
+<p><strong>生成器：</strong></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=c1># 生成器</span>
+<span class=k>class</span> <span class=nc>DCGenerator</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>Module</span><span class=p>):</span>
+    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>in_features</span><span class=p>,</span> <span class=n>img_shape</span><span class=p>,</span> <span class=n>init_weights</span><span class=o>=</span><span class=kc>True</span><span class=p>):</span>
+        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>()</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>img_shape</span> <span class=o>=</span> <span class=n>img_shape</span>
+
+        <span class=c1># 默认每次放大2倍宽高，用于上采样</span>
+        <span class=k>def</span> <span class=nf>upsampling_block</span><span class=p>(</span><span class=n>in_channel</span><span class=p>,</span> <span class=n>out_channel</span><span class=p>,</span> <span class=n>normalize</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>kernel_size</span><span class=o>=</span><span class=mi>4</span><span class=p>,</span> <span class=n>stride</span><span class=o>=</span><span class=mi>2</span><span class=p>,</span> <span class=n>padding</span><span class=o>=</span><span class=mi>1</span><span class=p>):</span>
+            <span class=n>layers</span> <span class=o>=</span> <span class=p>[</span><span class=n>nn</span><span class=o>.</span><span class=n>ConvTranspose2d</span><span class=p>(</span><span class=n>in_channel</span><span class=p>,</span> <span class=n>out_channel</span><span class=p>,</span> <span class=n>kernel_size</span><span class=o>=</span><span class=n>kernel_size</span><span class=p>,</span> <span class=n>stride</span><span class=o>=</span><span class=n>stride</span><span class=p>,</span> <span class=n>padding</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>bias</span><span class=o>=</span><span class=kc>False</span><span class=p>)]</span>
+            <span class=k>if</span> <span class=n>normalize</span><span class=p>:</span>
+                <span class=n>layers</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>BatchNorm2d</span><span class=p>(</span><span class=n>out_channel</span><span class=p>))</span>
+            <span class=n>layers</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>ReLU</span><span class=p>(</span><span class=n>inplace</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span> <span class=k>if</span> <span class=n>activation</span> <span class=ow>is</span> <span class=kc>None</span> <span class=k>else</span> <span class=n>activation</span><span class=p>)</span>
+            <span class=k>return</span> <span class=n>layers</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>linear</span> <span class=o>=</span> <span class=n>nn</span><span class=o>.</span><span class=n>Sequential</span><span class=p>(</span>
+            <span class=c1># BN层前面的层bias可以为False</span>
+            <span class=n>nn</span><span class=o>.</span><span class=n>Linear</span><span class=p>(</span><span class=n>in_features</span><span class=p>,</span> <span class=mi>1024</span> <span class=o>*</span> <span class=n>np</span><span class=o>.</span><span class=n>prod</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>img_shape</span><span class=p>[</span><span class=mi>1</span><span class=p>:]),</span> <span class=n>bias</span><span class=o>=</span><span class=kc>False</span><span class=p>),</span>
+            <span class=n>nn</span><span class=o>.</span><span class=n>BatchNorm1d</span><span class=p>(</span><span class=mi>1024</span> <span class=o>*</span> <span class=n>np</span><span class=o>.</span><span class=n>prod</span><span class=p>(</span><span class=bp>self</span><span class=o>.</span><span class=n>img_shape</span><span class=p>[</span><span class=mi>1</span><span class=p>:])),</span>
+            <span class=n>nn</span><span class=o>.</span><span class=n>ReLU</span><span class=p>()</span>
+        <span class=p>)</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>net</span> <span class=o>=</span> <span class=n>nn</span><span class=o>.</span><span class=n>Sequential</span><span class=p>(</span>
+            <span class=o>*</span><span class=n>upsampling_block</span><span class=p>(</span><span class=mi>1024</span><span class=p>,</span> <span class=mi>512</span><span class=p>),</span>       <span class=c1># 8 * 8</span>
+            <span class=o>*</span><span class=n>upsampling_block</span><span class=p>(</span><span class=mi>512</span><span class=p>,</span> <span class=mi>256</span><span class=p>),</span>        <span class=c1># 16 * 16</span>
+            <span class=o>*</span><span class=n>upsampling_block</span><span class=p>(</span><span class=mi>256</span><span class=p>,</span> <span class=mi>128</span><span class=p>),</span>        <span class=c1># 32 * 32</span>
+            <span class=o>*</span><span class=n>upsampling_block</span><span class=p>(</span><span class=mi>128</span><span class=p>,</span> <span class=mi>3</span><span class=p>,</span> <span class=kc>False</span><span class=p>,</span> <span class=n>nn</span><span class=o>.</span><span class=n>Tanh</span><span class=p>())</span>     <span class=c1># 64 * 64</span>
+        <span class=p>)</span>
+
+        <span class=k>if</span> <span class=n>init_weights</span><span class=p>:</span>
+            <span class=k>for</span> <span class=n>m</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>modules</span><span class=p>():</span>
+                <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>nn</span><span class=o>.</span><span class=n>Conv2d</span><span class=p>):</span>
+                    <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>normal_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>weight</span><span class=p>,</span> <span class=n>mean</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span> <span class=n>std</span><span class=o>=</span><span class=mf>0.02</span><span class=p>)</span>
+                <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>nn</span><span class=o>.</span><span class=n>BatchNorm2d</span><span class=p>):</span>
+                    <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>normal_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>weight</span><span class=p>,</span> <span class=n>mean</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>std</span><span class=o>=</span><span class=mf>0.02</span><span class=p>)</span>
+                    <span class=k>if</span> <span class=n>m</span><span class=o>.</span><span class=n>bias</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+                        <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>constant_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>bias</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+
+    <span class=k>def</span> <span class=nf>forward</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>x</span><span class=p>):</span>
+        <span class=n>x</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>linear</span><span class=p>(</span><span class=n>x</span><span class=p>)</span>
+        <span class=n>x</span> <span class=o>=</span> <span class=n>x</span><span class=o>.</span><span class=n>view</span><span class=p>(</span><span class=n>x</span><span class=o>.</span><span class=n>shape</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=o>*</span><span class=bp>self</span><span class=o>.</span><span class=n>img_shape</span><span class=p>)</span>     <span class=c1># 变换成二维用于卷积</span>
+        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>net</span><span class=p>(</span><span class=n>x</span><span class=p>)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>判别器：</strong></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=c1># 判别器</span>
+<span class=k>class</span> <span class=nc>DCDiscriminator</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>Module</span><span class=p>):</span>
+    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>img_shape</span><span class=p>,</span> <span class=n>init_weights</span><span class=o>=</span><span class=kc>True</span><span class=p>):</span>
+        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>()</span>
+
+        <span class=c1># 默认每次缩小2倍宽高，用于下采样</span>
+        <span class=k>def</span> <span class=nf>downsampling_block</span><span class=p>(</span><span class=n>in_channel</span><span class=p>,</span> <span class=n>out_channel</span><span class=p>,</span> <span class=n>normalize</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>padding</span><span class=o>=</span><span class=mi>1</span><span class=p>):</span>
+            <span class=n>layers</span> <span class=o>=</span> <span class=p>[</span><span class=n>nn</span><span class=o>.</span><span class=n>Conv2d</span><span class=p>(</span><span class=n>in_channel</span><span class=p>,</span> <span class=n>out_channel</span><span class=p>,</span> <span class=n>kernel_size</span><span class=o>=</span><span class=mi>4</span><span class=p>,</span> <span class=n>stride</span><span class=o>=</span><span class=mi>2</span><span class=p>,</span> <span class=n>padding</span><span class=o>=</span><span class=n>padding</span><span class=p>,</span> <span class=n>bias</span><span class=o>=</span><span class=kc>False</span><span class=p>)]</span>
+            <span class=k>if</span> <span class=n>normalize</span><span class=p>:</span>
+                <span class=n>layers</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>BatchNorm2d</span><span class=p>(</span><span class=n>out_channel</span><span class=p>))</span>
+            <span class=n>layers</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>LeakyReLU</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span> <span class=n>inplace</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span> <span class=k>if</span> <span class=n>activation</span> <span class=ow>is</span> <span class=kc>None</span> <span class=k>else</span> <span class=n>activation</span><span class=p>)</span>
+            <span class=k>return</span> <span class=n>layers</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>net</span> <span class=o>=</span> <span class=n>nn</span><span class=o>.</span><span class=n>Sequential</span><span class=p>(</span>
+            <span class=o>*</span><span class=n>downsampling_block</span><span class=p>(</span><span class=mi>3</span><span class=p>,</span> <span class=mi>128</span><span class=p>,</span> <span class=kc>False</span><span class=p>),</span>     <span class=c1># 32 * 32</span>
+            <span class=o>*</span><span class=n>downsampling_block</span><span class=p>(</span><span class=mi>128</span><span class=p>,</span> <span class=mi>256</span><span class=p>),</span>          <span class=c1># 16 * 16</span>
+            <span class=o>*</span><span class=n>downsampling_block</span><span class=p>(</span><span class=mi>256</span><span class=p>,</span> <span class=mi>512</span><span class=p>),</span>          <span class=c1># 8 * 8</span>
+            <span class=o>*</span><span class=n>downsampling_block</span><span class=p>(</span><span class=mi>512</span><span class=p>,</span> <span class=mi>1024</span><span class=p>),</span>         <span class=c1># 4 * 4</span>
+            <span class=o>*</span><span class=n>downsampling_block</span><span class=p>(</span><span class=mi>1024</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=kc>False</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=n>nn</span><span class=o>.</span><span class=n>Sigmoid</span><span class=p>(),</span> <span class=n>padding</span><span class=o>=</span><span class=mi>0</span><span class=p>),</span>
+            <span class=c1>#nn.AdaptiveAvgPool2d((1, 1)), nn.Sigmoid()</span>
+        <span class=p>)</span>
+
+        <span class=k>if</span> <span class=n>init_weights</span><span class=p>:</span>
+            <span class=k>for</span> <span class=n>m</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>modules</span><span class=p>():</span>
+                <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>nn</span><span class=o>.</span><span class=n>Conv2d</span><span class=p>):</span>
+                    <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>normal_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>weight</span><span class=p>,</span> <span class=n>mean</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span> <span class=n>std</span><span class=o>=</span><span class=mf>0.02</span><span class=p>)</span>
+                <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>nn</span><span class=o>.</span><span class=n>BatchNorm2d</span><span class=p>):</span>
+                    <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>normal_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>weight</span><span class=p>,</span> <span class=n>mean</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>std</span><span class=o>=</span><span class=mf>0.02</span><span class=p>)</span>
+                    <span class=k>if</span> <span class=n>m</span><span class=o>.</span><span class=n>bias</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+                        <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>constant_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>bias</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+
+    <span class=k>def</span> <span class=nf>forward</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>images</span><span class=p>):</span>
+        <span class=n>y</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>net</span><span class=p>(</span><span class=n>images</span><span class=p>)</span>
+        <span class=k>return</span> <span class=n>y</span><span class=o>.</span><span class=n>view</span><span class=p>(</span><span class=n>y</span><span class=o>.</span><span class=n>shape</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>判别器的输出层那里我看网上的代码基本都是用的padding为0的卷积层，然后我有在动漫头像数据集上试过论文提到的全局average pooling层（注释的代码）。同样训练了一个epoch后，用全局池化的效果的确是差一些，但训练速度提升了点，没试过一直训练下去会怎么样</p>
+<blockquote>
+<p>其余部分与原始的GAN没什么太大区别</p>
+</blockquote>
+<h2 id=效果>效果</h2>
+<p>我依然是在CIFAR-10上训练的，虽然论文中写到他们从未在CIFAR-10上训练过，但为了和之前做的GAN有个直观的对比，所以还是在CIFAR-10上训练。</p>
+<blockquote>
+<p>虽然作者没在CIFAR-10训练，但是他们在ImageNet-1k上做的预训练模型在CIFAR-10上提取特征后在分类的准确度仍然很高，说明这个模型有很高的鲁棒性</p>
+</blockquote>
+<p>一开始在CIFAR-10上训练的是时候一直没什么效果，经过在动漫头像上的效果对比后排除了模型了问题，所以那就是数据分布的问题了，于是便把batch size 调大一点（由原论文的128调到512），让模型一次”看到“的数据多一点，效果立竿见影，终于跑出了像样的图片了。</p>
+<p><strong>30 epoch：</strong></p>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png title=点击放大></p>
+<p><strong>30 epoch：</strong></p>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png title=点击放大></p>
+<p><strong>80 epoch：</strong></p>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png title=点击放大></p>
+<p><em>比原生GAN好，但还是看不出生成的到底是啥，再也不到 CIFAR-10上跑GAN了</em></p>
+<blockquote>
+<p>并不是epoch越多效果就更好，有可能20epoch的时候效果已经还可以，30的时候又很差，40epoch又好起来了。单看loss很难确定哪个效果好，不知道后面的论文有没有更好的验证方法。</p>
+</blockquote>
+<h2 id=总结>总结</h2>
+<p>没有像论文里那样先做预训练。</p>
+<p>一开始我在CIFAR10上跑的时候loss没有像正常的GAN那样起伏，调了很久，最后发现原因是判别器的输出层接了BN层导致的。因为输出的是概率，被BN层一处理就会有问题了。应该是个常识问题，我傻逼了。</p>
+<p>还有就是不同数据集效果也差很大，像动漫头像（CrypkoFaces）那样的数据集训练一个epoch就能有明显效果。可能因为动漫头像就一类数据，数据分布比较简单更容易拟合，而像CIFAR10那样的分类数据集的分布要复杂点，</p>
+<p><strong>One epoch on CrypkoFaces：</strong></p>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png title=crypoko_1epoch.png></p>
+<p>完整代码：<a href=https://github.com/xxy-im/Just4GAN target=_blank rel="noopener noreffer">https://github.com/xxy-im/Just4GAN</a></p>
+<p>直接 <code>python train.py --config ./config/dcgan.yaml</code> 就可以默认训练CIFAR-10了。</p>
+<p>默认训练CIFAR10，如果需要训练自定义数据可能需要改几行代码</p>
+<p><em>coding十分钟，debug俩小时</em></p></div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>更新于 2022-05-13</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://xxy.im/dcgan/ data-title="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)" data-hashtags=机器学习,深度学习,论文复现,GAN><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://xxy.im/dcgan/ data-hashtag=机器学习><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Line" data-sharer=line data-url=https://xxy.im/dcgan/ data-title="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/line.svg></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://xxy.im/dcgan/ data-title="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)" data-image=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png><i class="fab fa-weibo fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Myspace" data-sharer=myspace data-url=https://xxy.im/dcgan/ data-title="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)" data-description><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/myspace.svg></i></a><a href=# onclick=return!1 title="分享到 Blogger" data-sharer=blogger data-url=https://xxy.im/dcgan/ data-title="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)" data-description><i class="fab fa-blogger fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Evernote" data-sharer=evernote data-url=https://xxy.im/dcgan/ data-title="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)"><i class="fab fa-evernote fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/>机器学习</a>,&nbsp;<a href=/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/>深度学习</a>,&nbsp;<a href=/tags/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/>论文复现</a>,&nbsp;<a href=/tags/gan/>GAN</a></section>
+<section>
+<span><a href=# onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/gan/ class=prev rel=prev title="[论文复现] Generative Adversarial Nets (原生GAN)"><i class="fas fa-angle-left fa-fw"></i>[论文复现] Generative Adversarial Nets (原生GAN)</a></div>
+</div>
+<div id=comments><div id=twikoo></div><noscript>
+Please enable JavaScript to view the comments powered by <a href=https://twikoo.js.org/>Twikoo</a>.
+</noscript></div></article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2020 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://xxy.im target=_blank rel="noopener noreferrer">xxy</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+</div></footer></div>
+<div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><div class=assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/@sliphua/pjax@0.13.0/dist/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-V9ZE6MC9MQ',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-V9ZE6MC9MQ" async></script></div>
+<div class=pjax-assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twikoo@1.4.3/dist/twikoo.all.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@13.1.0/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/mhchem.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js></script><script type=text/javascript src=/js/click_effect.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.0.min.js></script><script type=text/javascript src=/js/live2d_config.js></script><script type=text/javascript src=/js/console_output.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{twikoo:{commentCount:!0,el:"#twikoo",envId:"https://twikoo-livid.vercel.app/",lang:"zh-cn"}},data:{"id-1":"  xxy != x²y","id-2":"  xxy != x²y"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/index.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!1,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:50,threshold:.3,type:"fuse",useExtendedSearch:!1},sharerjs:!0,twemoji:!0,typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:100}}</script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.css></div>
+</body>
+</html>
