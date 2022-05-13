@@ -19,7 +19,7 @@
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/dcgan/><link rel=prev href=https://xxy.im/gan/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
 <noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css>
-<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/dcgan\/"},"genre":"posts","keywords":"机器学习, 深度学习, 论文复现, GAN","wordcount":2469,"url":"https:\/\/xxy.im\/dcgan\/","datePublished":"2022-05-13T04:34:11+08:00","dateModified":"2022-05-13T04:34:11+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/dcgan\/"},"genre":"posts","keywords":"机器学习, 深度学习, 论文复现, GAN","wordcount":2470,"url":"https:\/\/xxy.im\/dcgan\/","datePublished":"2022-05-13T04:34:11+08:00","dateModified":"2022-05-13T04:34:11+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
 <body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
 <div id=back-to-top></div>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
@@ -91,7 +91,7 @@
 <div class=post-meta-line>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://xxy.im title=Author target=_blank rel="noopener noreffer author" class=author>xxy</a>
 </span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/><i class="far fa-folder fa-fw"></i>深度学习</a></span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-05-13>2022-05-13</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-05-13>2022-05-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2469 字&nbsp;
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-05-13>2022-05-13</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-05-13>2022-05-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2470 字&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id=/dcgan/ class=leancloud_visitors data-flag-title="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)">
 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count id=twikoo_visitors></span>&nbsp;次阅读
 </span>&nbsp;<span id=/dcgan/ class=comment_count data-flag-title="[论文复现] Deep Convolutional Generative Adversarial Nets (DCGAN)">
@@ -160,7 +160,7 @@ P: 填充值大小
 S: 步长大小
 </code></pre></td></tr></table>
 </div>
-</div><p>转置<strong>卷积层输出大小计算公式：</strong></p>
+</div><p><strong>转置卷积层输出大小计算公式：</strong></p>
 <p>$$
 N=(W-1)\times S-2P+K
 $$</p>
@@ -339,12 +339,12 @@ $$</p>
 </blockquote>
 <p>一开始在CIFAR-10上训练的是时候一直没什么效果，经过在动漫头像上的效果对比后排除了模型了问题，所以那就是数据分布的问题了，于是便把batch size 调大一点（由原论文的128调到512），让模型一次”看到“的数据多一点，效果立竿见影，终于跑出了像样的图片了。</p>
 <p><strong>30 epoch：</strong></p>
-<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png title=点击放大></p>
-<p><strong>30 epoch：</strong></p>
-<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png title=点击放大></p>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png title="30epoch on CIFAR-10"></p>
+<p><strong>50 epoch：</strong></p>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png title="50epoch on CIFAR-10"></p>
 <p><strong>80 epoch：</strong></p>
-<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png title=点击放大></p>
-<p><em>比原生GAN好，但还是看不出生成的到底是啥，再也不到 CIFAR-10上跑GAN了</em></p>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png title="80epoch on CIFAR-10"></p>
+<p><em>比原生GAN好点，但还是看不出生成的到底是啥，再也不到 CIFAR-10上跑GAN了</em></p>
 <blockquote>
 <p>并不是epoch越多效果就更好，有可能20epoch的时候效果已经还可以，30的时候又很差，40epoch又好起来了。单看loss很难确定哪个效果好，不知道后面的论文有没有更好的验证方法。</p>
 </blockquote>
@@ -353,7 +353,7 @@ $$</p>
 <p>一开始我在CIFAR10上跑的时候loss没有像正常的GAN那样起伏，调了很久，最后发现原因是判别器的输出层接了BN层导致的。因为输出的是概率，被BN层一处理就会有问题了。应该是个常识问题，我傻逼了。</p>
 <p>还有就是不同数据集效果也差很大，像动漫头像（CrypkoFaces）那样的数据集训练一个epoch就能有明显效果。可能因为动漫头像就一类数据，数据分布比较简单更容易拟合，而像CIFAR10那样的分类数据集的分布要复杂点，</p>
 <p><strong>One epoch on CrypkoFaces：</strong></p>
-<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png title=crypoko_1epoch.png></p>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png title="DCGAN on Crypko"></p>
 <p>完整代码：<a href=https://github.com/xxy-im/Just4GAN target=_blank rel="noopener noreffer">https://github.com/xxy-im/Just4GAN</a></p>
 <p>直接 <code>python train.py --config ./config/dcgan.yaml</code> 就可以默认训练CIFAR-10了。</p>
 <p>默认训练CIFAR10，如果需要训练自定义数据可能需要改几行代码</p>

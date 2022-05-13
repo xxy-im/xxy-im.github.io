@@ -60,7 +60,7 @@ P: 填充值大小
 S: 步长大小
 ```
 
-转置**卷积层输出大小计算公式：**
+**转置卷积层输出大小计算公式：**
 
 $$
 N=(W-1)\times S-2P+K
@@ -166,17 +166,17 @@ class DCDiscriminator(nn.Module):
 
 **30 epoch：**
 
-![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png)
+![30epoch on CIFAR-10](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_30e.png)
 
-**30 epoch：**
+**50 epoch：**
 
-![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png)
+![50epoch on CIFAR-10](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_50e.png)
 
 **80 epoch：**
 
-![点击放大](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png)
+![80epoch on CIFAR-10](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/dcgan_80e.png)
 
-*比原生GAN好，但还是看不出生成的到底是啥，再也不到 CIFAR-10上跑GAN了*
+*比原生GAN好点，但还是看不出生成的到底是啥，再也不到 CIFAR-10上跑GAN了*
 
 > 并不是epoch越多效果就更好，有可能20epoch的时候效果已经还可以，30的时候又很差，40epoch又好起来了。单看loss很难确定哪个效果好，不知道后面的论文有没有更好的验证方法。
 > 
@@ -191,7 +191,7 @@ class DCDiscriminator(nn.Module):
 
 **One epoch on CrypkoFaces：**
 
-![crypoko_1epoch.png](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png)
+![DCGAN on Crypko](https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/crypko_1epoch.png)
 
 完整代码：[https://github.com/xxy-im/Just4GAN](https://github.com/xxy-im/Just4GAN)
 
