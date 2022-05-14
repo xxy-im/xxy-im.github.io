@@ -19,7 +19,7 @@
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/gan/><link rel=prev href=https://xxy.im/ml-terms/><link rel=next href=https://xxy.im/dcgan/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
 <noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css>
-<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[论文复现] Generative Adversarial Nets (原生GAN)","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/gan\/"},"genre":"posts","keywords":"机器学习, 深度学习, 论文复现, GAN","wordcount":2115,"url":"https:\/\/xxy.im\/gan\/","datePublished":"2022-05-08T04:34:11+08:00","dateModified":"2022-05-08T04:34:11+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[论文复现] Generative Adversarial Nets (原生GAN)","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/gan\/"},"genre":"posts","keywords":"机器学习, 深度学习, 论文复现, GAN","wordcount":2315,"url":"https:\/\/xxy.im\/gan\/","datePublished":"2022-05-08T04:34:11+08:00","dateModified":"2022-05-08T04:34:11+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
 <body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
 <div id=back-to-top></div>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
@@ -91,7 +91,7 @@
 <div class=post-meta-line>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://xxy.im title=Author target=_blank rel="noopener noreffer author" class=author>xxy</a>
 </span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/><i class="far fa-folder fa-fw"></i>深度学习</a></span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-05-08>2022-05-08</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-05-08>2022-05-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2115 字&nbsp;
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-05-08>2022-05-08</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-05-08>2022-05-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2315 字&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;<span id=/gan/ class=leancloud_visitors data-flag-title="[论文复现] Generative Adversarial Nets (原生GAN)">
 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count id=twikoo_visitors></span>&nbsp;次阅读
 </span>&nbsp;<span id=/gan/ class=comment_count data-flag-title="[论文复现] Generative Adversarial Nets (原生GAN)">
@@ -129,13 +129,14 @@
 <p>生成器的输入是随机噪声(就均匀分布，高斯分布这样的东西，1维到高维都可以)。</p>
 <p>判别器的输出是0到1的标量，越接近1表示越真。</p>
 <p>生成器 $G$ 的目标是要使得输入噪声 $z$ 后生成的图像 $G(z)$ 在判别器 $D$ 中得到的分数 $D(G(z))$ 很高。即 $1-D(G(z))$ 要很小，论文中对其取对数，于是生成器的目标是 $\min(log(1-D(G(z)))$。</p>
-<p>判别器 $D$ 的目标则是对于输入的真实数据 $x$ ，$D(x)$ 的值越大越好。同样对其取对数，即$max(log(D(x)))$。</p>
+<p>判别器 $D$ 的目标则是对于输入的真实数据 $x$ ，$D(x)$ 的值越大越好，对其取对数，即 $max(log(D(x)))$。同时对 $G(z)$ 给出的分数 $D(G(z))$ 要越小越好，即$\max(log(1-D(G(z)))$。组合起来得到$\max(log(D(x))+log(1-D(G(z)))$，这其实就是最大化交叉熵函数的负数。</p>
 <p>综上两点，GAN的目标函数是这样的：</p>
 <p>$$
 \min_{G}\max_{D}V(D, G)=\mathbb{E}_{\boldsymbol{x}\sim p_{\text {data }}(\boldsymbol{x})}[\log{D}(\boldsymbol{x})]+\mathbb{E}_{\boldsymbol{z}\sim p_{\boldsymbol{z}}(\boldsymbol{z})}[\log (1-D(G(\boldsymbol{z})))]
 $$</p>
+<p><strong>但是在训练刚开始的时候生成的数据几乎都是一眼假，判别器给出的分数 $D(G(z))$ 很接近0，导致$log(1-D(G(z))$的梯度太小从而无法训练，所以实际训练时候还是把生成器的目标改为$\max(logD(G(z)))$。并且对于固定判别器训练生成器的情况，前一项 $max(log(D(x)))$ 可以视为常数1，所以生成器的目标函数可以视为最大化$D(G(z)))$与1的交叉熵的负数。这样目标函数就统一为了最大化交叉熵函数的负数，即最小化交叉熵函数。所以GAN的loss函数为BCELoss。</strong></p>
 <blockquote>
-<p><strong>但是在训练刚开始的时候生成的数据几乎都是一眼假，判别器给出的分数很接近0，梯度太小导致一开始很难训练，所以实际训练时候还是把目标改为$\max(logD(G(z)))$。这样目标函数就统一为了最大化交叉熵函数的负数，即最小化交叉熵函数。所以GAN的loss函数为BCELoss。</strong></p>
+<p>交叉熵来用于预测概率与真实概率之间的差距。</p>
 </blockquote>
 <p>分别对那两个对数函数求期望后相加。(其实就是交叉熵。)</p>
 <p>固定判别器 $D$ 的情况下，目标函数最小化；（计算$D(G(z)))$与全1的交叉熵，从而优化生成器）</p>
