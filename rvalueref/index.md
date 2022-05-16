@@ -35,7 +35,7 @@ r_ref = 2;           // 右值引用也可以修改值
 ```c++
 int a = 1;
 int& ref = a;
-int&& r_ref = std::move(a);     // 将a转化为左值 与 int&& rref = 1 等价
+int&& r_ref = std::move(a);     // 将a转化为右值 与 int&& rref = 1 等价
 r_ref = 2;          // 等价 a = 2
 ```
 但是和`int&& rref = 1`不同的是，此时`r_ref`也相当于`a`的一个左值引用。同时可以看出`std::move`根本没把`a`给移掉，因为像`int`这样的基本类型`std::move`对其是没有影响的。像`string`、`std::unique_ptr`这样的`move`就会变空了。*要养成移动后不在使用的习惯*

@@ -183,7 +183,7 @@
 <td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=kt>int</span> <span class=n>a</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
 <span class=kt>int</span><span class=o>&amp;</span> <span class=n>ref</span> <span class=o>=</span> <span class=n>a</span><span class=p>;</span>
-<span class=kt>int</span><span class=o>&amp;&amp;</span> <span class=n>r_ref</span> <span class=o>=</span> <span class=n>std</span><span class=o>::</span><span class=n>move</span><span class=p>(</span><span class=n>a</span><span class=p>);</span>     <span class=c1>// 将a转化为左值 与 int&amp;&amp; rref = 1 等价
+<span class=kt>int</span><span class=o>&amp;&amp;</span> <span class=n>r_ref</span> <span class=o>=</span> <span class=n>std</span><span class=o>::</span><span class=n>move</span><span class=p>(</span><span class=n>a</span><span class=p>);</span>     <span class=c1>// 将a转化为右值 与 int&amp;&amp; rref = 1 等价
 </span><span class=c1></span><span class=n>r_ref</span> <span class=o>=</span> <span class=mi>2</span><span class=p>;</span>          <span class=c1>// 等价 a = 2
 </span></code></pre></td></tr></table>
 </div>
