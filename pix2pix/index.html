@@ -1,0 +1,457 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title class=pjax-title>[论文复现] pix2pix - xxy's blog</title><meta name=Description content="xxy's blog"><meta property="og:title" content="[论文复现] pix2pix">
+<meta property="og:description" content="GAN，越来越有意思了">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://xxy.im/pix2pix/"><meta property="og:image" content="https://xxy.im/logo.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-06-01T01:34:11+08:00">
+<meta property="article:modified_time" content="2022-06-01T01:34:11+08:00"><meta property="og:site_name" content="xxy's blog">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://xxy.im/logo.png">
+<meta name=twitter:title content="[论文复现] pix2pix">
+<meta name=twitter:description content="GAN，越来越有意思了">
+<meta name=application-name content="xxy != x²y">
+<meta name=apple-mobile-web-app-title content="xxy != x²y">
+<meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical href=https://xxy.im/pix2pix/><link rel=prev href=https://xxy.im/improvedgan/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css>
+<noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[论文复现] pix2pix","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/xxy.im\/pix2pix\/"},"genre":"posts","keywords":"机器学习, 深度学习, 论文复现, GAN","wordcount":2898,"url":"https:\/\/xxy.im\/pix2pix\/","datePublished":"2022-06-01T01:34:11+08:00","dateModified":"2022-06-01T01:34:11+08:00","publisher":{"@type":"Organization","name":"xxy"},"author":{"@type":"Person","name":"xxy"},"description":""}</script></head>
+<body header-desktop=fixed header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
+<div id=back-to-top></div>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="xxy's blog"><span class=header-title-pre><i class="fa fa-fighter-jet"></i></span><span id=id-1 class=typeit></span></a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> 所有文章 </a><a class=menu-item href=/tags/> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-desktop title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-desktop title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select>
+</a></div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="xxy's blog"><span class=header-title-pre><i class="fa fa-fighter-jet"></i></span><span id=id-2 class=typeit></span></a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-mobile title=搜索>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-mobile title=清空>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>
+取消
+</a>
+</div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=https://github.com/xxy-im title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-select" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+<select class=color-theme-select id=theme-select-mobile title=切换主题><option value=light>浅色</option><option value=dark>深色</option><option value=black>黑色</option><option value=auto>跟随系统</option></select>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>目录</h2>
+<div class=toc-content id=toc-content-auto></div>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[论文复现] pix2pix</h1><div class=post-meta>
+<div class=post-meta-line>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://xxy.im title=Author target=_blank rel="noopener noreffer author" class=author>xxy</a>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/><i class="far fa-folder fa-fw"></i>深度学习</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-06-01>2022-06-01</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-06-01>2022-06-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2898 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;<span id=/pix2pix/ class=leancloud_visitors data-flag-title="[论文复现] pix2pix">
+<i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count id=twikoo_visitors></span>&nbsp;次阅读
+</span>&nbsp;<span id=/pix2pix/ class=comment_count data-flag-title="[论文复现] pix2pix">
+<i class="far fa-comments fa-fw"></i>&nbsp;<span class=twikoo-comment-count id=twikoo-comment-count></span>&nbsp;条评论
+</span>&nbsp;</div>
+</div><div class=featured-image><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png title=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png height=auto width=auto></div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#概述>概述</a></li>
+<li><a href=#模型及训练>模型及训练</a></li>
+<li><a href=#评价指标>评价指标</a></li>
+<li><a href=#核心代码>核心代码</a></li>
+<li><a href=#效果>效果</a></li>
+<li><a href=#总结>总结</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>GAN，越来越有意思了</p>
+<h1 id=image-to-image-translation-with-condition-adversarial-networks>Image-to-Image Translation with Condition Adversarial Networks</h1>
+<p><a href=https://openaccess.thecvf.com/content_cvpr_2017/papers/Isola_Image-To-Image_Translation_With_CVPR_2017_paper.pdf target=_blank rel="noopener noreffer">论文下载（CVPR）</a></p>
+<p><a href=https://arxiv.org/pdf/1611.07004v3.pdf target=_blank rel="noopener noreffer">论文下载（arxiv，更详细）</a></p>
+<h2 id=概述>概述</h2>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png title=pix2pix案例></p>
+<p>论文开篇直接放了张图片告诉你这个网络可以做哪些图片到图片的翻译任务。这些任务包括但不限于语义标签图到生成图，物体边缘轮廓图到构建出的实体图，图片上色等。论文将这些任务同一称为像素到像素的映射（map pix to pix）。这篇论文的团队又是一个良心团队，不仅给了代码，还有示例网站，还给了colab页面以及网友们自己做的艺术创作。都在这里 <a href=https://phillipi.github.io/pix2pix/ target=_blank rel="noopener noreffer">https://phillipi.github.io/pix2pix/</a></p>
+<p>所有这些图片翻译任务都只需要用同一个网络结构，喂不同的数据就可以实现。这就是它牛逼的地方，直接给了一个通用解决方案。</p>
+<p>因为需要输入一张图片，可以把这个输入的图片作为条件，所以这个GAN模型是有条件的（conditional GAN）。</p>
+<p>论文提到了一个叫 <strong>“structure loss”</strong> 的东西，说以前的图片翻译问题通常会将输出空间认为是无结构化（”unstructured“），像素和像素之间是条件独立的（与周围的像素无关，只跟输入图片中对应的像素有关）。而cGAN就能学到一个 <strong>“structure loss”</strong> ，对输出图片中相邻的像素进行惩罚。</p>
+<blockquote>
+<p>cGAN就是在GAN的基础上加了一个条件向量。生成图片的时候在噪声后面接个条件向量，判别的时候图片也是和这个条件向量一起判别，这个条件向量在MNIST数据集上可以代表数字，CIFAR数据集上可以代表类别，总之按你给定的条件生成相应的图像。理解了GAN的话很容易就能写出cGAN的代码，所以就没写cGAN的复现。</p>
+</blockquote>
+<h2 id=模型及训练>模型及训练</h2>
+<p>模型大体的框架是用的和DCGAN类似的结构，生成器和判别器都是 <strong>convolution-BatchNorm-ReLU</strong> 这样的 <strong>CBR</strong> 结构。但不同的是，推理过程是用测试集的统计数据进行batch normalization，当batch size为1时又叫做 <strong>“instance normalization”</strong>，这是图像生成任务常用的方法。参考这篇论文《Instance normalization: The missing ingredient for fast stylization》</p>
+<p><strong>生成器：</strong></p>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/unet.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/unet.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/unet.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/unet.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/unet.png title="U-Net Generator"></p>
+<p>用的是<strong>U-Net</strong>那样的一个U型卷积结构，是图像分割领域的经典论文，至今仍活跃于医学图像领域。</p>
+<p>过去大部分做 <strong>Image-to-Image</strong> 任务的GAN的生成器都是通过对输入先下采样再上采样的方式生成图像（encoder-decoder结构）。但是这样会导致在下采样通过瓶颈层时丢失掉很多特征，而我们的任务需要输出图像与输入图像的一些底层特征的相同的，如轮廓和边缘。而 <strong>U-Net</strong> 结构就很好的解决了这个问题，用类似 <strong>ResNet</strong> 那样的方法把通过瓶颈层前的特征直接送到<strong>对称</strong>的上采样层上，这样就保留了图像的底层特征 。</p>
+<p><strong>判别器：</strong></p>
+<p>论文给取了个名字叫<strong>马尔可夫判别器</strong>，又叫 <strong>PatchGAN</strong> 分类器，这个判别器将图片分成很多小块（Patch）分别判别真假概率（Patch之间相互独立）。这样判别器的输出就不再是一个数值了，图片为真的概率为判别器输出结果平均的平均值。这么做的一个目的是为了方便捕捉图片的高频信息（纹理，边缘，风格等）。论文在 <strong>Cityscapes</strong> 数据集上做的 <strong>label→photo</strong> 实验，Patch为 70x70 得出的效果最好。</p>
+<p>这样的判别器将一张图片视为一个马尔可夫随机场，如果像素之间的距离超过了一个Patch的直径就认为它们是独立无关的。</p>
+<blockquote>
+<p><strong>低频</strong>就是颜色缓慢变化，也就是灰度缓慢地变化，代表着那是连续渐变的一块区域；<br>
+<strong>高频</strong>就是频率变化快，相邻区域之间灰度相差很大。</p>
+</blockquote>
+<p><em>具体代码实现的时候并不是真的把图片分成 NxN 块后再判别，而是通过改变卷积操作的感受野来实现</em></p>
+<p><strong>目标函数：</strong></p>
+<p>除了GAN原本的目标函数，还需要一个函数评估生成图与真实图的“距离”（像素之间的差异），论文用的 <strong>L1</strong> 距离，选用L1是因为这些距离函数作用在像素层面上会激励图像模糊化，而L1距离相较L2来说图像的模糊程度会更少。（不会捕捉高频信息，但能捕捉到低频信息，高频信息已经丢给判别器去捕捉了）</p>
+<p>$$
+\mathcal{L}_ {L 1}(G)=\mathbb{E}_{x, y, z}\left[|y-G(x, z)|_{1}\right]
+$$</p>
+<p>加在原目标函数后，最终目标函数为</p>
+<p>$$
+G^{*}=\arg \min _{G} \max _{D} \mathcal{L} _{c G A N}(G, D)+\lambda \mathcal{L} _{L 1}(G)
+$$</p>
+<p>和传统cGAN还有个不同的就是，pix2pix把噪声采样 $z$ 给拿掉了，因为生成器很容易会忽略噪声输入。论文最终通过使用<strong>dropout</strong>来引入随机性，不单是训练过程用的dropout，推理过程也用dropout。但也提到了，这种方法带来的随机性也不是很大。</p>
+<blockquote>
+<p>所以论文说如何使cGAN产生高随机性也是个重要的工作。</p>
+</blockquote>
+<h2 id=评价指标>评价指标</h2>
+<p>在Improved GAN 中提到过一个叫做 <strong>Inception Score</strong> 的评价指标。这篇论文里又提出了一个 <strong>FCN-score</strong> 用于语义标签转图片这个任务上评估图像生成质量。</p>
+<p>用一个现成的FCN模型给生成图做语义分割得到的label和真实的label做比较，这时就可以用语义分割领域现有的评价指标，如 <strong>per-pixel accuracy</strong>，<strong>per-class accuracy</strong> 和 <strong>Class IOU</strong>。</p>
+<h2 id=核心代码>核心代码</h2>
+<p><strong>生成器：</strong></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=k>class</span> <span class=nc>UNetBlock</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>Module</span><span class=p>):</span>
+    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>in_channel</span><span class=p>,</span> <span class=n>out_channel</span><span class=p>,</span> <span class=n>normalize</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span> <span class=n>down</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>dropout</span><span class=o>=</span><span class=kc>False</span><span class=p>):</span>
+        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>()</span>
+
+        <span class=c1># 参数 4, 2, 1，在下采样是宽高缩小两倍，上采样时扩大两倍</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>net</span> <span class=o>=</span> <span class=n>nn</span><span class=o>.</span><span class=n>Sequential</span><span class=p>(</span>
+            <span class=n>nn</span><span class=o>.</span><span class=n>Conv2d</span><span class=p>(</span><span class=n>in_channel</span><span class=p>,</span> <span class=n>out_channel</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=n>bias</span><span class=o>=</span><span class=kc>False</span> <span class=k>if</span> <span class=n>normalize</span> <span class=k>else</span> <span class=kc>True</span><span class=p>)</span> <span class=k>if</span> <span class=n>down</span>
+            <span class=k>else</span> <span class=n>nn</span><span class=o>.</span><span class=n>ConvTranspose2d</span><span class=p>(</span><span class=n>in_channel</span><span class=p>,</span> <span class=n>out_channel</span><span class=p>,</span> <span class=mi>4</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>1</span><span class=p>,</span> <span class=n>bias</span><span class=o>=</span><span class=kc>False</span> <span class=k>if</span> <span class=n>normalize</span> <span class=k>else</span> <span class=kc>True</span><span class=p>),</span>
+        <span class=p>)</span>
+        <span class=k>if</span> <span class=n>normalize</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>net</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>BatchNorm2d</span><span class=p>(</span><span class=n>out_channel</span><span class=p>))</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>net</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>LeakyReLU</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span> <span class=kc>True</span><span class=p>)</span> <span class=k>if</span> <span class=n>activation</span> <span class=ow>is</span> <span class=kc>None</span> <span class=k>else</span> <span class=n>activation</span><span class=p>)</span>
+
+        <span class=k>if</span> <span class=n>dropout</span><span class=p>:</span>
+            <span class=bp>self</span><span class=o>.</span><span class=n>net</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>Dropout</span><span class=p>(</span><span class=mf>0.5</span><span class=p>))</span>
+
+    <span class=k>def</span> <span class=nf>forward</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>x</span><span class=p>):</span>
+        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>net</span><span class=p>(</span><span class=n>x</span><span class=p>)</span>
+
+<span class=k>class</span> <span class=nc>UNetGenerator</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>Module</span><span class=p>):</span>
+    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>in_channels</span><span class=o>=</span><span class=mi>3</span><span class=p>,</span> <span class=n>init_weights</span><span class=o>=</span><span class=kc>True</span><span class=p>):</span>
+        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>()</span>
+
+        <span class=n>conv_channels</span> <span class=o>=</span> <span class=p>[</span><span class=mi>64</span><span class=p>,</span> <span class=mi>128</span><span class=p>,</span> <span class=mi>256</span><span class=p>,</span> <span class=mi>512</span><span class=p>,</span> <span class=mi>512</span><span class=p>,</span> <span class=mi>512</span><span class=p>,</span> <span class=mi>512</span><span class=p>,</span> <span class=mi>512</span><span class=p>,</span> <span class=mi>512</span><span class=p>]</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>down1</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>in_channels</span><span class=p>,</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>down2</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>down3</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>2</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>down4</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>2</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>3</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>down5</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>3</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>4</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>down6</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>4</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>5</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>down7</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>5</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>6</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>bottleneck</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>6</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>7</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>up1</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>7</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>6</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=n>nn</span><span class=o>.</span><span class=n>ReLU</span><span class=p>(</span><span class=kc>True</span><span class=p>))</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>up2</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>6</span><span class=p>]</span> <span class=o>*</span> <span class=mi>2</span><span class=p>,</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>5</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=n>nn</span><span class=o>.</span><span class=n>ReLU</span><span class=p>(</span><span class=kc>True</span><span class=p>),</span> <span class=n>dropout</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>up3</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>5</span><span class=p>]</span> <span class=o>*</span> <span class=mi>2</span><span class=p>,</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>4</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=n>nn</span><span class=o>.</span><span class=n>ReLU</span><span class=p>(</span><span class=kc>True</span><span class=p>))</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>up4</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>4</span><span class=p>]</span> <span class=o>*</span> <span class=mi>2</span><span class=p>,</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>3</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=n>nn</span><span class=o>.</span><span class=n>ReLU</span><span class=p>(</span><span class=kc>True</span><span class=p>),</span> <span class=n>dropout</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>up5</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>3</span><span class=p>]</span> <span class=o>*</span> <span class=mi>2</span><span class=p>,</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>2</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=n>nn</span><span class=o>.</span><span class=n>ReLU</span><span class=p>(</span><span class=kc>True</span><span class=p>))</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>up6</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>2</span><span class=p>]</span> <span class=o>*</span> <span class=mi>2</span><span class=p>,</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=n>nn</span><span class=o>.</span><span class=n>ReLU</span><span class=p>(</span><span class=kc>True</span><span class=p>),</span> <span class=n>dropout</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>up7</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>1</span><span class=p>]</span> <span class=o>*</span> <span class=mi>2</span><span class=p>,</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>down</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=n>nn</span><span class=o>.</span><span class=n>ReLU</span><span class=p>(</span><span class=kc>True</span><span class=p>))</span>
+
+        <span class=bp>self</span><span class=o>.</span><span class=n>out</span> <span class=o>=</span> <span class=n>UNetBlock</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=o>*</span> <span class=mi>2</span><span class=p>,</span> <span class=n>in_channels</span><span class=p>,</span> <span class=n>normalize</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>down</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=n>nn</span><span class=o>.</span><span class=n>Tanh</span><span class=p>())</span>
+
+        <span class=k>if</span> <span class=n>init_weights</span><span class=p>:</span>
+            <span class=k>for</span> <span class=n>m</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>modules</span><span class=p>():</span>
+                <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>nn</span><span class=o>.</span><span class=n>Conv2d</span><span class=p>):</span>
+                    <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>normal_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>weight</span><span class=p>,</span> <span class=n>mean</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span> <span class=n>std</span><span class=o>=</span><span class=mf>0.02</span><span class=p>)</span>
+                <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>nn</span><span class=o>.</span><span class=n>BatchNorm2d</span><span class=p>):</span>
+                    <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>normal_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>weight</span><span class=p>,</span> <span class=n>mean</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>std</span><span class=o>=</span><span class=mf>0.02</span><span class=p>)</span>
+                    <span class=k>if</span> <span class=n>m</span><span class=o>.</span><span class=n>bias</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+                        <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>constant_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>bias</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+
+    <span class=k>def</span> <span class=nf>forward</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>x</span><span class=p>):</span>
+        <span class=n>d1</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>down1</span><span class=p>(</span><span class=n>x</span><span class=p>)</span>      <span class=c1># 假设x.shape = (N, 3, 512, 512), d1.shape = （N, 64, 256, 256)</span>
+        <span class=n>d2</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>down2</span><span class=p>(</span><span class=n>d1</span><span class=p>)</span>     <span class=c1># (N, 128, 128, 128)</span>
+        <span class=n>d3</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>down3</span><span class=p>(</span><span class=n>d2</span><span class=p>)</span>     <span class=c1># (N, 256, 64, 64)</span>
+        <span class=n>d4</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>down4</span><span class=p>(</span><span class=n>d3</span><span class=p>)</span>     <span class=c1># (N, 512, 32, 32)</span>
+        <span class=n>d5</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>down5</span><span class=p>(</span><span class=n>d4</span><span class=p>)</span>     <span class=c1># (N, 512, 16, 16)</span>
+        <span class=n>d6</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>down6</span><span class=p>(</span><span class=n>d5</span><span class=p>)</span>     <span class=c1># (N, 512, 8, 8)</span>
+        <span class=n>d7</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>down7</span><span class=p>(</span><span class=n>d6</span><span class=p>)</span>     <span class=c1># (N, 512, 4, 4)</span>
+
+        <span class=n>bottleneck</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>bottleneck</span><span class=p>(</span><span class=n>d7</span><span class=p>)</span>            <span class=c1># (N, 512, 2, 2)</span>
+
+        <span class=n>u1</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>up1</span><span class=p>(</span><span class=n>bottleneck</span><span class=p>)</span>                   <span class=c1># (N, 512, 4, 4)</span>
+        <span class=n>u2</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>up2</span><span class=p>(</span><span class=n>torch</span><span class=o>.</span><span class=n>cat</span><span class=p>((</span><span class=n>u1</span><span class=p>,</span> <span class=n>d7</span><span class=p>),</span> <span class=mi>1</span><span class=p>))</span>       <span class=c1># (N, 512, 8, 8)</span>
+        <span class=n>u3</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>up3</span><span class=p>(</span><span class=n>torch</span><span class=o>.</span><span class=n>cat</span><span class=p>((</span><span class=n>u2</span><span class=p>,</span> <span class=n>d6</span><span class=p>),</span> <span class=mi>1</span><span class=p>))</span>       <span class=c1># (N, 512, 16, 16)</span>
+        <span class=n>u4</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>up4</span><span class=p>(</span><span class=n>torch</span><span class=o>.</span><span class=n>cat</span><span class=p>((</span><span class=n>u3</span><span class=p>,</span> <span class=n>d5</span><span class=p>),</span> <span class=mi>1</span><span class=p>))</span>       <span class=c1># (N, 512, 32, 32)</span>
+        <span class=n>u5</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>up5</span><span class=p>(</span><span class=n>torch</span><span class=o>.</span><span class=n>cat</span><span class=p>((</span><span class=n>u4</span><span class=p>,</span> <span class=n>d4</span><span class=p>),</span> <span class=mi>1</span><span class=p>))</span>       <span class=c1># (N, 256, 64, 64)</span>
+        <span class=n>u6</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>up6</span><span class=p>(</span><span class=n>torch</span><span class=o>.</span><span class=n>cat</span><span class=p>((</span><span class=n>u5</span><span class=p>,</span> <span class=n>d3</span><span class=p>),</span> <span class=mi>1</span><span class=p>))</span>       <span class=c1># (N, 128, 128, 128)</span>
+        <span class=n>u7</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>up7</span><span class=p>(</span><span class=n>torch</span><span class=o>.</span><span class=n>cat</span><span class=p>((</span><span class=n>u6</span><span class=p>,</span> <span class=n>d2</span><span class=p>),</span> <span class=mi>1</span><span class=p>))</span>       <span class=c1># (N, 64, 256, 256)</span>
+        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>out</span><span class=p>(</span><span class=n>torch</span><span class=o>.</span><span class=n>cat</span><span class=p>((</span><span class=n>u7</span><span class=p>,</span> <span class=n>d1</span><span class=p>),</span> <span class=mi>1</span><span class=p>))</span>     <span class=c1># (N, 3, 512, 512)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>判别器：（和DCGAN的判别器挺像的）</strong></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=c1># 默认 70x70 的感受野（patch）</span>
+<span class=k>class</span> <span class=nc>PatchDiscriminator</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>Module</span><span class=p>):</span>
+    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>in_channels</span><span class=o>=</span><span class=mi>6</span><span class=p>,</span> <span class=n>init_weights</span><span class=o>=</span><span class=kc>True</span><span class=p>):</span>
+        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>()</span>
+
+        <span class=n>conv_channels</span> <span class=o>=</span> <span class=p>[</span><span class=mi>64</span><span class=p>,</span> <span class=mi>128</span><span class=p>,</span> <span class=mi>256</span><span class=p>,</span> <span class=mi>512</span><span class=p>]</span>
+
+        <span class=k>def</span> <span class=nf>cbr_block</span><span class=p>(</span><span class=n>in_channel</span><span class=p>,</span> <span class=n>out_channel</span><span class=p>,</span> <span class=n>normalize</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span> <span class=n>kernel_size</span><span class=o>=</span><span class=mi>4</span><span class=p>,</span> <span class=n>stride</span><span class=o>=</span><span class=mi>2</span><span class=p>,</span> <span class=n>padding</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=kc>None</span><span class=p>):</span>
+            <span class=n>layers</span> <span class=o>=</span> <span class=p>[</span>
+                <span class=n>nn</span><span class=o>.</span><span class=n>Conv2d</span><span class=p>(</span>
+                    <span class=n>in_channel</span><span class=p>,</span>
+                    <span class=n>out_channel</span><span class=p>,</span>
+                    <span class=n>kernel_size</span><span class=o>=</span><span class=n>kernel_size</span><span class=p>,</span>
+                    <span class=n>stride</span><span class=o>=</span><span class=n>stride</span><span class=p>,</span>
+                    <span class=n>padding</span><span class=o>=</span><span class=n>padding</span><span class=p>,</span>
+                    <span class=n>bias</span><span class=o>=</span><span class=kc>False</span> <span class=k>if</span> <span class=n>normalize</span> <span class=k>else</span> <span class=kc>True</span><span class=p>),</span>
+            <span class=p>]</span>
+            <span class=k>if</span> <span class=n>normalize</span><span class=p>:</span>
+                <span class=n>layers</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>BatchNorm2d</span><span class=p>(</span><span class=n>out_channel</span><span class=p>))</span>
+            <span class=n>layers</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>nn</span><span class=o>.</span><span class=n>LeakyReLU</span><span class=p>(</span><span class=mf>0.2</span><span class=p>,</span> <span class=n>inplace</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span> <span class=k>if</span> <span class=n>activation</span> <span class=ow>is</span> <span class=kc>None</span> <span class=k>else</span> <span class=n>activation</span><span class=p>)</span>
+            <span class=k>return</span> <span class=n>layers</span>
+
+        <span class=c1># 感受野计算公式为 (output_size - 1) * stride + ksize</span>
+        <span class=c1># 倒着往上推就能算出感受野为70，最后一个output_size按1算</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>net</span> <span class=o>=</span> <span class=n>nn</span><span class=o>.</span><span class=n>Sequential</span><span class=p>(</span>
+            <span class=o>*</span><span class=n>cbr_block</span><span class=p>(</span><span class=n>in_channels</span><span class=p>,</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>normalize</span><span class=o>=</span><span class=kc>False</span><span class=p>),</span>
+            <span class=o>*</span><span class=n>cbr_block</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>0</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>1</span><span class=p>]),</span>
+            <span class=o>*</span><span class=n>cbr_block</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>2</span><span class=p>]),</span>
+            <span class=o>*</span><span class=n>cbr_block</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>2</span><span class=p>],</span> <span class=n>conv_channels</span><span class=p>[</span><span class=mi>3</span><span class=p>],</span> <span class=n>stride</span><span class=o>=</span><span class=mi>1</span><span class=p>),</span>
+            <span class=o>*</span><span class=n>cbr_block</span><span class=p>(</span><span class=n>conv_channels</span><span class=p>[</span><span class=mi>3</span><span class=p>],</span> <span class=mi>1</span><span class=p>,</span> <span class=n>normalize</span><span class=o>=</span><span class=kc>False</span><span class=p>,</span> <span class=n>stride</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>activation</span><span class=o>=</span><span class=n>nn</span><span class=o>.</span><span class=n>Sigmoid</span><span class=p>())</span>
+        <span class=p>)</span>
+
+        <span class=k>if</span> <span class=n>init_weights</span><span class=p>:</span>
+            <span class=k>for</span> <span class=n>m</span> <span class=ow>in</span> <span class=bp>self</span><span class=o>.</span><span class=n>modules</span><span class=p>():</span>
+                <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>nn</span><span class=o>.</span><span class=n>Conv2d</span><span class=p>):</span>
+                    <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>normal_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>weight</span><span class=p>,</span> <span class=n>mean</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span> <span class=n>std</span><span class=o>=</span><span class=mf>0.02</span><span class=p>)</span>
+                <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>nn</span><span class=o>.</span><span class=n>BatchNorm2d</span><span class=p>):</span>
+                    <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>normal_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>weight</span><span class=p>,</span> <span class=n>mean</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>std</span><span class=o>=</span><span class=mf>0.02</span><span class=p>)</span>
+                    <span class=k>if</span> <span class=n>m</span><span class=o>.</span><span class=n>bias</span> <span class=ow>is</span> <span class=ow>not</span> <span class=kc>None</span><span class=p>:</span>
+                        <span class=n>nn</span><span class=o>.</span><span class=n>init</span><span class=o>.</span><span class=n>constant_</span><span class=p>(</span><span class=n>m</span><span class=o>.</span><span class=n>bias</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span>
+
+    <span class=k>def</span> <span class=nf>forward</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>x</span><span class=p>,</span> <span class=n>y</span><span class=p>):</span>
+        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>net</span><span class=p>(</span><span class=n>torch</span><span class=o>.</span><span class=n>cat</span><span class=p>((</span><span class=n>x</span><span class=p>,</span> <span class=n>y</span><span class=p>),</span> <span class=mi>1</span><span class=p>))</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><em>总体上还是能看出DCGAN的影子</em></p>
+<h2 id=效果>效果</h2>
+<p>我用的漫画人物草图上色数据集。图片有点大，最近因为网的问题没显卡跑，所以拖了这么久才更新（其实是因为懒）。</p>
+<p>数据集我放网盘了</p>
+<p>链接：https://pan.baidu.com/s/1vtAp96HaPBLEE6NVUljfHA?pwd=0bjz<br>
+提取码：0bjz</p>
+<p><em>随便跑了几十个epoch，感觉效果不是很好呀，是我哪里写错了吗，可能加上关于色彩亮度的数据增强会好点吧</em></p>
+<p><img class=lazyload data-src=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/anime_colorize.png data-srcset="https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/anime_colorize.png, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/anime_colorize.png 1.5x, https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/anime_colorize.png 2x" data-sizes=auto alt=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/anime_colorize.png title="Anime Colorize"></p>
+<h2 id=总结>总结</h2>
+<p>这东西就很牛，你能想到的Image to Image任务几乎都能用这个来做，虚拟主播都能用这东西做。arxiv上的论文比正式投稿的论文上多很多示例（因为投稿限制了页数）。</p>
+<p>完整代码</p>
+<p><a href=https://github.com/xxy-im/Just4GAN/tree/main/models/pix2pix target=_blank rel="noopener noreffer">https://github.com/xxy-im/Just4GAN/tree/main/models/pix2pix</a></p>
+<p>如果会web的同学也可以做一个很好玩的网站出来。（反正我不会）</p>
+<p><em>不能再懒下去了</em></p></div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>更新于 2022-06-01</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://xxy.im/pix2pix/ data-title="[论文复现] pix2pix" data-hashtags=机器学习,深度学习,论文复现,GAN><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://xxy.im/pix2pix/ data-hashtag=机器学习><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Line" data-sharer=line data-url=https://xxy.im/pix2pix/ data-title="[论文复现] pix2pix"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/line.svg></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://xxy.im/pix2pix/ data-title="[论文复现] pix2pix" data-image=https://cdn.jsdelivr.net/gh/xxy-im/storage@gh-pages/images/pix2pix.png><i class="fab fa-weibo fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Myspace" data-sharer=myspace data-url=https://xxy.im/pix2pix/ data-title="[论文复现] pix2pix" data-description><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@v5.8.1/icons/myspace.svg></i></a><a href=# onclick=return!1 title="分享到 Blogger" data-sharer=blogger data-url=https://xxy.im/pix2pix/ data-title="[论文复现] pix2pix" data-description><i class="fab fa-blogger fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Evernote" data-sharer=evernote data-url=https://xxy.im/pix2pix/ data-title="[论文复现] pix2pix"><i class="fab fa-evernote fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/>机器学习</a>,&nbsp;<a href=/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/>深度学习</a>,&nbsp;<a href=/tags/%E8%AE%BA%E6%96%87%E5%A4%8D%E7%8E%B0/>论文复现</a>,&nbsp;<a href=/tags/gan/>GAN</a></section>
+<section>
+<span><a href=# onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/improvedgan/ class=prev rel=prev title="[论文阅读] Improved GAN"><i class="fas fa-angle-left fa-fw"></i>[论文阅读] Improved GAN</a></div>
+</div>
+<div id=comments><div id=twikoo></div><noscript>
+Please enable JavaScript to view the comments powered by <a href=https://twikoo.js.org/>Twikoo</a>.
+</noscript></div></article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2020 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://xxy.im target=_blank rel="noopener noreferrer">xxy</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+</div></footer></div>
+<div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><div class=assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/@sliphua/pjax@0.13.0/dist/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-V9ZE6MC9MQ',{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=G-V9ZE6MC9MQ" async></script></div>
+<div class=pjax-assets><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twikoo@1.4.3/dist/twikoo.all.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@13.1.0/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.1/sharer.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/mhchem.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js></script><script type=text/javascript src=/js/click_effect.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.0.min.js></script><script type=text/javascript src=/js/live2d_config.js></script><script type=text/javascript src=/js/console_output.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:50},comment:{twikoo:{commentCount:!0,el:"#twikoo",envId:"https://twikoo-livid.vercel.app/",lang:"zh-cn"}},data:{"id-1":"  xxy != x²y","id-2":"  xxy != x²y"},math:{delimiters:[{display:!0,left:"$$",right:"$$"},{display:!0,left:"\\[",right:"\\]"},{display:!1,left:"$",right:"$"},{display:!1,left:"\\(",right:"\\)"}],strict:!1},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/index.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!1,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"没有找到结果",snippetLength:50,threshold:.3,type:"fuse",useExtendedSearch:!1},sharerjs:!0,twemoji:!0,typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"id-1":["id-1"],"id-2":["id-2"]},duration:-1,speed:100}}</script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/copy-tex.min.css></div>
+</body>
+</html>
